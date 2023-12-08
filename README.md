@@ -17,7 +17,10 @@ Le projet que vous allez développer devra respecter les contraintes suivantes :
 
 L’application devra être remise au plus tard le mercredi 15 juin par email à l’adresse suivante : **samuel.lassoie@gmail.com**.
 
-Application de quizz avec enregistrement des joueur et de leurs scrores. stockage des questions et reponses en BDD. 
+Application de quizz avec enregistrement des joueur et de leurs scrores. stockage des questions et reponses en BDD.
+
 Tables : Utilisateurs, Questions, Réponses, Scores.
+
 Fonctions utiles : Enregistrer un utilisateur, poser les questions, enregistrer des nouvelles questions, enregistrer les scores.
+
 Recherche : Recherche de scores par utilisateur, par catégorie de quiz, etc.
