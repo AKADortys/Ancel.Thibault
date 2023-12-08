@@ -17,8 +17,7 @@ Le projet que vous allez développer devra respecter les contraintes suivantes :
 
 L’application devra être remise au plus tard le mercredi 15 juin par email à l’adresse suivante : **samuel.lassoie@gmail.com**.
 
-
-Le projet est une API pour aider les jeunes recrues d'une boulangerie à ne pas se tromper dans les recettes.
-Elle utiliserait une BDD qui stockera les recettes et ingredients pour donner la recette avec les ingrédients néccesaire via un paramètre donner par l'utilisateur.
-La BDD sera moddifiable à tout moment via accès administrateur, principalement les recettes/ingrédients
-les recrues, passeront via l'accès libre qui lui ne leur autoriseras que les calculs automatique des recettes ou la méthodologie
+Application de quizz avec enregistrement des joueur et de leurs scrores. stockage des questions et reponses en BDD. 
+Tables : Utilisateurs, Questions, Réponses, Scores.
+Fonctions utiles : Enregistrer un utilisateur, poser les questions, enregistrer des nouvelles questions, enregistrer les scores.
+Recherche : Recherche de scores par utilisateur, par catégorie de quiz, etc.
