@@ -17,10 +17,51 @@ Le projet que vous allez développer devra respecter les contraintes suivantes :
 
 L’application devra être remise au plus tard le mercredi 15 juin par email à l’adresse suivante : **samuel.lassoie@gmail.com**.
 
-Application de quizz avec enregistrement des joueur et de leurs scrores. stockage des questions et reponses en BDD.
+Description du Projet :
 
-Tables : Utilisateurs, Questions, Réponses, Scores.
+QuizApp est une application de jeu de quiz de culture générale où les utilisateurs peuvent tester leurs connaissances sur divers sujets. L'application offre une interface conviviale, des fonctionnalités d'inscription, de jeu, de suivi des scores, et d'administration.
 
-Fonctions utiles : Enregistrer un utilisateur, poser les questions, enregistrer des nouvelles questions, enregistrer les scores.
+Fonctionnalités Principales :
 
-Recherche : Recherche de scores par utilisateur, par catégorie de quiz, etc.
+Inscription et Authentification :
+
+Les utilisateurs peuvent créer un compte avec un pseudo, un mot de passe, et un grade (joueur ou admin).
+L'authentification permet aux utilisateurs de se connecter à leur compte.
+
+Classement des Scores :
+
+Les scores des utilisateurs sont enregistrés à la fin de chaque quiz.
+Un classement des 10 meilleurs scores est affiché sur la page d'accueil.
+
+Quiz par Catégories :
+
+Les questions sont classées par catégories (histoire, sciences, divertissement, etc.).
+Chaque quiz est composé de questions en référence à leur catégorie respective.
+
+Niveau de Difficulté :
+
+Chaque question a un niveau de difficulté (easy, medium, hard).
+Les utilisateurs peuvent choisir le niveau de difficulté de leur quiz.
+
+Jeu de Quiz :
+
+La fonction startQuiz() propose une série de questions à l'utilisateur en fonction de la catégorie et du niveau de difficulté choisis.
+Un compte à rebours est lancé pour chaque question, et les utilisateurs répondent dans le temps imparti.
+Les réponses correctes sont confirmées, sinon la réponse correcte est affichée avant de passer à la question suivante.
+Le score final est enregistré à la fin du quiz.
+
+Consultation des Scores :
+
+Les utilisateurs peuvent consulter les scores des autres utilisateurs pour les quiz qu'ils ont terminés.
+Administration (Réservé aux Admins) :
+
+Les administrateurs peuvent ajouter, supprimer, et modifier des questions.
+Ils peuvent également gérer les quizs et les catégories.
+
+Contraintes Techniques :
+
+Interface en HTML et stylisée en CSS.
+API validée sur Node.js avec le framework Express.js.
+Base de données MySQL pour stocker les utilisateurs, les scores, les questions, etc.
+Accès sécurisé avec gestion des rôles (joueur, admin).
+Le projet est versionné sur GitHub avec un repo privé.
