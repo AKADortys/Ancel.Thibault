@@ -7,7 +7,6 @@ const app = express();
 const port = 3000;
 
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 
@@ -15,15 +14,22 @@ app.get('/index', function(req, res) {
   res.render('pages/index');
 });
 
-// const db = mysql.createConnection(config);
-// db.connect((err) => {
+// const dbs = mysql.createConnection(config);
+// dbs.connect((err) => {
 //   if (err) {
 //     console.error('Erreur de connexion à la base de données:', err);
 //   } else {
 //     console.log('Connecté à la base de données MySQL');
 //   }
 // });
-
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.get('/utilisateurs', (req, res) => {
+//   dbs.query('SELECT * FROM utilisateur', (err, results) => {
+//      if (err) throw err;
+//      res.json(results);
+//   });
+// });
 // Define your routes here...
 
 app.listen(port, () => {

@@ -24,6 +24,8 @@ body{
     margin: 0;
     position: fixed;
     padding-top: 5vh ;
+    top: 0;
+    display: none;
 }
 
 .loginModal-box {
