@@ -24,6 +24,9 @@ html {
     font-size: large;
     text-decoration: none;
 }
+.navBar-nav a:hover{
+    color: yellow;
+}
 .navBar-nav p{
     text-align: center;
     width: 20%;

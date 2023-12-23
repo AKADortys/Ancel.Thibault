@@ -38,6 +38,7 @@
 
     color: greenyellow;
     padding: 0.7%;
+
 }
 
 .top10Modal-table td:hover {
@@ -62,6 +63,7 @@
     color: greenyellow;
     list-style: none;
     padding: 5px;
+    font-size: small;
 }
 .submenu li{
     padding: 5px;
