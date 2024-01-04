@@ -1,8 +1,8 @@
 
 .main {
-    width: 77.2%;
+    width: 77.3%;
     padding: 10px;
-    background-color: grey;
+    /* background-image: url(Images/comb\ grid.jpg); */
 }
 .start-Quiz{
     padding: 10px;
@@ -24,11 +24,11 @@
 }
 
 .Film {
-    background: radial-gradient(circle farthest-corner at center center, rgba(180, 149, 236, 0.51) 5%, #4f03dcad 160%);
+    background: radial-gradient(circle farthest-corner at center center, rgb(179, 149, 236) 5%, #4f03dc 160%);
 }
 
 .Histoire{
-    background: radial-gradient(circle farthest-corner at center center, rgba(149, 236, 168, 0.51) 5%, #03dcbfad 160%);
+    background: radial-gradient(circle farthest-corner at center center, rgb(149, 236, 168) 5%, #03dcbf 160%);
 }
 
 .leftbar,
@@ -81,12 +81,34 @@ img {
 .bloc {
     width: 12vw;
     height: 24vh;
-    background-color: green;
+    background-color: rgba(0, 128, 0, 0.474);
     margin: 10px;
     opacity: 0.88;
-    border: 3px solid white;
+    box-shadow: 10px 9px 5px -1px rgba(0, 0, 0, 0.75);
     text-align: center;
+    border: 2px solid black;
     transition: width 0.6s, height 0.6s, box-shadow 0.5s, border 0.9s, border-radius 0.6s;
+}
+@keyframes changeBorderColor {
+    0% {
+        border: 3px solid #00ff00;
+    }
+
+    25% {
+        border: 3px solid #00e6d2;
+    }
+
+    50% {
+        border: 3px solid #9d06f5;
+    }
+
+    75% {
+        border: 3px solid#fffb00;
+    }
+
+    100% {
+        border: 3px solid #51ff00;
+    }
 }
 
 .bloc:hover {
@@ -124,4 +146,13 @@ section:hover p,
 section:hover h2,
 section:hover audio {
     opacity: 1;
+}
+h5{
+    text-align: center;
+    font-size: x-large;
+    padding: 15px;
+    background-color: whitesmoke;
+    animation: changeBorderColor 3s infinite linear;
+    width: 100%;
+    margin: 0;
 }

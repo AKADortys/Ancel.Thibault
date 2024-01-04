@@ -57,7 +57,8 @@
     background-color: gray;
     padding: 0.2vh 0.5vw;
     border: 3px outset rgba(17, 224, 17, 0.74);
-    background: radial-gradient(circle farthest-corner at center center, rgb(84, 84, 85) 5%, #111111 160%);
+    margin-top: 10px;
+    background: radial-gradient(circle farthest-corner at center center, rgba(84, 84, 85, 0.821) 5%, #111111a9 160%);
 }
 .AsideModal-main ul>li>ul{
     color: greenyellow;
