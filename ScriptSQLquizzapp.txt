@@ -1,0 +1,45 @@
+CREATE TABLE utilisateur (
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(50),
+    pwd VARCHAR(50),
+    grade ENUM('Admin', 'Joueur'),
+    email VARCHAR(100),
+    date_creation DATETIME
+);
+
+CREATE TABLE score (
+    score_id INT AUTO_INCREMENT PRIMARY KEY,
+    total INT,
+    last_update DATETIME,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+);
+
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    designation VARCHAR(50),
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+);
+
+CREATE TABLE quiz (
+    quiz_id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(50),
+    user_id INT,
+    category_id INT,
+    creation_date DATETIME,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+CREATE TABLE question (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    Intitule VARCHAR(300),
+    reponse LOGICAL,
+    difficulte INT,
+    user_id INT,
+    quiz_id INT,
+    creation_date DATETIME,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
+    FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id)
+);
