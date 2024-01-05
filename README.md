@@ -65,3 +65,64 @@ API validée sur Node.js avec le framework Express.js.
 Base de données MySQL pour stocker les utilisateurs, les scores, les questions, etc.
 Accès sécurisé avec gestion des rôles (joueur, admin).
 Le projet est versionné sur GitHub avec un repo privé.
+
+Modèle logique textuel :
+
+utilisateur = (id_user INT, pseudo VARCHAR(50), pwd VARCHAR(50), grade ENUM('Admin','Joueur'), email VARCHAR(100), date_creation DATETIME);
+
+score = (score_id INT, total INT, last_update DATETIME, user_id INT, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user));
+
+categories = (category_id INT, designation VARCHAR(50), user_id INT, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user));
+
+quiz = (quiz_id INT, titre VARCHAR(50), user_id INT, category_id INT, creation_date DATETIME, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user), FOREIGN KEY (category_id) REFERENCES categories(category_id));
+
+question = (question_id INT, Intitule VARCHAR(300), reponse LOGICAL, difficulte INT, user_id INT, quiz_id INT, creation_date DATETIME, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user), FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id));
+
+Script SQL :
+
+CREATE TABLE utilisateur (
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(50),
+    pwd VARCHAR(50),
+    grade ENUM('Admin', 'Joueur'),
+    email VARCHAR(100),
+    date_creation DATETIME
+);
+
+CREATE TABLE score (
+    score_id INT AUTO_INCREMENT PRIMARY KEY,
+    total INT,
+    last_update DATETIME,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+);
+
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    designation VARCHAR(50),
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+);
+
+CREATE TABLE quiz (
+    quiz_id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(50),
+    user_id INT,
+    category_id INT,
+    creation_date DATETIME,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+CREATE TABLE question (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    Intitule VARCHAR(300),
+    reponse LOGICAL,
+    difficulte INT,
+    user_id INT,
+    quiz_id INT,
+    creation_date DATETIME,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
+    FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id)
+);
+
