@@ -70,15 +70,16 @@ Modèle logique textuel :
 
 utilisateur = (id_user INT, pseudo VARCHAR(50), pwd VARCHAR(50), admin LOGICAL, nom VARCHAR(50), prenom VARCHAR(50), date_inscri DATETIME);
 
-categories = (id_categ INT, designation VARCHAR(50), description VARCHAR(200), #id_user);
+categories = (id_categ INT, designation VARCHAR(50), description VARCHAR(200), date_ajout DATETIME, #id_user);
 
-quiz = (id_quiz INT, titre VARCHAR(50), date_ajout DATETIME, #id_user, #id_categ);
+quiz = (id_quiz INT, titre VARCHAR(50), date_ajout DATETIME, description VARCHAR(200), #id_user, #id_categ);
 
 question = (id_question INT, Intitule VARCHAR(300), difficulte INT, date_ajout DATETIME, #id_user, #id_quiz);
 
 score = (id_score INT, total INT, MaJ DATETIME, #id_quiz, #id_user);
 
 reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
+
 
 Script SQL :
 
@@ -97,6 +98,7 @@ CREATE TABLE categories(
    id_categ INT,
    designation VARCHAR(50) NOT NULL,
    description VARCHAR(200) NOT NULL,
+   date_ajout DATETIME NOT NULL,
    id_user INT NOT NULL,
    PRIMARY KEY(id_categ),
    UNIQUE(designation),
@@ -107,6 +109,7 @@ CREATE TABLE quiz(
    id_quiz INT,
    titre VARCHAR(50) NOT NULL,
    date_ajout DATETIME NOT NULL,
+   description VARCHAR(200) NOT NULL,
    id_user INT NOT NULL,
    id_categ INT NOT NULL,
    PRIMARY KEY(id_quiz),
