@@ -46,7 +46,7 @@ Les utilisateurs peuvent choisir le niveau de difficulté de leur quiz.
 Jeu de Quiz :
 
 La fonction startQuiz() propose une série de questions à l'utilisateur en fonction de la catégorie et du niveau de difficulté choisis.
-Un compte à rebours est lancé pour chaque question, et les utilisateurs répondent dans le temps imparti.
+Un compte à rebours est lancé pour chaque question, et les utilisateurs répondent dans le temps imparti avec QCM (3 reponses 1 vraie).
 Les réponses correctes sont confirmées, sinon la réponse correcte est affichée avant de passer à la question suivante.
 Le score final est enregistré à la fin du quiz.
 
@@ -68,61 +68,83 @@ Le projet est versionné sur GitHub avec un repo privé.
 
 Modèle logique textuel :
 
-utilisateur = (id_user INT, pseudo VARCHAR(50), pwd VARCHAR(50), grade ENUM('Admin','Joueur'), email VARCHAR(100), date_creation DATETIME);
+utilisateur = (id_user INT, pseudo VARCHAR(50), pwd VARCHAR(50), admin LOGICAL, nom VARCHAR(50), prenom VARCHAR(50), date_inscri DATETIME);
 
-score = (score_id INT, total INT, last_update DATETIME, user_id INT, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user));
+categories = (id_categ INT, designation VARCHAR(50), description VARCHAR(200), #id_user);
 
-categories = (category_id INT, designation VARCHAR(50), user_id INT, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user));
+quiz = (id_quiz INT, titre VARCHAR(50), date_ajout DATETIME, #id_user, #id_categ);
 
-quiz = (quiz_id INT, titre VARCHAR(50), user_id INT, category_id INT, creation_date DATETIME, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user), FOREIGN KEY (category_id) REFERENCES categories(category_id));
+question = (id_question INT, Intitule VARCHAR(300), difficulte INT, date_ajout DATETIME, #id_user, #id_quiz);
 
-question = (question_id INT, Intitule VARCHAR(300), reponse LOGICAL, difficulte INT, user_id INT, quiz_id INT, creation_date DATETIME, FOREIGN KEY (user_id) REFERENCES utilisateur(id_user), FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id));
+score = (id_score INT, total INT, MaJ DATETIME, #id_quiz, #id_user);
+
+reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 Script SQL :
 
-CREATE TABLE utilisateur (
-    id_user INT AUTO_INCREMENT PRIMARY KEY,
-    pseudo VARCHAR(50),
-    pwd VARCHAR(50),
-    grade ENUM('Admin', 'Joueur'),
-    email VARCHAR(100),
-    date_creation DATETIME
+CREATE TABLE utilisateur(
+   id_user INT,
+   pseudo VARCHAR(50) NOT NULL,
+   pwd VARCHAR(50) NOT NULL,
+   admin LOGICAL NOT NULL,
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   date_inscri DATETIME NOT NULL,
+   PRIMARY KEY(id_user)
 );
 
-CREATE TABLE score (
-    score_id INT AUTO_INCREMENT PRIMARY KEY,
-    total INT,
-    last_update DATETIME,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+CREATE TABLE categories(
+   id_categ INT,
+   designation VARCHAR(50) NOT NULL,
+   description VARCHAR(200) NOT NULL,
+   id_user INT NOT NULL,
+   PRIMARY KEY(id_categ),
+   UNIQUE(designation),
+   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user)
 );
 
-CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    designation VARCHAR(50),
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user)
+CREATE TABLE quiz(
+   id_quiz INT,
+   titre VARCHAR(50) NOT NULL,
+   date_ajout DATETIME NOT NULL,
+   id_user INT NOT NULL,
+   id_categ INT NOT NULL,
+   PRIMARY KEY(id_quiz),
+   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
+   FOREIGN KEY(id_categ) REFERENCES categories(id_categ)
 );
 
-CREATE TABLE quiz (
-    quiz_id INT AUTO_INCREMENT PRIMARY KEY,
-    titre VARCHAR(50),
-    user_id INT,
-    category_id INT,
-    creation_date DATETIME,
-    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+CREATE TABLE question(
+   id_question INT,
+   Intitule VARCHAR(300) NOT NULL,
+   difficulte INT NOT NULL,
+   date_ajout DATETIME NOT NULL,
+   id_user INT NOT NULL,
+   id_quiz INT NOT NULL,
+   PRIMARY KEY(id_question),
+   UNIQUE(Intitule),
+   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
+   FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz)
 );
 
-CREATE TABLE question (
-    question_id INT AUTO_INCREMENT PRIMARY KEY,
-    Intitule VARCHAR(300),
-    reponse LOGICAL,
-    difficulte INT,
-    user_id INT,
-    quiz_id INT,
-    creation_date DATETIME,
-    FOREIGN KEY (user_id) REFERENCES utilisateur(id_user),
-    FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id)
+CREATE TABLE score(
+   id_score INT,
+   total INT,
+   MaJ DATETIME NOT NULL,
+   id_quiz INT NOT NULL,
+   id_user INT NOT NULL,
+   PRIMARY KEY(id_score),
+   FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz),
+   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user)
 );
+
+CREATE TABLE reponse(
+   id_reponse INT,
+   reponse VARCHAR(100) NOT NULL,
+   correct LOGICAL NOT NULL,
+   id_question INT NOT NULL,
+   PRIMARY KEY(id_reponse),
+   FOREIGN KEY(id_question) REFERENCES question(id_question)
+);
+
 
