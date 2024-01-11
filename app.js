@@ -3,14 +3,31 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
 const port = 3000;
-const route = require('./routes/index')
-const db = require('./config/dbconnect')
+const db = require('./config/dbconnect');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-app.use('/', route);
+const session = require('express-session');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'Keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
+const verifyAuth = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
+
+const route = require('./routes/index');
+app.use('/',verifyAuth ,route);
 
 
 app.listen(port, () => {
