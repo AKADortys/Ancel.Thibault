@@ -1,6 +1,6 @@
 <div class="loginModal-container">
     <div class="loginModal-box">
-        <form action="" class="loginModal-box-form">
+        <form action="controller/longin.js" method="post" class="loginModal-box-form" name="loginForm">
             <h1 class="loginModal-h1">Le Quizz de la généralité</h1>
             <img src="Images/circle.png" class="loginModal-img" alt="">
             <table>
@@ -11,7 +11,7 @@
                     <td align="center" colspan="2">Mot de passe :  <input type="password" class="loginModal-user-input" placeholder="Mot de passe" id="userLog-pwd"></td>
                 </tr>
                 <tr>
-                    <td align="center"><input type="submit" value=" Se connecter" class="loginModal-button"  onclick="verifyLogs.js"></td>
+                    <td align="center"><input type="submit" value=" Se connecter" class="loginModal-button" id="check-button"></td>
                     <td align="center"><input type="reset" value="Annuler" class="loginModal-button"></td>
                 </tr>
             </table>
