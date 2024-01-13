@@ -4,19 +4,18 @@ const ejs = require('ejs');
 const app = express();
 const port = 3000;
 const db = require('./config/dbconnect');
+const session = require('express-session');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.set('view engine', 'ejs');
-
-const session = require('express-session');
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(session({
   secret: 'Keyboard cat',
   resave: false,
   saveUninitialized: true
 }));
+app.set('view engine', 'ejs');
+
 
 const verifyAuth = (req, res, next) => {
   if (req.session.user) {
