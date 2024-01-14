@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
 const port = 3000;
-const db = require('./config/dbconnect');
 const session = require('express-session');
+
+//middle wares:
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -16,6 +17,7 @@ app.use(session({
 }));
 app.set('view engine', 'ejs');
 
+// if actual user have an id he can reach the path he want. otherwise get redirected to login
 
 const verifyAuth = (req, res, next) => {
   if (req.session.user) {
@@ -25,10 +27,14 @@ const verifyAuth = (req, res, next) => {
   }
 };
 
-const route = require('./routes/index');
-app.use('/',verifyAuth ,route);
+//get all routes inside route/index
 
+const route = require('./routes/index');
+app.use('/', route);
+
+
+//app port
 
 app.listen(port, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${port}`);
+  console.log(`Serveur en cours d'exécution sur le port http://localhost:${port}`);
 });
