@@ -1,6 +1,6 @@
 <div class="loginModal-container">
     <div class="loginModal-box">
-        <form action="login.js" method="post" class="loginModal-box-form" name="loginForm" onsubmit="return checkLogs();">
+        <form class="loginModal-box-form" id="loginForm" >
             <h1 class="loginModal-h1">Le Quizz de la généralité</h1>
             <img src="Images/circle.png" class="loginModal-img" alt="">
             <table>
@@ -18,5 +18,40 @@
             <img src="Images/circle.png" class="loginModal-img" alt="">
             <p class="loginModal-box-form-footer">Vous n'avez pas de compte ? créer en un <a href="/login">ici</a> !</p>
         </form>
+        <script>
+            document.getElementById('loginForm').addEventListener("submit",function(event){
+                event.preventDefault();
+
+                const userName = document.getElementById('userLog-name').value;
+                const mdp = document.getElementById('userLog-pwd').value;
+                const formData = {
+                    pseudo : userName,
+                    pwd : mdp
+                };
+                fetch('http://localhost:3000/loggin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur du serveur');
+                        }
+                        return response.json();
+                    })
+                    // Traitez la réponse du serveur ici
+                    .then(data => {
+                        console.log(data);
+
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de l\'envoi des données:', error);
+
+                    })
+            })
+        </script>
     </div>
 </div>
