@@ -21,5 +21,16 @@ router.get('/users', function (req, res) {
     
     db.end();
 })
+router.post('/sign-in',function (req,res) {
+        // Affichez les données reçues dans la console du serveur
+        console.log('Données reçues sur /sign-in:', req.body);
+
+        // Répondez au client avec les données reçues
+        res.json({ message: 'Données reçues avec succès!' });
+});
+router.post('/loggin',function(req,res) {
+    console.log('Données recues sur /loggin:', req.body);
+    res.json({ message: 'Données recues avec succès!'});
+})
 
 module.exports = router;
