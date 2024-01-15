@@ -5,10 +5,12 @@ const db = require('../config/dbconnect');
 router.get('/home', function (req, res) {
     res.render('home/index');
 });
-router.get('/login', function (res, req) {
+
+router.get('/login', function (req, res) {
     res.render('login/login');
 });
-router.get('/users', function (res,req) {
+
+router.get('/users', function (req, res) {
     db.query('SELECT * FROM utilisateur', (error, results, fields) => {
         if (error) {
             console.error('Erreur lors de la requête : ' + error.stack);
@@ -16,6 +18,7 @@ router.get('/users', function (res,req) {
         }
         console.log('Résultats de la requête :', results);
     });
+    
     db.end();
 })
 
