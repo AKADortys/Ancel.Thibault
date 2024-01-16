@@ -1,18 +1,35 @@
-const mysql = require('mysql');
+const { Sequelize,DataTypes} = require('sequelize');
+const utilisateurModel =require('../model/utilisateur')
 
-   const db = mysql.createConnection({
-      host: '127.0.0.1',
-      user: 'root',
-      password: '',
-      database: 'QuizApp'
-    });
-
-db.connect((err) => {
-   if (err) {
-      console.error('Erreur de connexion à la base de données : ' + err.stack);
-      return;
+const sequelize = new Sequelize(
+   'QuizApp',
+   'root',
+   '',
+   {
+      host: 'localhost',
+      dialect: 'mariadb',
+      dialectOptions: {
+         timezone: 'Etc/GMT-2'
+      },
+      logging: false
    }
-   console.log('Connecté à la base de données MySQL en tant que id ' + db.threadId);
-});
+);
 
-module.exports = db;
+sequelize.authenticate()
+   .then(() => {
+      console.log('Connecté à la base de données MySQL avec Sequelize');
+   })
+   .catch((err) => {
+      console.error('Erreur de connexion à la base de données :', err);
+   });
+   const Utilisateur = utilisateurModel(sequelize, DataTypes);
+
+   sequelize.sync({ force: true })
+     .then(() => {
+       console.log('Modèles synchronisés avec la base de données');
+     })
+     .catch((err) => {
+       console.error('Erreur lors de la synchronisation des modèles :', err);
+     });
+
+module.exports = sequelize;
