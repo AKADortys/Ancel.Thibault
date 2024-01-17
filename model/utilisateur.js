@@ -28,7 +28,7 @@ return sequelize.define('Utilisateur', {
     date_inscri: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: sequelize.fn('NOW')
     }
 }, {
     tableName: 'utilisateur',
