@@ -76,7 +76,7 @@
                     // Traitez la réponse du serveur ici
                     .then(data => {
                         console.log(data);
-
+                        window.location.href = '/home';
                     })
                     .catch(error => {
                         console.error('Erreur lors de l\'envoi des données:', error);
