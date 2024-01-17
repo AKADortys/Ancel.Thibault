@@ -18,6 +18,15 @@ html {
     width: 45px; 
     height: 45px;
     margin-top: 10px;
+    animation: rotate 0.5s linear infinite;
+}
+@keyframes rotate {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
 }
 
 .navBar-nav a{
@@ -30,7 +39,7 @@ html {
 }
 .navBar-nav p{
     text-align: center;
-    width: 20%;
+    width: 27%;
     /* height: 100%; */
     margin: 0;
     padding: 10px;

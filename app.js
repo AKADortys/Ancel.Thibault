@@ -4,7 +4,7 @@ const ejs = require('ejs');
 const route = require('./routes/index');
 const session = require('express-session');
 const config = require('./config/dbconnect');
-const { Sequelize,DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const app = express();
 const port = 3000;
@@ -22,23 +22,10 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use('/', route);
 
-// if actual user have an id he can reach the path he want. otherwise get redirected to login
+//app port
 
-// const verifyAuth = (req, res, next) => {
-//   if (req.session.user) {
-//     next();
-//   } else {
-  //     res.render('login/login');
-  //   }
-  // };
-  
-  app.use('/', route);
-  
-  
-  //app port
-  
-  app.listen(port, () => {
-    console.log(`Serveur en cours d'exécution sur le port http://localhost:${port}`);
-  });
-  
+app.listen(port, () => {
+  console.log(`Serveur en cours d'exécution sur le port http://localhost:${port}`);
+});
