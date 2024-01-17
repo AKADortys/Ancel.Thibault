@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    --primary-color: rgb(169, 169, 169);
+    --bg-color: rgb(20, 20, 20);
+}
+.navBar-nav{
+    width: 100%;
+    background-color: var(--bg-color);
+    margin-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.navBar-nav img{
+    width: 45px; 
+    height: 45px;
+    margin-top: 10px;
+}
+
+.navBar-nav a{
+    color: greenyellow;
+    font-size: x-large;
+    text-decoration: none;
+}
+.navBar-nav a:hover{
+    color: yellow;
+}
+.navBar-nav p{
+    text-align: center;
+    width: 20%;
+    /* height: 100%; */
+    margin: 0;
+    padding: 10px;
+}
+.navBar-nav p:hover{
+    border-bottom: 1px solid greenyellow
+}

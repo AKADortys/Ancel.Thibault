@@ -1,0 +1,90 @@
+    <!--créer un formulaire qui contient un tableau avec les différents champs-->
+    <form id="sign-in-form" class="sign-in-form">
+        <h1>Inscription à QuizzApp.</h1>
+        <table class="sign-in-form-tab">
+            <tr>
+                <td align="center">Nom utilisateur<span>*</span> :</td>
+                <td><input class="champ-form" type="text" maxlength="50"  id="input-user" placeholder="Nom d'utilisateur"></td>
+            </tr>
+            <tr>
+                <td align="center">Mot de passe<span>*</span> :</td>
+                <td><input class="champ-form" type="password" maxlength="50"  id="input-pwd1" placeholder="Mot de passe"></td>
+            </tr>
+            <tr>
+                <td align="center">Confirmer votre mot de passe <span>*</span> :</td>
+                <td><input class="champ-form" type="password" maxlength="50"  id="input-pwd2" placeholder="Confirmation mot de passe"></td>
+            </tr>
+            <tr>
+                <td align="center">Votre addresse mail :</td>
+                <td><input class="champ-form" type="text" maxlength="100" id="input-mail" placeholder="Email"></td>
+            </tr>
+            <tr>
+                <td align="center">Votre nom :</td>
+                <td><input type="text" class="champ-form" maxlength="50"  id="input-nom" placeholder="Votre nom"></td>
+            </tr>
+            <tr>
+                <td align="center">Votre prénom :</td>
+                <td><input type="text" class="champ-form" maxlength="50"  id="input-prenom" placeholder="Votre prénom"></td>
+            </tr>
+            <tr>
+                <td align="center"><input class="Boutton-form" type="submit" id="submit-data" value="S'inscrire"></td>
+                <td align="center"><input type="reset" class="Boutton-form" value="Annuler"></td>
+            </tr>
+        </table>
+        <p><span>*</span> représente des champs obligatoires.</p>
+    </form>
+    <script>
+        document.getElementById("sign-in-form").addEventListener("submit", function (event) {
+            // Empêcher le comportement par défaut du formulaire (rechargement de la page)
+            event.preventDefault();
+
+            // Accéder aux valeurs des champs de formulaire
+            const username = document.getElementById("input-user").value;
+            const password = document.getElementById("input-pwd1").value;
+            const confirmPassword = document.getElementById("input-pwd2").value;
+            const email = document.getElementById("input-mail").value;
+            const nom = document.getElementById("input-nom").value;
+            const prenom = document.getElementById("input-prenom").value;
+
+            //Comparer les champs pwd
+            if (password === confirmPassword) {
+
+                // Construire l'objet de données du form
+                const formData = {
+                    pseudo: username,
+                    pwd: password,
+                    mail: email,
+                    nom: nom,
+                    prenom: prenom
+                };
+
+                // Envoyer les données au serveur via fetch
+                fetch('http://localhost:3000/sign-in', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur du serveur');
+                        }
+                        return response.json();
+                    })
+                    // Traitez la réponse du serveur ici
+                    .then(data => {
+                        console.log(data);
+
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de l\'envoi des données:', error);
+                        alert(`Navré ! Mais ${username} est déjà utilisé`);
+
+                    });
+            } else {
+                alert('Les mots de passe ne sont pas identiques');
+            }
+        });
+    </script>
