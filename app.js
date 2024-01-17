@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const route = require('./routes/index');
 const session = require('express-session');
+
+
 
 const app = express();
 const port = 3000;
 
 app.set('view engine', 'ejs');
 
-//middle wares:
-
+// Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -19,10 +19,13 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use('/', route);
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/',require('./routes/post'));
 
-//app port
-
+// App port
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port http://localhost:${port}`);
 });
+
+module.exports = app;

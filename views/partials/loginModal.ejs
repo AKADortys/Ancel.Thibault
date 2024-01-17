@@ -10,7 +10,8 @@
                 </tr>
                 <tr>
                     <td align="center" colspan="2">Mot de passe : <input type="password" class="loginModal-user-input"
-                            placeholder="Mot de passe" id="userLog-pwd"><p>Mot de passe oublié ? <a href="/user-change-pwd">CLIQUE !</a></p></td>
+                            placeholder="Mot de passe" id="userLog-pwd"><p class="loginModal-box-form-footer">Vous n'avez pas de compte ? créer en un <a href="/login">ici</a> !</p></td>
+                            
                 </tr>
                 <tr>
                     <td align="center"><input type="submit" value=" Se connecter" class="loginModal-button"
@@ -19,7 +20,6 @@
                 </tr>
             </table>
             <img src="Images/circle.png" class="loginModal-img" alt="">
-            <p class="loginModal-box-form-footer">Vous n'avez pas de compte ? créer en un <a href="/login">ici</a> !</p>
         </form>
         <script>
             document.getElementById('loginForm').addEventListener("submit", function (event) {
