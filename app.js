@@ -1,10 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
 const route = require('./routes/index');
 const session = require('express-session');
-const config = require('./config/dbconnect');
-const { Sequelize, DataTypes } = require('sequelize');
 
 const app = express();
 const port = 3000;
