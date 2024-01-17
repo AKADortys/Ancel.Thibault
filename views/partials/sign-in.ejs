@@ -80,6 +80,7 @@
                     })
                     .catch(error => {
                         console.error('Erreur lors de l\'envoi des données:', error);
+                        alert(`Navré ! Mais ${username} est déjà utilisé`);
 
                     });
             } else {

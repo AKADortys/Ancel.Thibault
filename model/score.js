@@ -1,4 +1,3 @@
-// score.js
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Score', {
       id_score: {
@@ -20,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Quiz', // Assurez-vous que le modèle Quiz est correctement défini
+          model: 'Quiz',
           key: 'id_quiz'
         }
       },
@@ -28,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Utilisateur', // Assurez-vous que le modèle utilisateur est correctement défini
+          model: 'Utilisateur', 
           key: 'id_user'
         }
       }

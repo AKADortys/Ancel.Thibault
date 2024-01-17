@@ -6,6 +6,8 @@ const questionModel = require('../model/question');
 const scoreModel = require('../model/score');
 const reponseModel = require('../model/reponse');
 
+//connexion a la BDD
+
 const sequelize = new Sequelize(
    'QuizApp',
    'root',
@@ -27,6 +29,9 @@ sequelize.authenticate()
    .catch((err) => {
       console.error('Erreur de connexion à la base de données :', err);
    });
+
+   //syncronisation des modeles
+
    const Utilisateur = utilisateurModel(sequelize, DataTypes);
    const Categorie = categorieModel(sequelize,DataTypes);
    const Quiz = quizModel(sequelize,DataTypes);
@@ -42,4 +47,4 @@ sequelize.authenticate()
        console.error('Erreur lors de la synchronisation des modèles :', err);
      });
 
-module.exports = sequelize;
+module.exports = {sequelize,Utilisateur,Categorie,Quiz,Question,Score,Reponse};
