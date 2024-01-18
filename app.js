@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
-
-
 const app = express();
 const port = 3000;
 
@@ -20,7 +18,7 @@ app.use(session({
 }));
 
 // Routes
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/get'));
 app.use('/',require('./routes/post'));
 
 // App port

@@ -1,0 +1,70 @@
+
+<form id="quiz-create" class="quiz-create">
+    <h1>Création du quizz :</h1>
+    <table>
+        <tr>
+            <td>
+                Nom du quiz :
+            </td>
+            <td>
+                <input type="text" minlength="1" maxlength="50" id="quizName" class="champ-form"
+                    placeholder="nom du quiz">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description :
+            </td>
+            <td>
+                <textarea id="quizDesc" cols="30" rows="10" maxlength="200" class="champ-form"
+                    placeholder="description du quiz"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="submit" value="Validé !" class="Boutton-form">
+            </td>
+            <td align="center">
+                <input type="reset" value="Annuler" class="Boutton-form">
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    document.getElementById("quiz-create").addEventListener("submit", function (event) {
+        // Empêcher le comportement par défaut du formulaire (rechargement de la page)
+        event.preventDefault();
+
+        const formData = {
+            titre: document.getElementById('quizName').value,
+            description: document.getElementById('quizDesc').value
+        }
+        
+        alert(JSON.stringify(formData))
+
+                        // Envoyer les données au serveur via fetch
+                        fetch('http://localhost:3000/QuizCreate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur du serveur');
+                    }
+                    return response.json();
+                })
+                // Traitez la réponse du serveur ici
+                .then(data => {
+                    console.log(data);
+
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi des données:', error);
+
+                });
+    });
+</script>

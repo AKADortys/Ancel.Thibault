@@ -1,6 +1,11 @@
+.tableHtml{
+    overflow: scroll;
+    padding: 0;
+    margin:0;
+    height: 200px;
+}
 
 .top10Modal-table {
-    width: 100%;
     text-align: center;
     background-color: var(--bg-color);
     animation: changeBorderColor 3s infinite linear;

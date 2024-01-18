@@ -1,0 +1,69 @@
+<form id="categ-create" class="quiz-create">
+    <h1>Création d'une catégorie :</h1>
+    <table>
+        <tr>
+            <td>
+                Nom catégorie :
+            </td>
+            <td>
+                <input class="champ-form" type="text" minlength="1" maxlength="50" id="categName"
+                    placeholder="nom de la catégorie">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description :
+            </td>
+            <td>
+                <textarea class="champ-form" id="categDesc" cols="30" rows="10" maxlength="200"
+                    placeholder="description de la catégorie"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="submit" value="Validé !" class="Boutton-form">
+            </td>
+            <td align="center">
+                <input type="reset" value="Annuler" class="Boutton-form">
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    document.getElementById("categ-create").addEventListener("submit", function (event) {
+        // Empêcher le comportement par défaut du formulaire (rechargement de la page)
+        event.preventDefault();
+
+        const formData = {
+            titre: document.getElementById('categName').value,
+            description: document.getElementById('categDesc').value
+        }
+
+        alert(JSON.stringify(formData))
+
+                        // Envoyer les données au serveur via fetch
+                        fetch('http://localhost:3000/CategCreate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur du serveur');
+                    }
+                    return response.json();
+                })
+                // Traitez la réponse du serveur ici
+                .then(data => {
+                    console.log(data);
+
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi des données:', error);
+
+                });
+    });
+</script>

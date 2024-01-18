@@ -1,0 +1,83 @@
+<form id="quest-create" class="quiz-create">
+    <h1>Insertion des questions du quiz</h1>
+    <table>
+        <tr>
+            <td colspan="2">
+                Intitulé de la question :
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea id="questInti" cols="30" rows="10" maxlength="200" class="champ-form"
+                    placeholder="intitulé de la question"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="questDiff">Difficultés :</label>
+                <select name="difficult" id="questDiff">
+                    <option value="1">Facile</option>
+                    <option value="2">Moyen</option>
+                    <option value="3">Difficile</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep1" class="champ-form"
+                    placeholder="La bonne réponse ici !"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep2" class="champ-form"
+                    placeholder="Mauvaise réponse"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep3" class="champ-form"
+                    placeholder="Mauvaise réponse"></td>
+        </tr>
+        <tr>
+            <td align="center"><input type="submit" value="Validé !" class="Boutton-form"></td>
+            <td><input type="reset" value="Annuler" class="Boutton-form"></td>
+        </tr>
+    </table>
+</form>
+<script>
+    document.getElementById("quest-create").addEventListener("submit", function (event) {
+        // Empêcher le comportement par défaut du formulaire (rechargement de la page)
+        event.preventDefault();
+
+        const formData = {
+            Intitule: document.getElementById('questInti').value,
+            difficulte: document.getElementById('questDiff').value,
+            correct: document.getElementById('questRep1').value,
+            incorr1: document.getElementById('questRep2').value,
+            incorr2: document.getElementById('questRep3').value
+        }
+
+        alert(JSON.stringify(formData))
+
+                        // Envoyer les données au serveur via fetch
+                        fetch('http://localhost:3000/QuestCreate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur du serveur');
+                    }
+                    return response.json();
+                })
+                // Traitez la réponse du serveur ici
+                .then(data => {
+                    console.log(data);
+
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi des données:', error);
+
+                });
+    });
+</script>

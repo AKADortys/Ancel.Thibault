@@ -30,6 +30,10 @@ router.get('/login', function (req, res) {
   res.render('login/login');
 });
 
+router.get('/quizcreate', function (req,res) {
+  res.render('login/usercreatequiz');
+})
+
 router.get('/all-user', async function (req, res) {
   try {
     const utilisateurs = await Utilisateur.findAll();

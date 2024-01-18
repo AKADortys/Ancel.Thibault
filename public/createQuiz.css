@@ -1,0 +1,78 @@
+.quiz-create{
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 80%;
+    background: radial-gradient(circle farthest-corner at center center, rgb(122, 122, 122) 5%, #3a3a3a 160%);
+    color: chartreuse;
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.quiz-create span{
+    color: red;
+    font-weight: bolder;
+}
+h1{
+    text-align: center;
+    text-decoration: underline;
+    color: black;
+    background-color: aliceblue;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    margin: 0;
+    border-radius: 10px;
+}
+.quiz-create table{
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.363);
+    margin-top: 10px;
+    border-bottom: solid black 1px ;
+    border-top: solid black 1px ;
+}
+.quiz-create table td{
+    padding: 10px 0;
+}
+.champ-form {
+    font-size: 13px;
+    font-style: italic;
+    padding: 10px 0px;
+    width: 90%;
+    outline: none;
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px dashed #C4D1EB;
+    border-radius: 20px;
+    box-shadow: 3px 3px 2px 0px #000000;
+    transition: .3s ease;
+    padding-left: 18px;
+}
+
+.champ-form:focus {
+    background: red;
+    border: 1px solid #5A7EC7;
+    border-radius: 20px;
+}
+
+.champ-form::placeholder {
+    color: #c0bfbf;
+}
+.Boutton-form {
+    background-color: greenyellow;
+    border: green 2px solid;
+    padding: 10px;
+    box-shadow: 3px 3px 2px 0px #000000;
+    border-radius: 15%;
+    transition: transform 0.4s, background-color 0.2s, border 0.2s;
+}
+
+.Boutton-form:hover {
+    background-color: green;
+    border: greenyellow 2px solid;
+    transform: translateY(-5px);
+}
+
+.Boutton-form:focus {
+    background-color: seagreen;
+}

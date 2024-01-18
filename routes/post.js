@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser');
-const { Utilisateur } = require('../config/dbconnect');
+const { Utilisateur, Categorie, Quiz } = require('../config/dbconnect');
 const bcrypt = require('bcrypt');
 
-router.use(bodyParser.json());
 
 router.post('/sign-in', async (req, res) => {
   try {
@@ -46,6 +44,21 @@ router.post('/loggin', async (req, res) => {
   } catch (error) {
     console.error('Erreur lors de l\'authentification :', error);
     res.status(500).json({ error: 'Erreur lors de l\'authentification' });
+  }
+});
+
+router.post('/QuizCreate', async (req, res) => {
+  try {
+    const { titre, description } = req.body;
+    const newQuiz = await Quiz.create({
+      titre,
+      description
+    });
+
+res.status(201).json({ message: 'Nouveau quiz créer !', newQuiz})
+  }  catch(error) {
+    console.error('Erreur lors de l\'insertion du quiz :', error);
+    res.status(500).json({ error: 'Erreur lors de l\'insertion du quiz' });
   }
 });
 
