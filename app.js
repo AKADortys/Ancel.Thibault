@@ -23,8 +23,16 @@ app.use(session({
 }));
 
 // Routes
-app.use('/', require('./routes/get'));
-app.use('/',require('./routes/post'));
+app.use('/', require('./routes/GET/all-user'));
+app.use('/',require('./routes/GET/home'));
+app.use('/',require('./routes/GET/login'));
+app.use('/',require('./routes/GET/logout'));
+app.use('/',require('./routes/GET/profil'));
+app.use('/',require('./routes/GET/quizcreate'));
+app.use('/',require('./routes/GET/userLogin'));
+app.use('/',require('./routes/POST/QuizCreate'));
+app.use('/',require('./routes/POST/loggin'));
+app.use('/',require('./routes/POST/sign-in'));
 
 // App port
 app.listen(port, () => {
