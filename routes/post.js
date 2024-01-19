@@ -37,7 +37,8 @@ router.post('/loggin', async (req, res) => {
     const passwordMatch = await bcrypt.compare(pwd, utilisateur.pwd);
 
     if (passwordMatch) {
-      res.json({ message: 'Authentification réussie' });
+      req.session.utilisateur = pseudo
+      res.json({ message: 'Authentification réussie',identifie: true });
     } else {
       res.status(401).json({ message: 'Identifiants invalides' });
     }

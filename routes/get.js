@@ -4,6 +4,11 @@ const { Utilisateur } = require('../config/dbconnect');
 
 router.get('/home', async function (req, res) {
   try {
+    // Vérifier si la session de l'utilisateur existe
+    if (!req.session.utilisateur) {
+      // Si la session n'est pas détectée, rediriger vers la page de connexion
+      return res.redirect('/userLogin');
+    }
     const utilisateurs = await Utilisateur.findAll();
 
     let tableHtml = '<table class=\'top10Modal-table\' >';
@@ -25,6 +30,10 @@ router.get('/home', async function (req, res) {
     res.status(500).send('Erreur lors de la récupération des utilisateurs');
   }
 });
+
+router.get('/userLogin',function(req,res) {
+  res.render('login/userLogin');
+})
 
 router.get('/login', function (req, res) {
   res.render('login/login');
@@ -57,5 +66,9 @@ router.get('/all-user', async function (req, res) {
     res.status(500).send('Erreur lors de la récupération des utilisateurs');
   }
 });
+
+router.get('/profil', function(req,res) {
+  res.render('home/profil');
+})
 
 module.exports = router;

@@ -12,9 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(session({
+  name : 'sid',
   secret: 'Keyboard cat',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie : {
+    maxAge : 1000*60*60*24*7,
+    secure : false
+  }
 }));
 
 // Routes
