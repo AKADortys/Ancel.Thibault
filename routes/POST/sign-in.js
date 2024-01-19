@@ -7,11 +7,12 @@ const { Utilisateur } = require('../../config/dbconnect');
 
 router.post('/sign-in', async (req, res) => {
   try {
-    const { pseudo, pwd, admin, nom, prenom } = req.body;
+    const { pseudo, pwd, admin, nom, prenom, mail } = req.body;
 
     const utilisateur = await Utilisateur.create({
       pseudo,
       pwd,
+      mail,
       admin,
       nom,
       prenom

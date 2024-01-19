@@ -9,11 +9,29 @@ module.exports = (sequelize, DataTypes) => {
         designation: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                notNull: {
+                    msg: 'La désignation est requise.'
+                },
+                len: {
+                    args: [1, 30],
+                    msg: 'La désignation doit avoir entre 1 et 30 caractères.'
+                }
+            }
         },
         description: {
             type: DataTypes.STRING(200),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'La description est requise.'
+                },
+                len: {
+                    args: [100, 200],
+                    msg: 'La description doit avoir entre 100 et 200 caractères.'
+                }
+            }
         },
         date_ajout: {
             type: DataTypes.DATE,
@@ -32,5 +50,4 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'categories', // Nom de la table dans la base de données
         timestamps: false
     });
-
 };

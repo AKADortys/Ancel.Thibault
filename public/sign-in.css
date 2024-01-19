@@ -2,7 +2,7 @@
     border: 2px solid black;
     border-radius: 10px;
     width: 80%;
-    margin: 10px auto;
+    margin: 10vh auto;
     background: radial-gradient(circle farthest-corner at center center, rgb(122, 122, 122) 5%, #3a3a3a 160%);
     color: chartreuse;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
