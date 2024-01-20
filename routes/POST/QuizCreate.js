@@ -6,13 +6,27 @@ router.post('/QuizCreate', async (req, res) => {
   try {
     const { titre, description } = req.body;
 
+    // Vérifier si la session de l'utilisateur existe
+    if (!req.session.utilisateur) {
+      return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
+    }
+
+    const idUser = req.session.utilisateur.id_user;
+    const isAdmin = req.session.utilisateur.admin;
+
+    // Vérifier si l'utilisateur est un administrateur
+    if (!isAdmin) {
+      return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour créer un quiz' });
+    }
+
     if (!titre || !description) {
       return res.status(400).json({ message: 'Veuillez fournir un titre et une description pour le quiz' });
     }
 
     const newQuiz = await Quiz.create({
       titre,
-      description
+      description,
+      id_user: idUser 
     });
 
     res.status(201).json({ message: 'Nouveau quiz créé avec succès !', newQuiz });

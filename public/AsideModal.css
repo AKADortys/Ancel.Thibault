@@ -9,6 +9,7 @@
     text-align: center;
     background-color: var(--bg-color);
     animation: changeBorderColor 3s infinite linear;
+    width: 80%;
 }
 
 @keyframes changeBorderColor {
@@ -42,7 +43,7 @@
 .top10Modal-table td {
 
     color: greenyellow;
-    padding: 15px;
+    padding: 5px;
 
 }
 
@@ -58,6 +59,8 @@
     background-color: grey;
 }
 .AsideModal-main{
+    display: flex;
+    flex-direction: column;
     width: 20%;
     background-color: gray;
     padding: 0.2vh 0.5vw;

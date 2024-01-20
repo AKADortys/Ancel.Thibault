@@ -1,10 +1,68 @@
 const express = require('express');
 const router = express.Router();
+const { Utilisateur } = require('../../config/dbconnect');
+
+router.get('/profil', async function (req, res) {
+  try {
+    // Vérifier si la session de l'utilisateur existe
+    if (!req.session.utilisateur) {
+      // Si la session n'est pas détectée, rediriger vers la page de connexion
+      return res.redirect('/userLogin');
+    }
+
+    // Récupérer l'id de l'utilisateur à partir de la session
+    const idUtilisateur = req.session.utilisateur.id_user;
+
+    // Rechercher l'utilisateur dans la base de données par l'id
+    const utilisateur = await Utilisateur.findByPk(idUtilisateur);
+
+    if (!utilisateur) {
+      // Si l'utilisateur n'est pas trouvé, gérer le cas approprié
+      return res.status(404).send('Utilisateur non trouvé');
+    }
+    let status = utilisateur.admin;
+    if (status){
+      status = 'Admin';
+    }
+    else if(!status){
+      status ='Joueur';
+    }
+
+    let tableUser = '<table class=\'top10Modal-table\' >';
+    tableUser += `<tr>
+                      <td>Votre pseudo :</td>
+                      <td>${utilisateur.pseudo}</td>
+                  </tr>
+                  <tr> 
+                      <td>Votre nom :</td>
+                      <td>${utilisateur.nom}</td>
+                  </tr>
+                  <tr>
+                      <td>Votre prénom :</td>
+                      <td>${utilisateur.prenom}</td>
+                  </tr>
+                  <tr>
+                      <td>Date d'inscription :</td>
+                      <td>${utilisateur.date_inscri}</td>
+                  </tr>
+                  <tr>
+                      <td>Votre Email :</td>
+                      <td>${utilisateur.mail}</td>
+                  </tr>
+                  <tr>
+                      <td>Votre status :</td>
+                      <td>${status}</td>
+                  </tr>`;
+
+    tableUser += '</table>';
+
+    res.render('home/profil', { tableUser });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
+    res.status(500).send('Erreur lors de la récupération des informations de l\'utilisateur');
+  }
+});
 
 
-router.get('/profil', function(req,res) {
-    res.render('home/profil');
-  })
 
-  
 module.exports = router;

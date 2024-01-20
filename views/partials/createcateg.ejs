@@ -35,11 +35,10 @@
         event.preventDefault();
 
         const formData = {
-            titre: document.getElementById('categName').value,
+            designation: document.getElementById('categName').value,
             description: document.getElementById('categDesc').value
         }
 
-        alert(JSON.stringify(formData))
 
                         // Envoyer les données au serveur via fetch
                         fetch('http://localhost:3000/CategCreate', {
@@ -58,6 +57,7 @@
                 })
                 // Traitez la réponse du serveur ici
                 .then(data => {
+                    alert(JSON.stringify(data));
                     console.log(data);
 
                 })
