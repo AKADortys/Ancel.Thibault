@@ -21,6 +21,9 @@
             </td>
         </tr>
         <tr>
+            <td colspan="2"><%- selectcateg %></td>
+        </tr>
+        <tr>
             <td align="center">
                 <input type="submit" value="Validé !" class="Boutton-form">
             </td>
@@ -37,7 +40,8 @@
 
         const formData = {
             titre: document.getElementById('quizName').value,
-            description: document.getElementById('quizDesc').value
+            description: document.getElementById('quizDesc').value,
+            id_categ: document.getElementById('categorie').value
         }
         
         alert(JSON.stringify(formData))

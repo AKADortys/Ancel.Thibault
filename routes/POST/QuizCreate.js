@@ -4,7 +4,7 @@ const { Quiz } = require('../../config/dbconnect');
 
 router.post('/QuizCreate', async (req, res) => {
   try {
-    const { titre, description } = req.body;
+    const { titre, description, id_categ } = req.body;
 
     // Vérifier si la session de l'utilisateur existe
     if (!req.session.utilisateur) {
@@ -26,7 +26,8 @@ router.post('/QuizCreate', async (req, res) => {
     const newQuiz = await Quiz.create({
       titre,
       description,
-      id_user: idUser 
+      id_user: idUser,
+      id_categ: id_categ
     });
 
     res.status(201).json({ message: 'Nouveau quiz créé avec succès !', newQuiz });
