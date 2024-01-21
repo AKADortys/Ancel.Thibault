@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Utilisateur,Categorie } = require('../../config/dbconnect');
+const { Utilisateur, Categorie } = require('../../config/dbconnect');
 
 router.get('/quizcreate', async function (req, res) {
   try {

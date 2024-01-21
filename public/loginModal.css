@@ -1,15 +1,17 @@
-
 html {
     --primary-color: rgb(169, 169, 169);
     --bg-color: rgb(20, 20, 20);
 }
-body{
+
+body {
     margin: 0;
     padding: 0;
 }
+
 .loginModal-hidden {
     display: none;
 }
+
 .loginModal-h1 {
     width: 100%;
     text-align: center;
@@ -25,7 +27,7 @@ body{
     width: 100%;
     margin: 0;
     position: fixed;
-    padding-top: 5vh ;
+    padding-top: 5vh;
     top: 0;
     z-index: 1;
     /* display: none; */
@@ -41,17 +43,32 @@ body{
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
     animation: changeColor 3s infinite linear;
 }
+
 @keyframes changeColor {
-    0% { background-color: #00ff00; } 
-    25% { background-color: #00e6d2; } 
-    50% { background-color: #9d06f5; } 
-    75% { background-color:#fffb00 ; } 
-    100% { background-color: #51ff00; } 
+    0% {
+        background-color: #00ff00;
+    }
+
+    25% {
+        background-color: #00e6d2;
+    }
+
+    50% {
+        background-color: #9d06f5;
+    }
+
+    75% {
+        background-color: #fffb00;
+    }
+
+    100% {
+        background-color: #51ff00;
+    }
 }
 
 .loginModal-box form {
     background-image: url(Images/comb\ grid.jpg);
-    background-size:contain ;
+    background-size: contain;
     margin: 0.45% auto;
     width: 98%;
     height: 98%;
@@ -76,6 +93,7 @@ body{
     background-color: rgb(16, 15, 15);
     padding-top: 30px;
 }
+
 .loginModal-box a {
     text-decoration: none;
     color: yellow;
@@ -97,9 +115,17 @@ body{
 }
 
 @keyframes float {
-    0% {transform: translateY(0);}
-    50% { transform: translateY(-6px);}
-    100%{transform: translateY(0);}
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .loginModal-user-input {

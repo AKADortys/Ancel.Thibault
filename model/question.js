@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: 'La difficulté de la question est requise.' },
         isInt: { msg: 'La difficulté doit être un nombre entier.' },
-        min: { args: [1,3], msg: 'La difficulté doit être d\'au moins 1.' }
+        min: { args: [1, 3], msg: 'La difficulté doit être d\'au moins 1.' }
         // Vous pouvez ajuster la valeur minimale selon vos besoins
       }
     },

@@ -1,4 +1,4 @@
-.sign-in-form{
+.sign-in-form {
     border: 2px solid black;
     border-radius: 10px;
     width: 80%;
@@ -7,15 +7,18 @@
     color: chartreuse;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
-.sign-in-form p{
+
+.sign-in-form p {
     text-align: center;
     color: yellow;
 }
-.sign-in-form span{
+
+.sign-in-form span {
     color: red;
     font-weight: bolder;
 }
-h1{
+
+h1 {
     text-align: center;
     text-decoration: underline;
     color: black;
@@ -25,17 +28,20 @@ h1{
     margin: 0;
     border-radius: 10px;
 }
-.sign-in-form-tab{
+
+.sign-in-form-tab {
     width: 90%;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.363);
     margin: 10px auto;
-    border-bottom: solid black 1px ;
-    border-top: solid black 1px ;
+    border-bottom: solid black 1px;
+    border-top: solid black 1px;
 }
-.sign-in-form-tab td{
+
+.sign-in-form-tab td {
     padding: 10px 0;
 }
+
 .champ-form {
     font-size: 13px;
     font-style: italic;
@@ -60,6 +66,7 @@ h1{
 .champ-form::placeholder {
     color: #c0bfbf;
 }
+
 .Boutton-form {
     background-color: greenyellow;
     border: green 2px solid;

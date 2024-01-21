@@ -1,4 +1,4 @@
-body{
+body {
     margin: 0;
     padding: 0;
 }
@@ -7,43 +7,50 @@ html {
     --primary-color: rgb(169, 169, 169);
     --bg-color: rgb(20, 20, 20);
 }
-.navBar-nav{
+
+.navBar-nav {
     width: 100%;
     background-color: var(--bg-color);
     margin-top: 0;
     display: flex;
     flex-wrap: wrap;
 }
-.navBar-nav img{
-    width: 45px; 
+
+.navBar-nav img {
+    width: 45px;
     height: 45px;
     margin-top: 10px;
     /* animation: rotate 0.5s linear infinite; */
 }
+
 @keyframes rotate {
     0% {
         transform: rotateZ(0deg);
     }
+
     100% {
         transform: rotateZ(360deg);
     }
 }
 
-.navBar-nav a{
+.navBar-nav a {
     color: greenyellow;
     font-size: x-large;
     text-decoration: none;
 }
-.navBar-nav a:hover{
+
+.navBar-nav a:hover {
     color: yellow;
 }
-.navBar-nav p{
+
+.navBar-nav p {
     text-align: center;
     width: 27%;
     /* height: 100%; */
     margin: 0;
     padding: 10px;
 }
-.navBar-nav p:hover{
+
+.navBar-nav p:hover {
     border-bottom: 1px solid greenyellow
 }

@@ -1,16 +1,17 @@
-
 .main {
     width: 77.3%;
     padding: 10px;
     /* background-image: url(Images/comb\ grid.jpg); */
 }
-.start-Quiz{
+
+.start-Quiz {
     padding: 10px;
     color: greenyellow;
     background-color: grey;
     border: green solid 2px;
     margin: 15px;
 }
+
 .Film,
 .Histoire {
     display: flex;
@@ -27,7 +28,7 @@
     background: radial-gradient(circle farthest-corner at center center, rgb(179, 149, 236) 5%, #4f03dc 160%);
 }
 
-.Histoire{
+.Histoire {
     background: radial-gradient(circle farthest-corner at center center, rgb(149, 236, 168) 5%, #03dcbf 160%);
 }
 
@@ -89,6 +90,7 @@ img {
     border: 2px solid black;
     transition: width 0.6s, height 0.6s, box-shadow 0.5s, border 0.9s, border-radius 0.6s;
 }
+
 @keyframes changeBorderColor {
     0% {
         border: 3px solid #00ff00;
@@ -147,7 +149,8 @@ section:hover h2,
 section:hover audio {
     opacity: 1;
 }
-h5{
+
+h5 {
     text-align: center;
     font-size: x-large;
     padding: 15px;

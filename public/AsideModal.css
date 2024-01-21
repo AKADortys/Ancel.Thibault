@@ -1,7 +1,7 @@
-.tableHtml{
+.tableHtml {
     overflow: scroll;
     padding: 0;
-    margin:0;
+    margin: 0;
     height: 200px;
 }
 
@@ -58,7 +58,8 @@
 .top10Modal-table tr:nth-child(odd) {
     background-color: grey;
 }
-.AsideModal-main{
+
+.AsideModal-main {
     display: flex;
     flex-direction: column;
     width: 20%;
@@ -68,21 +69,25 @@
     margin-top: 10px;
     background: radial-gradient(circle farthest-corner at center center, rgba(84, 84, 85, 0.821) 5%, #111111a9 160%);
 }
-.AsideModal-main ul>li>ul{
+
+.AsideModal-main ul>li>ul {
     color: greenyellow;
     list-style: none;
     padding: 5px;
     font-size: small;
 }
-.submenu li{
+
+.submenu li {
     padding: 5px;
 }
-.AsideModal-main ul{
+
+.AsideModal-main ul {
     color: red;
     font-weight: bolder;
     list-style: none;
 }
-.AsideModal-main h3{
+
+.AsideModal-main h3 {
     text-align: center;
     font-size: larger;
     padding: 15px;
