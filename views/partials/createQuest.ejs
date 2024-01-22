@@ -13,7 +13,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <label for="questDiff">Difficultés :</label>
                 <select name="difficult" id="questDiff">
                     <option value="1">Facile</option>
@@ -21,6 +21,7 @@
                     <option value="3">Difficile</option>
                 </select>
             </td>
+            <td><%-selectQuiz%></td>
         </tr>
         <tr>
             <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep1" class="champ-form"
@@ -48,9 +49,10 @@
         const formData = {
             Intitule: document.getElementById('questInti').value,
             difficulte: document.getElementById('questDiff').value,
+            id_quiz : document.getElementById('quiz').value,
             correct: document.getElementById('questRep1').value,
-            incorr1: document.getElementById('questRep2').value,
-            incorr2: document.getElementById('questRep3').value
+            rep1: document.getElementById('questRep2').value,
+            rep2: document.getElementById('questRep3').value
         }
 
         alert(JSON.stringify(formData))

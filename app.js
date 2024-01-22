@@ -30,11 +30,13 @@ app.use('/', require('./routes/GET/logout'));
 app.use('/', require('./routes/GET/profil'));
 app.use('/', require('./routes/GET/quizcreate'));
 app.use('/', require('./routes/GET/categcreate'));
+app.use('/', require('./routes/GET/questioncreate'));
 app.use('/', require('./routes/GET/userLogin'));
 app.use('/', require('./routes/POST/QuizCreate'));
 app.use('/', require('./routes/POST/loggin'));
 app.use('/', require('./routes/POST/sign-in'));
 app.use('/', require('./routes/POST/CategCreate'));
+app.use('/', require('./routes/POST/QuestCreate'));
 
 // App port
 app.listen(port, () => {
