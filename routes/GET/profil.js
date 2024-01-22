@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Utilisateur,Categorie, Quiz } = require('../../config/dbconnect');
-const { where } = require('sequelize');
+const { Utilisateur,Categorie, Quiz, Question } = require('../../config/dbconnect');
 
 router.get('/profil', async function (req, res) {
   try {
@@ -28,6 +27,11 @@ router.get('/profil', async function (req, res) {
       status = 'Joueur';
     }
 
+    //compter le nombre de questions associése à l'utilisateur
+    const questionUtilisateur = await Question.count({
+      where: {id_user: idUtilisateur},
+    });
+
     // Rechercher les catégories associées à l'utilisateur
     const categoriesUtilisateur = await Categorie.findAll({
       where: { id_user: idUtilisateur },
@@ -35,6 +39,8 @@ router.get('/profil', async function (req, res) {
     const quizUtilisateur = await Quiz.findAll({
       where: {id_user: idUtilisateur},
     });
+
+    const nbrsLignes = `<p>Nombres de question: ${questionUtilisateur}</p>`
 
     let quizListe = '';
     if(quizUtilisateur.length > 0) {
@@ -80,7 +86,7 @@ router.get('/profil', async function (req, res) {
                   </tr>
                 </table>`;
 
-    res.render('home/profil', { tableUser, categoriesListe, quizListe });
+    res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes });
   } catch (error) {
     console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
     res.status(500).send('Erreur lors de la récupération des informations de l\'utilisateur');

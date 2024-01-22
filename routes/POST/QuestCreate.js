@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Quiz,Reponse,Question } = require('../../config/dbconnect');
+const { Reponse,Question } = require('../../config/dbconnect');
 
 router.post('/QuestCreate', async function(req,res) {
     try {
