@@ -40,11 +40,11 @@ router.get('/profil', async function (req, res) {
       where: {id_user: idUtilisateur},
     });
 
-    const nbrsLignes = `<p>Nombres de question: ${questionUtilisateur}</p>`
+    const nbrsLignes = `<p>Nombres de question créer: ${questionUtilisateur}</p>`
 
     let quizListe = '';
     if(quizUtilisateur.length > 0) {
-      quizListe = '<p>Vos quizs :</p><ul>';
+      quizListe = '<h3>Vos quizs :</h3><ul>';
       quizUtilisateur.forEach((quiz) =>{
         quizListe += `<li>${quiz.titre}</li>`;
       });
@@ -53,7 +53,7 @@ router.get('/profil', async function (req, res) {
 
     let categoriesListe = '';
     if (categoriesUtilisateur.length > 0) {
-      categoriesListe = '<p>Vos catégories :</p><ul>';
+      categoriesListe = '<h3>Vos catégories :</h3><ul>';
       categoriesUtilisateur.forEach((categorie) => {
         categoriesListe += `<li>${categorie.designation}</li>`;
       });
