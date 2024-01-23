@@ -37,6 +37,8 @@ app.use('/', require('./routes/POST/loggin'));
 app.use('/', require('./routes/POST/sign-in'));
 app.use('/', require('./routes/POST/CategCreate'));
 app.use('/', require('./routes/POST/QuestCreate'));
+app.use('/', require('./routes/POST/deleteCateg'));
+app.use('/', require('./routes/POST/deleteQuiz'));
 
 // App port
 app.listen(port, () => {

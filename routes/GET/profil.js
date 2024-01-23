@@ -46,7 +46,7 @@ router.get('/profil', async function (req, res) {
     if(quizUtilisateur.length > 0) {
       quizListe = '<h3>Vos quizs :</h3><ul>';
       quizUtilisateur.forEach((quiz) =>{
-        quizListe += `<li>${quiz.titre}</li>`;
+        quizListe += `<li>${quiz.titre} <form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button type="submit">Supprimer</button></form></li>`;
       });
       quizListe += '</ul>';
     }
@@ -55,7 +55,7 @@ router.get('/profil', async function (req, res) {
     if (categoriesUtilisateur.length > 0) {
       categoriesListe = '<h3>Vos catégories :</h3><ul>';
       categoriesUtilisateur.forEach((categorie) => {
-        categoriesListe += `<li>${categorie.designation}</li>`;
+        categoriesListe += `<li>${categorie.designation} <form method="post" action="/deleteCategory/${categorie.id_categ}"><button type="submit">Supprimer</button></form></li>`;
       });
       categoriesListe += '</ul>';
     };
