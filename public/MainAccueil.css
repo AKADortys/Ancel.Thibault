@@ -12,8 +12,7 @@
     margin: 15px;
 }
 
-.Film,
-.Histoire {
+.containeur {
     display: flex;
     align-content: center;
     flex-wrap: wrap;
@@ -24,7 +23,7 @@
     border: greenyellow outset 4px;
 }
 
-.Film {
+.containeur{
     background: radial-gradient(circle farthest-corner at center center, rgb(179, 149, 236) 5%, #4f03dc 160%);
 }
 

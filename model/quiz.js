@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Quiz', {
+  const Quiz = sequelize.define('Quiz', {
     id_quiz: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -60,4 +60,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'quiz', // Nom de la table dans la base de données
     timestamps: false // Désactiver l'ajout automatique des timestamps (created_at, updated_at)
   });
+
+  return Quiz;
 };

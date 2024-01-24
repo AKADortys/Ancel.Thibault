@@ -26,13 +26,16 @@ router.post('/QuizCreate', upload.single('image'), async (req, res) => {
 
     // Récupérer le chemin de l'image à partir de la requête Multer
     const imagePath = req.file.path;
+    const adjustedImagePath = imagePath.substring(imagePath.indexOf('public/'));
+
+    console.log(adjustedImagePath);
 
     const newQuiz = await Quiz.create({
       titre,
       description,
       id_user: idUser,
       id_categ: id_categ,
-      image: imagePath,
+      image: adjustedImagePath,
     });
 
     res.status(201).json({ message: 'Nouveau quiz créé avec succès !', newQuiz });
