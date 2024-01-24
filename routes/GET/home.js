@@ -23,29 +23,31 @@ router.get('/home', async function (req, res) {
       if (!quizzesByCategory[idCateg]) {
         quizzesByCategory[idCateg] = [];
       }
+      // Remove 'public/' prefix from image path
+      quiz.adjustedImage = quiz.image.substring(7); // Assuming 'public/' is 7 characters
       quizzesByCategory[idCateg].push(quiz);
     });
-
+    
     // Génération du HTML pour les catégories et les quizzes
     let categoriesHtml = '';
     for (const category of categories) {
       const categoryId = category.id_categ;
       const quizzesForCategory = quizzesByCategory[categoryId] || [];
-
+    
       categoriesHtml += `<div class="containeur">
                             <h1>${category.designation}</h1>
                             <div class="leftbar">`;
-
+    
       quizzesForCategory.forEach((quiz) => {
         categoriesHtml += `<div class='bloc'>
-                              <img src="${quiz.image}" alt="Image du quiz">
+                              <img src="${quiz.adjustedImage}" alt="Image du quiz">
                               <section>
                                 <h3>${quiz.titre}</h3>
                                 <p>${quiz.description}</p>
                               </section>
                             </div>`;
       });
-
+    
       categoriesHtml += `</div></div>`;
     }
 
