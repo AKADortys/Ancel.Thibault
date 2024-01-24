@@ -8,6 +8,7 @@ const port = 3000;
 app.set('view engine', 'ejs');
 
 // Middlewares
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));

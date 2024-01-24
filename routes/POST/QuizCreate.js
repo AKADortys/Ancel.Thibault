@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Quiz } = require('../../config/dbconnect');
+const upload = require('../../config/multerconfig');
 
-router.post('/QuizCreate', async (req, res) => {
+router.post('/QuizCreate', upload.single('image'), async (req, res) => {
   try {
     const { titre, description, id_categ } = req.body;
 
@@ -19,15 +20,19 @@ router.post('/QuizCreate', async (req, res) => {
       return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour créer un quiz' });
     }
 
-    if (!titre || !description) {
+    if (!titre || !description ) {
       return res.status(400).json({ message: 'Veuillez fournir un titre et une description pour le quiz' });
     }
+
+    // Récupérer le chemin de l'image à partir de la requête Multer
+    const imagePath = req.file.path;
 
     const newQuiz = await Quiz.create({
       titre,
       description,
       id_user: idUser,
-      id_categ: id_categ
+      id_categ: id_categ,
+      image: imagePath,
     });
 
     res.status(201).json({ message: 'Nouveau quiz créé avec succès !', newQuiz });

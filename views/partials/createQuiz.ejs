@@ -1,4 +1,4 @@
-<form id="quiz-create" class="quiz-create">
+<form enctype="multipart/form-data" id="quiz-create" class="quiz-create">
     <h1>Création du quizz :</h1>
     <table>
         <tr>
@@ -9,7 +9,7 @@
                 <input type="text" minlength="1" maxlength="50" id="quizName" class="champ-form"
                     placeholder="nom du quiz">
             </td>
-        </tr>
+        </tr> 
         <tr>
             <td>
                 Description :
@@ -20,7 +20,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><%- selectcateg %></td>
+            <td><%- selectcateg %></td>
+            <td>Ajouter une image:<input type="file" name="image"></td>
         </tr>
         <tr>
             <td align="center">
@@ -32,42 +33,27 @@
         </tr>
     </table>
 </form>
-<script>
-    document.getElementById("quiz-create").addEventListener("submit", function (event) {
-        // Empêcher le comportement par défaut du formulaire (rechargement de la page)
-        event.preventDefault();
+<script>document.getElementById("quiz-create").addEventListener("submit", function (event) {
+    event.preventDefault();
 
-        const formData = {
-            titre: document.getElementById('quizName').value,
-            description: document.getElementById('quizDesc').value,
-            id_categ: document.getElementById('categorie').value
-        }
+    const formData = new FormData(this);
+    // Ajoutez d'autres données si nécessaire
+    formData.append('titre', document.getElementById('quizName').value);
+    formData.append('description', document.getElementById('quizDesc').value);
+    formData.append('id_categ', document.getElementById('categorie').value);
 
-        alert(JSON.stringify(formData))
-
-        // Envoyer les données au serveur via fetch
-        fetch('http://localhost:3000/QuizCreate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur du serveur');
-                }
-                return response.json();
-            })
-            // Traitez la réponse du serveur ici
-            .then(data => {
-                console.log(data);
-
-            })
-            .catch(error => {
-                console.error('Erreur lors de l\'envoi des données:', error);
-
-            });
+    // Envoyer les données au serveur via fetch
+    fetch('http://localhost:3000/QuizCreate', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de l\'envoi des données:', error);
     });
+});
+
 </script>

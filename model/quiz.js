@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         len: { args: [100, 200], msg: 'La description du quiz doit avoir entre 100 et 200 caractères.' }
       }
     },
+    image: {
+      type: DataTypes.STRING(300),
+      allowNull: true,
+    },
     id_user: {
       type: DataTypes.INTEGER,
       allowNull: false,

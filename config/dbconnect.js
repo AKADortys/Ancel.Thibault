@@ -39,7 +39,7 @@ const Question = questionModel(sequelize, DataTypes);
 const Score = scoreModel(sequelize, DataTypes);
 const Reponse = reponseModel(sequelize, DataTypes);
 
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
    .then(() => {
       console.log('Modèles synchronisés avec la base de données');
    })
