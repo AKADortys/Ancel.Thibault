@@ -76,6 +76,19 @@
     padding: 5px;
     font-size: small;
 }
+.AsideModal-main form{
+    display: inline;
+    margin: 0 4px;
+}
+.AsideModal-main button{
+    background-color: greenyellow;
+    border: green 2px solid;
+    transition: all 0.5s;
+}
+.AsideModal-main button:hover{
+    background-color: green;
+    border: greenyellow 2px dashed;
+}
 
 .submenu li {
     padding: 5px;
@@ -85,6 +98,11 @@
     color: red;
     font-weight: bolder;
     list-style: none;
+    padding: 0;
+}
+
+.AsideModal-main li{
+    margin: 10px 0;
 }
 
 .AsideModal-main h3 {
@@ -101,9 +119,16 @@
 }
 
 .AsideModal-main a {
-    font-size: larger;
+    background-color: greenyellow;
+    border: green 2px solid;
+    transition: all 0.5s;
     text-decoration: none;
-    background-color: aliceblue;
+    color: black;
+    font-weight: normal;
+}
+.AsideModal-main a:hover{
+    background-color: green;
+    border: greenyellow 2px dashed;
 }
 
 .mainProfil-main {

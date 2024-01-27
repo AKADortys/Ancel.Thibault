@@ -32,6 +32,7 @@ app.use('/', require('./routes/GET/profil'));
 app.use('/', require('./routes/GET/quizcreate'));
 app.use('/', require('./routes/GET/categcreate'));
 app.use('/', require('./routes/GET/questioncreate'));
+app.use('/', require('./routes/GET/manageCateg'));
 app.use('/', require('./routes/GET/userLogin'));
 app.use('/', require('./routes/POST/QuizCreate'));
 app.use('/', require('./routes/POST/loggin'));
