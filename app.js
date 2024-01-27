@@ -23,6 +23,7 @@ app.use(session({
   }
 }));
 
+
 // Routes
 app.use('/', require('./routes/GET/all-user'));
 app.use('/', require('./routes/GET/home'));
@@ -41,6 +42,7 @@ app.use('/', require('./routes/POST/CategCreate'));
 app.use('/', require('./routes/POST/QuestCreate'));
 app.use('/', require('./routes/POST/deleteCateg'));
 app.use('/', require('./routes/POST/deleteQuiz'));
+app.use('/', require('./routes/POST/manageCateg'));
 
 // App port
 app.listen(port, () => {

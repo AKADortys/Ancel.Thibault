@@ -1,0 +1,9 @@
+body{
+    background-image: url(Images/comb\ grid.jpg);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
+}
