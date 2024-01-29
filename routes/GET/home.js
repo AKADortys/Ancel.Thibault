@@ -36,6 +36,7 @@ router.get('/home', async function (req, res) {
     
       categoriesHtml += `<div class="containeur">
                             <h1>${category.designation}</h1>
+                            <p>${category.description}</p>
                             <div class="leftbar">`;
     
       quizzesForCategory.forEach((quiz) => {

@@ -50,6 +50,7 @@
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        window.location.href = '/profil';
     })
     .catch(error => {
         console.error('Erreur lors de l\'envoi des données:', error);

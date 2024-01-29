@@ -1,5 +1,6 @@
 .quiz-create {
     border: 2px solid black;
+    margin: 10px;
     border-radius: 10px;
     width: 80%;
     background: radial-gradient(circle farthest-corner at center center, rgb(122, 122, 122) 5%, #3a3a3a 160%);
@@ -13,6 +14,9 @@
 .quiz-create span {
     color: red;
     font-weight: bolder;
+}
+.quiz-create h3{
+    color: yellow;
 }
 
 h1 {

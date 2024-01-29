@@ -44,20 +44,18 @@ router.get('/profil', async function (req, res) {
 
     let quizListe = '';
     if(quizUtilisateur.length > 0) {
-      quizListe = '<h3>Vos quizs :</h3><ul>';
+      quizListe = '<h3>Vos quizs :</h3>';
       quizUtilisateur.forEach((quiz) =>{
-        quizListe += `<li>${quiz.titre} <form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button type="submit">Supprimer</button></form><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></li>`;
+        quizListe += `<form method="post" action="/deleteQuiz/${quiz.id_quiz}"><p>${quiz.titre} <button type="submit">Supprimer</button><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
       });
-      quizListe += '</ul>';
     }
 
     let categoriesListe = '';
     if (categoriesUtilisateur.length > 0) {
-      categoriesListe = '<h3>Vos catégories :</h3><ul>';
+      categoriesListe = '<h3>Vos catégories :</h3>';
       categoriesUtilisateur.forEach((categorie) => {
-        categoriesListe += `<li>${categorie.designation} <form method="post" action="/deleteCategory/${categorie.id_categ}"><button type="submit">Supprimer</button></form><a href="/manageCateg/${categorie.id_categ}">Modifier</a></li>`;
+        categoriesListe += `<form method="post" action="/deleteCategory/${categorie.id_categ}"><p>${categorie.designation} <button type="submit">Supprimer</button><a href="/manageCateg/${categorie.id_categ}">Modifier</a></form>`;
       });
-      categoriesListe += '</ul>';
     };
     let tableUser = `<table class='top10Modal-table'>
                   <tr>

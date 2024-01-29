@@ -116,11 +116,18 @@
 .AsideModal-main p {
     color: yellow;
     text-align: center;
+    gap: 10px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    padding: 0;
+    margin: 10px auto;
 }
 
 .AsideModal-main a {
-    background-color: greenyellow;
-    border: green 2px solid;
+    background-color: red;
+    border: rgb(255, 0, 170) 2px solid;
     transition: all 0.5s;
     text-decoration: none;
     color: black;
@@ -128,7 +135,8 @@
 }
 .AsideModal-main a:hover{
     background-color: green;
-    border: greenyellow 2px dashed;
+    border: red 2px dashed;
+    background-color: rgb(255, 0, 170)
 }
 
 .mainProfil-main {

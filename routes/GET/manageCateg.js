@@ -25,9 +25,9 @@ router.get('/manageCateg/:id',async function(req,res) {
     if(quizCateg.length > 0) {
       divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>`;
       quizCateg.forEach((quiz) =>{
-        divInfo += `<p>${quiz.titre} <form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button type="submit">Supprimer</button></form><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
+        divInfo += `<form method="post" action="/deleteQuiz/${quiz.id_quiz}"><p>${quiz.titre} <button type="submit">Supprimer</button><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
       });
-      divInfo += '</p></div>';
+      divInfo += '</div>';
     }
 
     if (!categorie) {
