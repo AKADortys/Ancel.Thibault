@@ -22,6 +22,8 @@ router.post('/manageCateg/:id', async function(req, res) {
         }
          await Categorie.update(formData,{where:{id_categ : idCateg}});
 
+         res.redirect('/profil');
+
     } catch (error) {
         console.error('Erreur lors de la recherche de la catégorie :', error);
         res.status(500).send('Erreur lors de la recherche de la catégorie');

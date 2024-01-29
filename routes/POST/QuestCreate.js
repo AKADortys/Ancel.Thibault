@@ -43,7 +43,7 @@ router.post('/QuestCreate', async function(req,res) {
       res.status(201).json({ message:'Nouvelle question créer avec succés !'}, newQuestion,newReponse,newReponse1,newReponse2)
 
     } catch (error) {
-        console.error('Erreur lors de l\'insertion du quiz :', error);
+        console.error('Erreur lors de l\'insertion de la question :', error);
     
         if (error.name === 'SequelizeValidationError') {
           return res.status(400).json({ error: 'Erreur de validation des données de la question' });
