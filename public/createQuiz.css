@@ -1,3 +1,9 @@
+.quiz-create p{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: small;
+}
 .quiz-create {
     border: 2px solid black;
     margin: 10px;
