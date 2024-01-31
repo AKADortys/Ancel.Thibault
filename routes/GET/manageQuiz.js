@@ -36,27 +36,23 @@ router.get('/manageQuiz/:id', async function (req, res) {
                                 <p>
                                     ${question.Intitule} <button type="submit">Supprimer</button><a href="/manageQuest/${question.id_question}">Modifier</a>
                                 </p>
-                            </form><h3>les reponses de la question :</h3>`;
+                            </form><h3>les reponses de la question :</h3><ul>`;
                 reponses.forEach(reponse => {
-                    divInfo += `<form method="delete" action/deleterepon/${reponse.id_reponse}>
-                                    <p>
-                                        ${reponse.reponse} <button type="submit">Supprimer</button><a href="/manageRepon/${reponse.id_reponse}">Modifier</a>
-                                    </p>
-                                </form>`;
+                    divInfo += `<li>${reponse.reponse}</li>`;
                 });
             }
         }
-        divInfo += `</div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer</button></form>`;
+        divInfo += `</ul></div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer</button></form>`;
 
         if (!quiz) {
             return res.status(404).json({ message: 'Le quiz n\'existe pas !' })
         }
         selectcateg += `</select>`;
-        const htmlQuiz = `<form class="quiz-create" method="put" action="/manageQuiz/${idQuiz}">
+        const htmlQuiz = `<form enctype="multipart/form-data" class="quiz-create" method="post" action="/manageQuiz/${idQuiz}">
                             <h1>Modification du Quiz ${quiz.titre}</h1>
                             <table>
                                 <tr>
-                                    <td>Nom catégorie :</td> <td><input name="designation" class="champ-form" type="text" placeholder="${quiz.titre}"</td>
+                                    <td>Nom catégorie :</td> <td><input name="titre" class="champ-form" type="text" placeholder="${quiz.titre}"</td>
                                 </tr>
                                 <tr>
                                     <td>Description :</td> <td><textarea name="description" class="champ-form" cols="30" rows="10">${quiz.description}</textarea></td>

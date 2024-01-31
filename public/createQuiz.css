@@ -21,6 +21,9 @@
     text-align: center;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
+.quiz-create ul{
+    list-style: none;
+}
 
 .quiz-create span {
     color: red;
@@ -37,6 +40,9 @@
     text-decoration: none;
     color: black;
     font-weight: normal;
+}
+.delete{
+    padding: 20px;
 }
 .delete:hover,.quiz-create a:hover{
     background-color: rgb(255,0,170);
