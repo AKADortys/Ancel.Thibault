@@ -46,7 +46,7 @@ router.get('/profil', async function (req, res) {
     if(quizUtilisateur.length > 0) {
       quizListe = '<h3>Vos quizs :</h3>';
       quizUtilisateur.forEach((quiz) =>{
-        quizListe += `<form method="post" action="/deleteQuiz/${quiz.id_quiz}"><p>${quiz.titre} <button type="submit">Supprimer</button><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
+        quizListe += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
       });
     }
 
@@ -54,7 +54,7 @@ router.get('/profil', async function (req, res) {
     if (categoriesUtilisateur.length > 0) {
       categoriesListe = '<h3>Vos catégories :</h3>';
       categoriesUtilisateur.forEach((categorie) => {
-        categoriesListe += `<form method="post" action="/deleteCategory/${categorie.id_categ}"><p>${categorie.designation} <button type="submit">Supprimer</button><a href="/manageCateg/${categorie.id_categ}">Modifier</a></form>`;
+        categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a>`;
       });
     };
     let tableUser = `<table class='top10Modal-table'>

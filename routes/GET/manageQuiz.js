@@ -3,14 +3,14 @@ const router = express.Router();
 const { Categorie, Question, Quiz, Reponse } = require('../../config/dbconnect')
 
 router.get('/manageQuiz/:id', async function (req, res) {
-
+    
     const idQuiz = req.params.id;
-
+    
     if (!req.session.utilisateur) {
         return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
     }
     const isAdmin = req.session.utilisateur.admin;
-
+    
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
         return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
@@ -18,7 +18,12 @@ router.get('/manageQuiz/:id', async function (req, res) {
     try {
         const quiz = await Quiz.findByPk(idQuiz);
         const questions = await Question.findAll({ where: { id_quiz: idQuiz } });
-
+        const categories =await Categorie.findAll();
+        let selectcateg = `<label for="categorie">Catégorie :</label><select name="categorie" id="categorie">`;
+        categories.forEach((categorie) => {
+          selectcateg += `<option value="${parseInt(categorie.id_categ)}">${categorie.designation}</option>`;
+        });
+        
         let divInfo = '<div class="quiz-create">';
 
         if (questions.length > 0) {
@@ -27,13 +32,13 @@ router.get('/manageQuiz/:id', async function (req, res) {
             for (const question of questions) {
                 const reponses = await Reponse.findAll({ where: { id_question: question.id_question } });
 
-                divInfo += `<form method="post" action="/deleteQuest/${question.id_question}">
+                divInfo += `<form method="delete" action="/deleteQuest/${question.id_question}">
                                 <p>
                                     ${question.Intitule} <button type="submit">Supprimer</button><a href="/manageQuest/${question.id_question}">Modifier</a>
                                 </p>
                             </form><h3>les reponses de la question :</h3>`;
                 reponses.forEach(reponse => {
-                    divInfo += `<form method="post" action/deleterepon/${reponse.id_reponse}>
+                    divInfo += `<form method="delete" action/deleterepon/${reponse.id_reponse}>
                                     <p>
                                         ${reponse.reponse} <button type="submit">Supprimer</button><a href="/manageRepon/${reponse.id_reponse}">Modifier</a>
                                     </p>
@@ -41,11 +46,13 @@ router.get('/manageQuiz/:id', async function (req, res) {
                 });
             }
         }
-        divInfo += '</div>';
+        divInfo += `</div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer</button></form>`;
+
         if (!quiz) {
             return res.status(404).json({ message: 'Le quiz n\'existe pas !' })
         }
-        const htmlQuiz = `<form class="quiz-create" method="post" action="/manageQuiz/${idQuiz}">
+        selectcateg += `</select>`;
+        const htmlQuiz = `<form class="quiz-create" method="put" action="/manageQuiz/${idQuiz}">
                             <h1>Modification du Quiz ${quiz.titre}</h1>
                             <table>
                                 <tr>
@@ -55,7 +62,10 @@ router.get('/manageQuiz/:id', async function (req, res) {
                                     <td>Description :</td> <td><textarea name="description" class="champ-form" cols="30" rows="10">${quiz.description}</textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="submit" value="Modifier" class="Boutton-form"></td> <td><input type="reset" value="Annuler" class="Boutton-form"></td>
+                                <td>${selectcateg}</td> <td>Ajouter une image:<input type="file" name="image"></td>
+                                </tr>
+                                <tr>
+                                <td><input type="submit" value="Modifier" class="Boutton-form"></td> <td><input type="reset" value="Annuler" class="Boutton-form"></td>
                                 </tr>
                             </table>
                         </form>`;

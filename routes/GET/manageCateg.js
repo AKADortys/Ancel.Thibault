@@ -22,13 +22,13 @@ router.get('/manageCateg/:id',async function(req,res) {
     const categorie = await Categorie.findByPk(idCateg);
 
     let divInfo ='<div class="quiz-create">';
+    divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>`;
     if(quizCateg.length > 0) {
-      divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>`;
       quizCateg.forEach((quiz) =>{
-        divInfo += `<form method="post" action="/deleteQuiz/${quiz.id_quiz}"><p>${quiz.titre} <button type="submit">Supprimer</button><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
+        divInfo += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
       });
-      divInfo += '</div>';
     }
+    divInfo += `</div><form method="post" action="/deleteCategory/${idCateg}"><button class="delete" type="submit">Supprimer</button></form>`;
 
     if (!categorie) {
       return res.status(404).json({ message: 'La catégorie n\'existe pas' });

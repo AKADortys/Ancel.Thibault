@@ -23,8 +23,8 @@ router.get('/home', async function (req, res) {
       if (!quizzesByCategory[idCateg]) {
         quizzesByCategory[idCateg] = [];
       }
-      // Remove 'public/' prefix from image path
-      quiz.adjustedImage = quiz.image.substring(7); // Assuming 'public/' is 7 characters
+  //supprimer une partie du chemin retourner par la BDD
+      quiz.adjustedImage = quiz.image.substring(7); 
       quizzesByCategory[idCateg].push(quiz);
     });
     

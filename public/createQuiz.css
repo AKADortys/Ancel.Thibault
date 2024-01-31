@@ -1,8 +1,13 @@
 .quiz-create p{
-    display: flex;
+    color: yellow;
+    text-align: center;
+    gap: 10px;
+    display: inline-flex;
     flex-wrap: wrap;
+    align-content: center;
     justify-content: center;
-    font-size: small;
+    padding: 0;
+    margin: 10px auto;
 }
 .quiz-create {
     border: 2px solid black;
@@ -24,7 +29,20 @@
 .quiz-create h3{
     color: yellow;
 }
-
+.delete,.quiz-create a{
+    /* padding: 20px; */
+    background-color: red;
+    border: rgb(255, 0, 170) 2px solid;
+    transition: all 0.5s;
+    text-decoration: none;
+    color: black;
+    font-weight: normal;
+}
+.delete:hover,.quiz-create a:hover{
+    background-color: rgb(255,0,170);
+    border: red 2px dashed;
+    color: white;
+}
 h1 {
     text-align: center;
     text-decoration: underline;

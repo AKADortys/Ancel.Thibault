@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Categorie} = require('../../config/dbconnect');
 
-router.post('/manageCateg/:id', async function(req, res) {
+router.put('/manageCateg/:id', async function(req, res) {
 
     const idCateg = req.params.id;
     const formData = {
