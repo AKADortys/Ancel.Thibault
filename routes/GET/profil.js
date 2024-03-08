@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Utilisateur,Categorie, Quiz, Question } = require('../../config/dbconnect');
+const { Utilisateur, Categorie, Quiz, Question } = require('../../config/dbconnect');
 
 router.get('/profil', async function (req, res) {
   try {
@@ -29,7 +29,7 @@ router.get('/profil', async function (req, res) {
 
     //compter le nombre de questions associése à l'utilisateur
     const questionUtilisateur = await Question.count({
-      where: {id_user: idUtilisateur},
+      where: { id_user: idUtilisateur },
     });
 
     // Rechercher les catégories associées à l'utilisateur
@@ -37,15 +37,15 @@ router.get('/profil', async function (req, res) {
       where: { id_user: idUtilisateur },
     });
     const quizUtilisateur = await Quiz.findAll({
-      where: {id_user: idUtilisateur},
+      where: { id_user: idUtilisateur },
     });
 
     const nbrsLignes = `<p>Nombres de question créer: ${questionUtilisateur}</p>`
 
     let quizListe = '';
-    if(quizUtilisateur.length > 0) {
+    if (quizUtilisateur.length > 0) {
       quizListe = '<h3>Vos quizs :</h3>';
-      quizUtilisateur.forEach((quiz) =>{
+      quizUtilisateur.forEach((quiz) => {
         quizListe += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
       });
     }
