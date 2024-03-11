@@ -7,7 +7,7 @@ router.get('/manageCateg/:id',async function(req,res) {
     const idCateg = req.params.id;
     
     if (!req.session.utilisateur) {
-        return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
+      return res.redirect('/userLogin');
     }
     const isAdmin = req.session.utilisateur.admin;
 

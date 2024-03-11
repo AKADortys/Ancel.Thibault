@@ -4,11 +4,15 @@ const { Utilisateur, Categorie } = require('../../config/dbconnect');
 
 router.get('/quizcreate', async function (req, res) {
   try {
-    // Vérifier si la session de l'utilisateur existe
     if (!req.session.utilisateur) {
-      // Si la session n'est pas détectée, rediriger vers la page de connexion
       return res.redirect('/userLogin');
-    }
+  }
+  const isAdmin = req.session.utilisateur.admin;
+  
+  // Vérifier si l'utilisateur est un administrateur
+  if (!isAdmin) {
+      return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
+  }
     // Récupérer toutes les catégories disponibles depuis la base de données
     const categories = await Categorie.findAll();
 

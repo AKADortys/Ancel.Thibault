@@ -3,6 +3,16 @@ const { Quiz } = require('../../config/dbconnect');
 const router = express.Router();
 
 router.get('/questcreate', async function (req, res) {
+
+    if (!req.session.utilisateur) {
+        return res.redirect('/userLogin');
+    }
+    const isAdmin = req.session.utilisateur.admin;
+    
+    // Vérifier si l'utilisateur est un administrateur
+    if (!isAdmin) {
+        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
+    }
     try {
         if (!req.session.utilisateur) { return res.redirect('/userLogin'); }
         const quiz = await Quiz.findAll();

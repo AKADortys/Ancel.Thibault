@@ -7,7 +7,7 @@ router.get('/manageQuest/:id', async function (req, res) {
     const idQuestion = req.params.id;
 
     if (!req.session.utilisateur) {
-        return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
+        return res.redirect('/userLogin');
     }
     const isAdmin = req.session.utilisateur.admin;
 
@@ -24,7 +24,14 @@ router.get('/manageQuest/:id', async function (req, res) {
 console.log(reponseCorrect);
         let selectQuiz = `<label for="quiz">Quiz:</label><select name="quiz" id="quiz">`;
         quiz.forEach((quiz) => {
-            selectQuiz += `<option value="${quiz.id_quiz}">${quiz.titre}</option>`;
+            if(quiz.id_quiz === question.id_quiz){
+                
+                selectQuiz += `<option value="${quiz.id_quiz}" selected>${quiz.titre}</option>`;
+            }
+            else{
+
+                selectQuiz += `<option value="${quiz.id_quiz}">${quiz.titre}</option>`;
+            }
         });
         selectQuiz += '</select>';
 
@@ -80,8 +87,8 @@ console.log(reponseCorrect);
 
 
     catch (error) {
-        console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
-        res.status(500).send('Erreur lors de la récupération des informations de l\'utilisateur');
+        console.error('Erreur lors de la récupération des informations de la question :', error);
+        res.status(500).send('Erreur lors de la récupération des informations de la question');
     }
 });
 
