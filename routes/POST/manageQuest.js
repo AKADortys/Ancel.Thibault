@@ -47,8 +47,8 @@ router.post('/manageQuest/:id', async function (req, res) {
             await Reponse.update(formDataRepIncc, { where: { id_reponse: incorrectResponses[0].id_reponse } });
             await Reponse.update(formDataRepIncc1, { where: { id_reponse: incorrectResponses[1].id_reponse } });
         }
-
-        res.status(200).json({ message: 'Mise à jour réussie.' });
+        
+        res.redirect('/profil');
     } catch (error) {
         console.error('Erreur lors de la mise à jour de la question et des réponses :', error);
         res.status(500).json({ message: 'Erreur lors de la mise à jour de la question et des réponses.' });
