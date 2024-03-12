@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         notNull: { msg: 'La valeur totale du score est requise.' },
         isInt: { msg: 'La valeur totale du score doit être un nombre entier.' },
         min: { args: [0], msg: 'La valeur totale du score doit être d\'au moins 0.' }
-        // Vous pouvez ajuster la valeur minimale selon vos besoins
       }
     },
     MaJ: {

@@ -32,7 +32,7 @@ router.get('/manageQuiz/:id', async function (req, res) {
             for (const question of questions) {
                 const reponses = await Reponse.findAll({ where: { id_question: question.id_question } });
 
-                divInfo += `<form method="delete" action="/deleteQuest/${question.id_question}">
+                divInfo += `<form method="post" action="/deleteQuest/${question.id_question}">
                                 <p>
                                     ${question.Intitule} <button type="submit">Supprimer</button><a href="/manageQuest/${question.id_question}">Modifier</a>
                                 </p>
