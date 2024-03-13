@@ -6,6 +6,8 @@ router.post('/sign-in', async (req, res) => {
   try {
     const { pseudo, pwd, admin, nom, prenom, mail } = req.body;
 
+    console.log('Données reçues du formulaire :', req.body);
+
     // Vérifier si toutes les informations nécessaires sont fournies dans la requête
     if (!pseudo || !pwd  || !mail) {
       return res.status(400).json({ message: 'Veuillez fournir toutes les informations nécessaires' });

@@ -36,6 +36,7 @@ app.use('/', require('./routes/GET/questioncreate'));
 app.use('/', require('./routes/GET/manageCateg'));
 app.use('/', require('./routes/GET/manageQuest'));
 app.use('/', require('./routes/GET/manageQuiz'));
+app.use('/', require('./routes/GET/manageUser'));
 app.use('/', require('./routes/GET/userLogin'));
 app.use('/', require('./routes/POST/QuizCreate'));
 app.use('/', require('./routes/POST/loggin'));

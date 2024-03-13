@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/navBar.css" type="text/css">
-    <link rel="stylesheet" href="/AsideModal.css" type="text/css">
-    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="/manageUser.css" type="text/css">
+    <title>Modifier utilisateur</title>
 </head>
-
 <body style="display: flex; flex-wrap: wrap; background-image: url(Images/comb\ grid.jpg) ">
     <%- include('../partials/navBar') %>
-        <%- include('../partials/AsideModalProfil') %>
-            <main class="mainProfil-main">
-                <%- tableUser %>
-                <%- allUsers %>
-            </main>
+    <%-tableauUser%>
+    <%-formUser%>
 </body>
-
 </html>
