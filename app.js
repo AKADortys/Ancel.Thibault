@@ -48,6 +48,7 @@ app.use('/', require('./routes/POST/deleteQuest'));
 app.use('/', require('./routes/POST/deleteQuiz'));
 app.use('/', require('./routes/POST/manageCateg'));
 app.use('/', require('./routes/POST/manageQuiz'));
+app.use('/', require('./routes/POST/manageUser'));
 app.use('/', require('./routes/POST/manageQuest'));
 
 // App port

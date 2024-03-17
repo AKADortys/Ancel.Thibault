@@ -121,6 +121,10 @@ router.get('/profil', async function (req, res) {
                       <td>Votre status :</td>
                       <td>${status}</td>
                   </tr>
+                  <tr>
+                    <td>Modification :</td>
+                    <td><a href="/manageUser/${utilisateur.id_user}">Modifier</a></td>
+                  </tr>
                 </table>`;
 
     res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes, allUsers });
