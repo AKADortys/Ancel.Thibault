@@ -5,6 +5,8 @@ const {Categorie, Question, Quiz} =require('../../config/dbconnect')
 router.get('/manageCateg/:id',async function(req,res) {
     
     const idCateg = req.params.id;
+        //recupérer le pseudo utilisateur pour la nav bar
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
     
     if (!req.session.utilisateur) {
       return res.redirect('/userLogin');
@@ -44,7 +46,7 @@ router.get('/manageCateg/:id',async function(req,res) {
                         <td><input type="submit" value="Modifier" class="Boutton-form"></td> <td><input type="reset" value="Annuler" class="Boutton-form"></td>
                     </tr>
                 </table></form>`;
-    res.render('login/manageCateg',{htmlCateg, divInfo});
+    res.render('login/manageCateg',{htmlCateg, divInfo, pseudoUtilisateur});
 
     } catch (error) {
         console.error('Erreur lors de la recherche de la catégorie :', error);

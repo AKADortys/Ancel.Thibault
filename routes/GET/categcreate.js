@@ -11,7 +11,9 @@ const isAdmin = req.session.utilisateur.admin;
 if (!isAdmin) {
     return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
 }
-    res.render('login/usercreatecateg');
+    //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
+    res.render('login/usercreatecateg',{pseudoUtilisateur});
   })
   
 

@@ -16,6 +16,8 @@ router.get('/manageQuiz/:id', async function (req, res) {
         return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
     }
     try {
+            //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
         const quiz = await Quiz.findByPk(idQuiz);
         const questions = await Question.findAll({ where: { id_quiz: idQuiz } });
         const categories =await Categorie.findAll();
@@ -66,7 +68,7 @@ router.get('/manageQuiz/:id', async function (req, res) {
                             </table>
                         </form>`;
 
-        res.render('login/manageQuiz', { divInfo, htmlQuiz });
+        res.render('login/manageQuiz', { divInfo, htmlQuiz, pseudoUtilisateur });
     } catch (error) {
         console.error('Erreur lors de la recherche du quiz :', error);
         res.status(500).send('Erreur lors de la recherche du quiz');

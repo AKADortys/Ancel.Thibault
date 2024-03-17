@@ -8,12 +8,30 @@ html {
     --bg-color: rgb(20, 20, 20);
 }
 
+header{
+    width: 100%;
+}
+
 .navBar-nav {
     width: 100%;
     background-color: var(--bg-color);
     margin-top: 0;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.navBar-nav ul{
+    display: flex;
+    list-style: none;
+    width: 90%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navBar-nav li{
+    padding: 0 20px;
+    color: blue;
 }
 
 .navBar-nav img {
@@ -41,16 +59,4 @@ html {
 
 .navBar-nav a:hover {
     color: yellow;
-}
-
-.navBar-nav p {
-    text-align: center;
-    width: 27%;
-    /* height: 100%; */
-    margin: 0;
-    padding: 10px;
-}
-
-.navBar-nav p:hover {
-    border-bottom: 1px solid greenyellow
 }

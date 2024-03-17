@@ -13,6 +13,8 @@ router.get('/profil', async function (req, res) {
     // Récupérer l'id de l'utilisateur à partir de la session
     const idUtilisateur = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
+        //recupérer le pseudo utilisateur pour la nav bar
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
     // Rechercher l'utilisateur dans la base de données par l'id
     const utilisateur = await Utilisateur.findByPk(idUtilisateur);
@@ -127,7 +129,7 @@ router.get('/profil', async function (req, res) {
                   </tr>
                 </table>`;
 
-    res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes, allUsers });
+    res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes, allUsers, pseudoUtilisateur });
   } catch (error) {
     console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
     res.status(500).send('Erreur lors de la récupération des informations de l\'utilisateur');

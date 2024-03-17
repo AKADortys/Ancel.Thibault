@@ -17,6 +17,8 @@ router.get('/manageQuest/:id', async function (req, res) {
     }
 
     try {
+            //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
         const question = await Question.findByPk(idQuestion);
         const reponseIncorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: false } });
         const reponseCorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: true } });
@@ -82,7 +84,7 @@ router.get('/manageQuest/:id', async function (req, res) {
             <td><input type="reset" value="Annuler" class="Boutton-form"></td>
         </tr></table></form>`;
 
-        res.render('login/manageQuest', { htmlQuestion })
+        res.render('login/manageQuest', { htmlQuestion , pseudoUtilisateur})
     }
 
 

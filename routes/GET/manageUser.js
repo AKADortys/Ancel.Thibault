@@ -11,6 +11,8 @@ router.get('/manageUser/:id', async function (req, res) {
     const isAdmin = req.session.utilisateur.admin;
     const idUserSession = req.session.utilisateur.id_user;
     const userId = req.params.id;
+        //recupérer le pseudo utilisateur pour la nav bar
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
     console.log(`id session : ${idUserSession}  id params : ${userId}`)
 
@@ -72,7 +74,7 @@ router.get('/manageUser/:id', async function (req, res) {
             </p>
             </form>`;
             
-            res.render('login/manageUser', {formUser, tableauUser})
+            res.render('login/manageUser', {formUser, tableauUser, pseudoUtilisateur})
             
         }
         

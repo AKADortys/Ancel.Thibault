@@ -23,7 +23,10 @@ router.get('/quizcreate', async function (req, res) {
     });
     selectcateg += `</select>`;
 
-    res.render('login/usercreatequiz', { selectcateg });
+        //recupérer le pseudo utilisateur pour la nav bar
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+
+    res.render('login/usercreatequiz', { selectcateg , pseudoUtilisateur});
   } catch (error) {
     console.error('Erreur lors de l\'accès à la création de quiz :', error);
     res.status(500).send('Erreur lors de l\'accès à la création de quiz');

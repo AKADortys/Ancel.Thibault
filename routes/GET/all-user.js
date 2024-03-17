@@ -6,6 +6,8 @@ router.get('/all-user', async function (req, res) {
   try {
     // Récupérer tous les utilisateurs depuis la base de données
     const utilisateurs = await Utilisateur.findAll();
+        //recupérer le pseudo utilisateur pour la nav bar
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
     if (utilisateurs.length === 0) {
       return res.status(404).send('Aucun utilisateur trouvé.');
@@ -25,7 +27,7 @@ router.get('/all-user', async function (req, res) {
 
     tableHtml += '</table>';
 
-    res.render('login/all-user', { tableHtml });
+    res.render('login/all-user', { tableHtml, pseudoUtilisateur });
   } catch (error) {
     console.error('Erreur lors de la récupération des utilisateurs :', error);
 

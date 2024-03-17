@@ -10,8 +10,25 @@ router.get('/home', async function (req, res) {
       return res.redirect('/userLogin');
     }
 
-    // Récupérer toutes les catégories
+    //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
+
+    //créer une liste des catégories et de leurs quizs asignés
     const categories = await Categorie.findAll();
+    let listeCategorie = `<ul>`;
+    
+    for (const categ of categories) {
+      listeCategorie += `<li>${categ.designation}<ul class="submenu">`;
+    
+      const quizCateg = await Quiz.findAll({ where: { id_categ: categ.id_categ } });
+      for (const quizz of quizCateg) {
+        listeCategorie += `<li>${quizz.titre}</li>`;
+      }
+      listeCategorie += '</ul></li>';
+    }
+    
+    listeCategorie += `</ul>`;
+    
 
     // Récupérer tous les quizzes
     const quizzes = await Quiz.findAll();
@@ -67,7 +84,7 @@ router.get('/home', async function (req, res) {
     tableHtml += '</table>';
 
     // Rendu de la vue EJS avec les données
-    res.render('home/index', { tableHtml, categoriesHtml });
+    res.render('home/index', { tableHtml, categoriesHtml, listeCategorie, pseudoUtilisateur });
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
     res.status(500).send('Erreur lors de la récupération des données');

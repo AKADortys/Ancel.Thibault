@@ -159,8 +159,7 @@ section p {
 }
 
 section:hover p,
-section:hover h2,
-section:hover audio {
+section:hover h2{
     opacity: 1;
 }
 
@@ -173,3 +172,4 @@ h5 {
     width: 100%;
     margin: 0;
 }
+
