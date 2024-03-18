@@ -50,7 +50,8 @@ router.get('/profil', async function (req, res) {
 
     if (allUtilisateur.length > 0) {
 
-      allUsers += `<table class='top10Modal-table'>
+      allUsers += `<h3>Tout les utilisateurs</h3>
+                    <table>
                       <th>ID</th>
                       <th>pseudo</th>
                       <th>Admin</th>
@@ -98,7 +99,8 @@ router.get('/profil', async function (req, res) {
         categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a>`;
       });
     }};
-    let tableUser = `<table class='top10Modal-table'>
+    let tableUser = `<h3>Vos informations</h3>
+                <table class='top10Modal-table'>
                   <tr>
                       <td>Votre pseudo :</td>
                       <td>${utilisateur.pseudo}</td>

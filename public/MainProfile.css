@@ -1,0 +1,32 @@
+main{
+    background-color: rgba(128, 128, 128, 0.605);
+    border: greenyellow outset 3px;
+    width: 75%;
+    margin: 10px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+}
+
+main table{
+    border: 2px solid green;
+    background-color: grey;
+    width: 85%;
+    margin: 10px 0;
+}
+
+main td{
+    padding: 10px 5px;
+    color: greenyellow;
+    text-align: center;
+}
+
+main a{
+    color: black;
+    border: 2px solid green;
+    background-color: greenyellow;
+    text-decoration: none;
+    padding: 5px;
+}

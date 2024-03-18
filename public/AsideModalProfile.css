@@ -1,0 +1,32 @@
+aside{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: rgba(148, 148, 148, 0.625);
+    width: 20%;
+}
+
+h3{
+    padding: 10px;
+    background-color: aliceblue;
+    border: 2px solid black;
+    width: 80%;
+    text-align: center;
+}
+
+aside p{
+    color: blue;
+    width: 100%;
+    text-align: center;
+}
+
+aside a{
+    color: black;
+    border: 2px solid green;
+    background-color: greenyellow;
+    margin: 0 5px;
+    text-decoration: none;
+    padding: 5px;
+}
