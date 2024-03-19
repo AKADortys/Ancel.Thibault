@@ -73,6 +73,7 @@ Interface en HTML et stylisée en CSS.
 API validée sur Node.js avec le framework Express.js.
 Base de données MySQL pour stocker les utilisateurs, les scores, les questions, etc.
 Accès sécurisé avec gestion des rôles (joueur, admin).
+Utilisation de XAMPP server et PHPMyAdmin
 Le projet est versionné sur GitHub avec un repo privé.
 
 Modèle logique textuel :
