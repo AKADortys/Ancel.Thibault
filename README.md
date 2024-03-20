@@ -41,14 +41,23 @@ Chaque quiz est composé de questions en référence à leur catégorie respecti
 Niveau de Difficulté :
 
 Chaque question a un niveau de difficulté (easy, medium, hard).
-Les utilisateurs peuvent choisir le niveau de difficulté de leur quiz.
+
 
 Jeu de Quiz :
 
-La fonction startQuiz() propose une série de questions à l'utilisateur en fonction de la catégorie et du niveau de difficulté choisis.
-Un compte à rebours est lancé pour chaque question, et les utilisateurs répondent dans le temps imparti avec QCM (3 reponses 1 vraie).
-Les réponses correctes sont confirmées, sinon la réponse correcte est affichée avant de passer à la question suivante.
-Le score final est enregistré à la fin du quiz.
+La fonction startQuiz() propose une série de questions à l'utilisateur en fonction du quiz .
+Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la fonction startQuiz(), voici les étapes :
+
+1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
+2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
+3. Mélange aléatoire des questions pour rendre le quiz plus varié.
+4. Affichage de chaque question une par une à l'utilisateur.
+5. Lancement d'un compte à rebours pour chaque question.
+6. Gestion des réponses de l'utilisateur : récupération et validation.
+7. Affichage de la réponse correcte si l'utilisateur répond incorrectement.
+8. Enregistrement du score de l'utilisateur.
+9. Répétition des étapes précédentes jusqu'à ce que toutes les questions aient été posées.
+10. Affichage du score final à l'utilisateur à la fin du quiz.
 
 Consultation des Scores :
 
@@ -64,6 +73,7 @@ Interface en HTML et stylisée en CSS.
 API validée sur Node.js avec le framework Express.js.
 Base de données MySQL pour stocker les utilisateurs, les scores, les questions, etc.
 Accès sécurisé avec gestion des rôles (joueur, admin).
+Utilisation de XAMPP server et PHPMyAdmin
 Le projet est versionné sur GitHub avec un repo privé.
 
 Modèle logique textuel :
