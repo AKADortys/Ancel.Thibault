@@ -30,3 +30,56 @@ main a{
     text-decoration: none;
     padding: 5px;
 }
+
+.allCategQuiz{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 95%;
+    background-color: grey;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.allCategQuiz section{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgb(61, 61, 61);
+    color: greenyellow;
+    margin: 5px 0;
+}
+
+main h2{
+    background-color: whitesmoke;
+    padding: 10px;
+    border: solid black 2px;
+    width: 50%;
+    text-align: center;
+}
+
+.allCategQuiz h3{
+    color: blue;
+    font-weight: bolder;
+    width: 80%;
+    text-align: center;
+}
+
+.allCategQuiz img{
+    width: 300px;
+    height: 300px;
+}
+
+.allCategQuiz>p{
+    width: 100%;
+    text-align: justify;
+}
+
+.allCategQuiz section p{
+    text-align: center;
+    padding: 0 5px;
+    width: 100%;
+}

@@ -3,12 +3,12 @@ aside{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    align-content: flex-start;
     background-color: rgba(148, 148, 148, 0.625);
     width: 20%;
 }
 
-h3{
+aside h3{
     padding: 10px;
     background-color: aliceblue;
     border: 2px solid black;

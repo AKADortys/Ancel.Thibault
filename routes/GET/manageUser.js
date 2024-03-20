@@ -64,15 +64,20 @@ router.get('/manageUser/:id', async function (req, res) {
             <p>
             <label for="mail">Mail:</label>
             <input type="text" name="mail" id="mail" value="${utilisateur.mail}"
-            </p>
-            <p>
-            <label for="admin">Admin:</label>
-            <input type="checkbox" name="admin" id="admin" ${utilisateur.admin === true ? 'checked' : ''}>
-            </p>
-            <p>
-            <input type="submit" value="Confirmer les modifications">
-            </p>
-            </form>`;
+            </p>`
+            if(isAdmin){
+                
+             formUser += 
+                `<p>
+                    <label for="admin">Admin:</label>
+                    <input type="checkbox" name="admin" id="admin" ${utilisateur.admin === true ? 'checked' : ''}>
+                </p>`
+        }
+        formUser += `   <p>
+                        <input type="submit" value="Confirmer les modifications">
+                        </p>
+                    </form>`;
+            
             
             res.render('login/manageUser', {formUser, tableauUser, pseudoUtilisateur})
             
