@@ -23,7 +23,7 @@ router.post('/loggin', async (req, res) => {
             // Creation de la session avec les données utilisateur
             req.session.utilisateur = utilisateur.dataValues;
             console.log(req.session.utilisateur);
-            return res.json({ message: 'Authentification réussie', identifie: true });
+            return res.redirect('/home')
         } else {
             return res.status(401).json({ message: 'Identifiants invalides' });
         }

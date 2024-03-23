@@ -10,14 +10,14 @@ router.get('/quizcreate', async function (req, res) {
   const isAdmin = req.session.utilisateur.admin;
   
   // Vérifier si l'utilisateur est un administrateur
-  if (!isAdmin) {
+  if (!isAdmin) { 
       return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
   }
     // Récupérer toutes les catégories disponibles depuis la base de données
     const categories = await Categorie.findAll();
 
     // Générer une liste déroulante des catégories
-    let selectcateg = `<label for="categorie">Catégorie :</label><select name="categorie" id="categorie">`;
+    let selectcateg = `<label for="categorie">Catégorie :</label><select name="id_categ" id="categorie">`;
     categories.forEach((categorie) => {
       selectcateg += `<option value="${parseInt(categorie.id_categ)}">${categorie.designation}</option>`;
     });

@@ -1,15 +1,15 @@
 <div class="loginModal-container">
     <div class="loginModal-box">
-        <form class="loginModal-box-form" id="loginForm">
+        <form class="loginModal-box-form" id="loginForm" action="/loggin" method="post">
             <h1 class="loginModal-h1">Le Quizz de la généralité</h1>
             <img src="Images/circle.png" class="loginModal-img" alt="">
             <table>
                 <tr>
-                    <td align="center" colspan="2">Nom utilisateur : <input type="text" class="loginModal-user-input"
+                    <td align="center" colspan="2">Nom utilisateur : <input name="pseudo" type="text" class="loginModal-user-input"
                             placeholder="Nom d'utilisateur" id="userLog-name"></td>
                 </tr>
                 <tr>
-                    <td align="center" colspan="2">Mot de passe : <input type="password" class="loginModal-user-input"
+                    <td align="center" colspan="2">Mot de passe : <input name="pwd" type="password" class="loginModal-user-input"
                             placeholder="Mot de passe" id="userLog-pwd">
                         <p class="loginModal-box-form-footer">Vous n'avez pas de compte ? créer en un <a
                                 href="/login">ici</a> !</p>
@@ -24,41 +24,5 @@
             </table>
             <img src="Images/circle.png" class="loginModal-img" alt="">
         </form>
-        <script>
-            document.getElementById('loginForm').addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                const userName = document.getElementById('userLog-name').value;
-                const mdp = document.getElementById('userLog-pwd').value;
-                const formData = {
-                    pseudo: userName,
-                    pwd: mdp
-                };
-                fetch('http://localhost:3000/loggin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-
-                    },
-                    body: JSON.stringify(formData)
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erreur du serveur');
-                        }
-                        return response.json();
-                    })
-                    // Traitez la réponse du serveur ici
-                    .then(data => {
-                        console.log(data);
-                        window.location.href = '/home';
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de l\'envoi des données:', error);
-                        alert('Nom utilisateur ou mot de passe invalide !');
-
-                    })
-            })
-        </script>
     </div>
 </div>

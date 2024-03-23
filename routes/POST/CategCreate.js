@@ -29,7 +29,8 @@ router.post('/CategCreate', async (req, res) => {
       id_user: idUser
     });
 
-    res.status(201).json({ message: 'Nouvelle catégorie créée avec succès !', newCategorie });
+    console.log('Nouvelle catégorie créée avec succès !', newCategorie );
+    res.redirect('/profil');
 
   } catch (error) {
     console.error('Erreur lors de l\'insertion de la catégorie :', error);

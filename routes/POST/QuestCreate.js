@@ -40,8 +40,8 @@ router.post('/QuestCreate', async function(req,res) {
             correct: false,
             id_question :idQuestion
       });
-      res.status(201).json({ message:'Nouvelle question créer avec succés !'}, newQuestion,newReponse,newReponse1,newReponse2)
-
+      console.log('Nouvelle question créer avec succés !', newQuestion,newReponse,newReponse1,newReponse2);
+      res.redirect('/profil');
     } catch (error) {
         console.error('Erreur lors de l\'insertion de la question :', error);
     

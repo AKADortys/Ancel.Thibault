@@ -1,4 +1,4 @@
-<form enctype="multipart/form-data" id="quiz-create" class="quiz-create">
+<form enctype="multipart/form-data" method="post" action="/QuizCreate" class="quiz-create">
     <h1>Création du quizz :</h1>
     <table>
         <tr>
@@ -6,7 +6,7 @@
                 Nom du quiz :
             </td>
             <td>
-                <input type="text" minlength="1" maxlength="50" id="quizName" class="champ-form"
+                <input type="text" minlength="1" maxlength="50" name="titre" class="champ-form"
                     placeholder="nom du quiz">
             </td>
         </tr> 
@@ -15,7 +15,7 @@
                 Description :
             </td>
             <td>
-                <textarea id="quizDesc" cols="30" rows="10" maxlength="200" class="champ-form"
+                <textarea name="description" cols="30" rows="10" maxlength="200" class="champ-form"
                     placeholder="description du quiz"></textarea>
             </td>
         </tr>
@@ -33,28 +33,3 @@
         </tr>
     </table>
 </form>
-<script>document.getElementById("quiz-create").addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    // Ajoutez d'autres données si nécessaire
-    formData.append('titre', document.getElementById('quizName').value);
-    formData.append('description', document.getElementById('quizDesc').value);
-    formData.append('id_categ', document.getElementById('categorie').value);
-
-    // Envoyer les données au serveur via fetch
-    fetch('http://localhost:3000/QuizCreate', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        window.location.href = '/profil';
-    })
-    .catch(error => {
-        console.error('Erreur lors de l\'envoi des données:', error);
-    });
-});
-
-</script>

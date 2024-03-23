@@ -1,4 +1,4 @@
-<form id="categ-create" class="quiz-create">
+<form action="/CategCreate" class="quiz-create" method="post">
     <h1>Création d'une catégorie :</h1>
     <table>
         <tr>
@@ -6,7 +6,7 @@
                 Nom catégorie :
             </td>
             <td>
-                <input class="champ-form" type="text" minlength="1" maxlength="50" id="categName"
+                <input class="champ-form" type="text" minlength="1" maxlength="50" name="designation"
                     placeholder="nom de la catégorie">
             </td>
         </tr>
@@ -15,7 +15,7 @@
                 Description :
             </td>
             <td>
-                <textarea class="champ-form" id="categDesc" cols="30" rows="10" maxlength="200"
+                <textarea class="champ-form" name="description" cols="30" rows="10" maxlength="200"
                     placeholder="description de la catégorie"></textarea>
             </td>
         </tr>
@@ -29,42 +29,3 @@
         </tr>
     </table>
 </form>
-<script>
-    document.getElementById("categ-create").addEventListener("submit", function (event) {
-        // Empêcher le comportement par défaut du formulaire (rechargement de la page)
-        event.preventDefault();
-
-        const formData = {
-            designation: document.getElementById('categName').value,
-            description: document.getElementById('categDesc').value
-        }
-
-
-                        // Envoyer les données au serveur via fetch
-                        fetch('http://localhost:3000/CategCreate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-
-                },
-                body: JSON.stringify(formData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erreur du serveur');
-                    }
-                    return response.json();
-                })
-                // Traitez la réponse du serveur ici
-                .then(data => {
-                    alert(JSON.stringify(data));
-                    console.log(data);
-                    window.location.href = '/profil';
-
-                })
-                .catch(error => {
-                    console.error('Erreur lors de l\'envoi des données:', error);
-
-                });
-    });
-</script>

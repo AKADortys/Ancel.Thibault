@@ -4,9 +4,11 @@ const { Utilisateur } = require('../../config/dbconnect');
 
 router.post('/sign-in', async (req, res) => {
   try {
-    const { pseudo, pwd, admin, nom, prenom, mail } = req.body;
+    const { pseudo, pwd,pwdConf, admin, nom, prenom, mail } = req.body;
 
     console.log('Données reçues du formulaire :', req.body);
+
+    if(pwd !== pwdConf){return res.send('Les mot de passe doivent être identiques')};
 
     // Vérifier si toutes les informations nécessaires sont fournies dans la requête
     if (!pseudo || !pwd  || !mail) {
@@ -27,7 +29,7 @@ router.post('/sign-in', async (req, res) => {
     req.session.utilisateur = utilisateur.dataValues;
     console.log(req.session.utilisateur);
 
-    res.status(201).json({ message: 'Utilisateur inséré avec succès', utilisateur });
+    res.redirect('/home');
 
   } catch (error) {
     console.error('Erreur lors de l\'insertion de l\'utilisateur :', error);

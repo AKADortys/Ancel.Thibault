@@ -38,7 +38,8 @@ router.post('/QuizCreate', upload.single('image'), async (req, res) => {
       image: adjustedImagePath,
     });
 
-    res.status(201).json({ message: 'Nouveau quiz créé avec succès !', newQuiz });
+    console.log('Nouveau quiz créé avec succès !', newQuiz );
+    res.redirect('/profil')
 
   } catch (error) {
     console.error('Erreur lors de l\'insertion du quiz :', error);

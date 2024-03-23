@@ -1,4 +1,4 @@
-<form id="quest-create" class="quiz-create">
+<form method="post" action="/QuestCreate" class="quiz-create">
     <h1>Insertion des questions du quiz</h1>
     <table>
         <tr>
@@ -8,14 +8,14 @@
         </tr>
         <tr>
             <td colspan="2">
-                <textarea id="questInti" cols="30" rows="10" maxlength="200" class="champ-form"
+                <textarea name="Intitule" cols="30" rows="10" maxlength="200" class="champ-form"
                     placeholder="intitulé de la question"></textarea>
             </td>
         </tr>
         <tr>
             <td>
                 <label for="questDiff">Difficultés :</label>
-                <select name="difficult" id="questDiff">
+                <select name="difficulte" id="questDiff">
                     <option value="1">Facile</option>
                     <option value="2">Moyen</option>
                     <option value="3">Difficile</option>
@@ -24,15 +24,15 @@
             <td><%-selectQuiz%></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep1" class="champ-form"
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" name="correct" class="champ-form"
                     placeholder="La bonne réponse ici !"></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep2" class="champ-form"
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" name="rep1" class="champ-form"
                     placeholder="Mauvaise réponse"></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="text" minlength="1" maxlength="100" id="questRep3" class="champ-form"
+            <td colspan="2"><input type="text" minlength="1" maxlength="100" name="rep2" class="champ-form"
                     placeholder="Mauvaise réponse"></td>
         </tr>
         <tr>
