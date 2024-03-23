@@ -30,7 +30,7 @@ router.get('/manageCateg/:id',async function(req,res) {
         divInfo += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
       });
     }
-    divInfo += `</div><form method="post" action="/deleteCategory/${idCateg}"><button class="delete" type="submit">Supprimer</button></form>`;
+    divInfo += `</div><form method="post" action="/deleteCategory/${idCateg}"><button class="delete" type="submit">Supprimer la catégorie</button></form>`;
 
     if (!categorie) {
       return res.status(404).json({ message: 'La catégorie n\'existe pas' });

@@ -34,17 +34,17 @@ router.get('/manageQuiz/:id', async function (req, res) {
             for (const question of questions) {
                 const reponses = await Reponse.findAll({ where: { id_question: question.id_question } });
 
-                divInfo += `<form method="post" action="/deleteQuest/${question.id_question}">
+                divInfo += `
                                 <p>
-                                    ${question.Intitule} <button type="submit">Supprimer</button><a href="/manageQuest/${question.id_question}">Modifier</a>
+                                    ${question.Intitule} <a href="/manageQuest/${question.id_question}">Modifier</a>
                                 </p>
-                            </form><h3>les reponses de la question :</h3><ul>`;
+                            <h3>les reponses de la question :</h3><ul>`;
                 reponses.forEach(reponse => {
                     divInfo += `<li>${reponse.reponse}</li>`;
                 });
             }
         }
-        divInfo += `</ul></div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer</button></form>`;
+        divInfo += `</ul></div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer le quiz</button></form>`;
 
         if (!quiz) {
             return res.status(404).json({ message: 'Le quiz n\'existe pas !' })

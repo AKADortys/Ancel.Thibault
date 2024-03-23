@@ -38,56 +38,57 @@ router.get('/manageQuest/:id', async function (req, res) {
         selectQuiz += '</select>';
 
         let htmlQuestion =
-            `<form method="post" class="quiz-create" action="/manageQuest/${idQuestion}">
-            <h1>Modification la question</h1>
-            <table>
-            <tr>
-                <td colspan="2">Intitulé de la question :</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea id="questInti" name="questInti" cols="30" rows="10" maxlenght="200" class="champ-form">
-                    ${question.Intitule}
-                    </textarea>
-                </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="questDiff">Difficulté :</label>
-                <select name="questDiff" id="questDiff">
-                    <option value="1" ${question.difficulte === 1 ? 'selected' : ''}>Facile</option>
-                    <option value="2" ${question.difficulte === 2 ? 'selected' : ''}>Moyen</option>
-                    <option value="3" ${question.difficulte === 3 ? 'selected' : ''}>Difficile</option>
-                </select>
-            </td>
-                <td>${selectQuiz}</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="text" minlength="1" maxlength="100" id="questRep" name="questRep" class="champ-form" value="${reponseCorrect[0].dataValues.reponse}">
-                </td>
-            </tr>`;
+        `<form method="post" class="quiz-create" action="/manageQuest/${idQuestion}">
+        <h1>Modification la question</h1>
+        <table>
+        <tr>
+        <td colspan="2">Intitulé de la question :</td>
+        </tr>
+        <tr>
+        <td colspan="2">
+        <textarea id="questInti" name="questInti" cols="30" rows="10" maxlenght="200" class="champ-form">
+        ${question.Intitule}
+        </textarea>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label for="questDiff">Difficulté :</label>
+        <select name="questDiff" id="questDiff">
+        <option value="1" ${question.difficulte === 1 ? 'selected' : ''}>Facile</option>
+        <option value="2" ${question.difficulte === 2 ? 'selected' : ''}>Moyen</option>
+        <option value="3" ${question.difficulte === 3 ? 'selected' : ''}>Difficile</option>
+        </select>
+        </td>
+        <td>${selectQuiz}</td>
+        </tr>
+        <tr>
+        <td colspan="2">
+        <input type="text" minlength="1" maxlength="100" id="questRep" name="questRep" class="champ-form" value="${reponseCorrect[0].dataValues.reponse}">
+        </td>
+        </tr>`;
         let indx = 0;
         reponseIncorrect.forEach((rep) => {
             indx++;
             htmlQuestion +=
-                `<tr>
-                                <td colspan="2">
-                                    <input type="text" minlength="1" maxlength="100" id="questRep${indx}" name="questRep${indx}" class="champ-form" value="${rep.reponse}">
-                                 </td>
-                            </tr>`;
-        });
-
-        htmlQuestion +=
             `<tr>
-            <td align="center"><input type="submit" value="Validé !" class="Boutton-form"></td>
-            <td><input type="reset" value="Annuler" class="Boutton-form"></td>
+            <td colspan="2">
+            <input type="text" minlength="1" maxlength="100" id="questRep${indx}" name="questRep${indx}" class="champ-form" value="${rep.reponse}">
+            </td>
+            </tr>`;
+        });
+        
+        htmlQuestion +=
+        `<tr>
+        <td align="center"><input type="submit" value="Validé !" class="Boutton-form"></td>
+        <td><input type="reset" value="Annuler" class="Boutton-form"></td>
         </tr></table></form>`;
-
+        htmlQuestion +=`<form method="post" action="/deleteQuest/${idQuestion}"><button class="delete" type="submit">Supprimer la question</button></form>`
+        
         res.render('login/manageQuest', { htmlQuestion , pseudoUtilisateur})
     }
-
-
+    
+    
     catch (error) {
         console.error('Erreur lors de la récupération des informations de la question :', error);
         res.status(500).send('Erreur lors de la récupération des informations de la question');

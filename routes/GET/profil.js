@@ -18,50 +18,95 @@ router.get('/profil', async function (req, res) {
 
     // Rechercher l'utilisateur dans la base de données par l'id
     const utilisateur = await Utilisateur.findByPk(idUtilisateur);
-    if (!utilisateur) {
-      // Si l'utilisateur n'est pas trouvé, gérer le cas approprié
-      return res.status(404).send('Utilisateur non trouvé');
-    }
 
     const status = utilisateur.admin ? 'Admin' : 'Joueur';
 
+
+    //contient la liste des catégories de l'utilisateur
     let categoriesListe = '';
+
+    //Contient le tableau avec tout les utilisateurs existant
     let allUsers = '';
+
+    //Contient la liste des quiz de l'utilisateur
     let quizListe = '';
+
+    //Contient le nombre de question créer par l'utilisateur
     let nbrsLignes = '';
+
+    //contient le contenue du "main" avec toutes les catégories, leurs quizs, nbrs de question par quiz
     let allCateg ='';
     
+//Vérification des droit administrateur avant de générer les éléments html, si l'utilisateur est un joueur ne renvoi que des string vide 
     if(isAdmin)
     {
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      //Chercher dans la bdd toutes les categ et générer les éléments html
+      const categories = await Categorie.findAll();
+      if (categories.length > 0)
+      {
+        //initialisation du titre et du conteneur
+        allCateg +='<h2>Les catégories et leurs quizs</h2><div class="allCategQuiz">';
+        //utilisation d'une boucle for ici est particulière, à la base j'utilisais forEach() mais il s'est avérer que cette méthode ne prend pas parfaitement en contre les fonction async
+        for(const categ of categories)
+        {
+          const quizs = await Quiz.findAll({where:{id_categ : categ.id_categ}});
+  
+          allCateg += 
+          `
+          <h3>Catégorie :${categ.designation}</h3>
+          <p>${categ.description}</p>
+          `;
+          quizs.forEach((quiz)=>{
+            
+            const adjustImage = quiz.image.substring(7);
+            allCateg += 
+            `
+            <section>
+              <h4>Quiz :${quiz.titre}</h4>
+              <p>${quiz.description}</p>
+              <img src="${adjustImage}">
+            </section>
+            `;
+          }) 
+          
+        }
+        allCateg += '</div>';
+      }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       //compter le nombre de questions associése à l'utilisateur
       const questionUtilisateur = await Question.count({
-      where: { id_user: idUtilisateur },
-    });
-
-    // Rechercher les catégories associées à l'utilisateur
-    const categoriesUtilisateur = await Categorie.findAll({
-      where: { id_user: idUtilisateur },
-    });
+        where: { id_user: idUtilisateur },
+      });
+      
+      // Rechercher les catégories associées à l'utilisateur
+      const categoriesUtilisateur = await Categorie.findAll({
+        where: { id_user: idUtilisateur },
+      });
     const quizUtilisateur = await Quiz.findAll({
       where: { id_user: idUtilisateur },
     });
-
+    
     
     //rechercher tout les utilisateurs
     const allUtilisateur = await Utilisateur.findAll();
     
     if (allUtilisateur.length > 0) {
       
-      allUsers += `<h2>Tout les utilisateurs</h2>
+      allUsers += 
+      `
+      <h2>Tout les utilisateurs</h2>
       <table>
       <th>ID</th>
-      <th>pseudo</th>
-      <th>Admin</th>
-      <th>mail</th>
-      <th>nom</th>
-      <th>prenom</th>
-      <th>Date d'inscription</th>
-      <th>Modification</th>`;
+        <th>pseudo</th>
+        <th>Admin</th>
+        <th>mail</th>
+        <th>nom</th>
+        <th>prenom</th>
+        <th>Date d'inscription</th>
+        <th>Modification</th>
+        `;
       
       allUtilisateur.forEach((user) => {
         // Convertir la date en objet Date
@@ -71,22 +116,24 @@ router.get('/profil', async function (req, res) {
         const formattedDate = `${dateInscription.getDate().toString().padStart(2, '0')}/${(dateInscription.getMonth() + 1).toString().padStart(2, '0')}/${dateInscription.getFullYear()}`;
         
         allUsers +=
-        `<tr>
-        <td>${user.id_user}</td>
-        <td>${user.pseudo}</td>
-        <td>${user.admin}</td>
-        <td>${user.mail}</td>
-        <td>${user.nom}</td>
-        <td>${user.prenom}</td>
-        <td>${formattedDate}</td>
-        <td><a href="/manageUser/${user.id_user}">Modifier</a></td>
-        </tr>`;
-      })
-      allUsers += `</table>`
+        `
+        <tr>
+          <td>${user.id_user}</td>
+          <td>${user.pseudo}</td>
+          <td>${user.admin}</td>
+          <td>${user.mail}</td>
+          <td>${user.nom}</td>
+          <td>${user.prenom}</td>
+          <td>${formattedDate}</td>
+          <td><a href="/manageUser/${user.id_user}">Modifier</a></td>
+          </tr>
+          `;
+        })
+      allUsers += `</table>`;
     }
-    
-    
     nbrsLignes += `<p>Nombres de question créer: ${questionUtilisateur}</p>`;
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
     
     if (quizUtilisateur.length > 0) {
       quizListe = '<h3>Vos quizs :</h3>';
@@ -94,71 +141,48 @@ router.get('/profil', async function (req, res) {
         quizListe += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
       });
     }
-    
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
     if (categoriesUtilisateur.length > 0) {
       categoriesListe = '<h3>Vos catégories :</h3>';
       categoriesUtilisateur.forEach((categorie) => {
-        categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a>`;
+        categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a></p>`;
       });
     }};
-    let tableUser = `<h2>Vos informations</h2>
+    let tableUser = 
+    `
+    <h2>Vos informations</h2>
     <table class='top10Modal-table'>
-    <tr>
-    <td>Votre pseudo :</td>
-    <td>${utilisateur.pseudo}</td>
-    </tr>
-    <tr> 
-    <td>Votre nom :</td>
-    <td>${utilisateur.nom}</td>
-    </tr>
-    <tr>
-    <td>Votre prénom :</td>
-    <td>${utilisateur.prenom}</td>
-    </tr>
-    <tr>
-    <td>Date d'inscription :</td>
-    <td>${utilisateur.date_inscri}</td>
-    </tr>
-    <tr>
-    <td>Votre Email :</td>
-    <td>${utilisateur.mail}</td>
-    </tr>
-    <tr>
-    <td>Votre status :</td>
-    <td>${status}</td>
-    </tr>
-    <tr>
-    <td>Modification :</td>
-    <td><a href="/manageUser/${utilisateur.id_user}">Modifier</a></td>
-    </tr>
-    </table>`;
-    
-    const categories = await Categorie.findAll();
-    if (categories.length > 0)
-    {
-      allCateg +='<h2>Les catégories et leurs quizs</h2><div class="allCategQuiz">';
-      for(const categ of categories)
-      {
-        const quizs = await Quiz.findAll({where:{id_categ : categ.id_categ}});
-
-        allCateg += 
-        `
-        <h3>Catégorie :${categ.designation}</h3>
-        <p>${categ.description}</p>`;
-        quizs.forEach((quiz)=>{
-          
-          const adjustImage = quiz.image.substring(7);
-          allCateg += `<section>
-          <h4>Quiz :${quiz.titre}</h4>
-          <p>${quiz.description}</p>
-          <img src="${adjustImage}">
-          </section>
-          `;
-        }) 
-        
-      }
-      allCateg += '</div>';
-    }
+      <tr>
+        <td>Votre pseudo :</td>
+        <td>${utilisateur.pseudo}</td>
+      </tr>
+      <tr> 
+        <td>Votre nom :</td>
+        <td>${utilisateur.nom}</td>
+      </tr>
+      <tr>
+        <td>Votre prénom :</td>
+        <td>${utilisateur.prenom}</td>
+      </tr>
+      <tr>
+        <td>Date d'inscription :</td>
+        <td>${utilisateur.date_inscri}</td>
+      </tr>
+      <tr>
+        <td>Votre Email :</td>
+        <td>${utilisateur.mail}</td>
+      </tr>
+      <tr>
+        <td>Votre status :</td>
+        <td>${status}</td>
+      </tr>
+      <tr>
+        <td>Modification :</td>
+        <td><a href="/manageUser/${utilisateur.id_user}">Modifier</a></td>
+      </tr>
+    </table>
+    `;
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes, allUsers, pseudoUtilisateur, allCateg });
   } catch (error) {
