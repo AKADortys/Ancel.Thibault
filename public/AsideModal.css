@@ -9,13 +9,20 @@
     background-color: rgba(132, 132, 132, 0.546);
     border: 2px outset green;
     margin: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    width: 20%;
 }
 
 .AsideModal-main h3{
-    padding: 10px 10px;
+    padding: 10px 5px;
     background-color: whitesmoke;
     border: 1px solid black;
     text-align: center;
+    margin: 10px 0;
 }
 
 
