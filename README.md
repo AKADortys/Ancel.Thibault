@@ -51,8 +51,8 @@ Pour mettre en place le système de questions dans l'application QuizApp et les 
 1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
 2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
 3. Mélange aléatoire des questions pour rendre le quiz plus varié.
-4. Affichage de chaque question une par une à l'utilisateur.
-5. Lancement d'un compte à rebours pour chaque question.
+4. Affichage de chaque question une par une à l'utilisateur.*
+5. Lancement d'un compte à rebours pour chaque question.*
 6. Gestion des réponses de l'utilisateur : récupération et validation.
 7. Affichage de la réponse correcte si l'utilisateur répond incorrectement.
 8. Enregistrement du score de l'utilisateur.
@@ -71,7 +71,7 @@ Contraintes Techniques :
 
 Interface en HTML et stylisée en CSS.
 API validée sur Node.js avec le framework Express.js.
-Base de données MySQL pour stocker les utilisateurs, les scores, les questions, etc.
+Base de données MySQL
 Accès sécurisé avec gestion des rôles (joueur, admin).
 Utilisation de XAMPP server et PHPMyAdmin
 Le projet est versionné sur GitHub avec un repo privé.
@@ -93,71 +93,72 @@ reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 Script SQL :
 
-CREATE TABLE utilisateur(
-   id_user INT,
-   pseudo VARCHAR(50) NOT NULL,
-   pwd VARCHAR(50) NOT NULL,
-   admin LOGICAL NOT NULL,
-   nom VARCHAR(50),
-   prenom VARCHAR(50),
-   date_inscri DATETIME NOT NULL,
-   PRIMARY KEY(id_user)
+CREATE TABLE utilisateur (
+    id_user INTEGER PRIMARY KEY AUTOINCREMENT,
+    pseudo VARCHAR(50) NOT NULL UNIQUE,
+    pwd VARCHAR(100) NOT NULL,
+    mail VARCHAR(255) UNIQUE,
+    admin BINARY NOT NULL DEFAULT 0,
+    nom VARCHAR(255),
+    prenom VARCHAR(255),
+    date_inscri DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE categories(
-   id_categ INT,
-   designation VARCHAR(50) NOT NULL,
-   description VARCHAR(200) NOT NULL,
-   date_ajout DATETIME NOT NULL,
-   id_user INT NOT NULL,
-   PRIMARY KEY(id_categ),
-   UNIQUE(designation),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user)
+
+
+CREATE TABLE categories (
+    id_categ INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    designation VARCHAR(50) NOT NULL UNIQUE,
+    description VARCHAR(200) NOT NULL,
+    date_ajout DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id_user INTEGER NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES utilisateur(id_user)
 );
 
-CREATE TABLE quiz(
-   id_quiz INT,
-   titre VARCHAR(50) NOT NULL,
-   date_ajout DATETIME NOT NULL,
-   description VARCHAR(200) NOT NULL,
-   id_user INT NOT NULL,
-   id_categ INT NOT NULL,
-   PRIMARY KEY(id_quiz),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(id_categ) REFERENCES categories(id_categ)
+
+CREATE TABLE quiz (
+    id_quiz INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    titre VARCHAR(50) NOT NULL,
+    date_ajout DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    image VARCHAR(300),
+    id_user INTEGER NOT NULL,
+    id_categ INTEGER NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES utilisateur(id_user),
+    FOREIGN KEY (id_categ) REFERENCES categories(id_categ)
 );
 
-CREATE TABLE question(
-   id_question INT,
-   Intitule VARCHAR(300) NOT NULL,
-   difficulte INT NOT NULL,
-   date_ajout DATETIME NOT NULL,
-   id_user INT NOT NULL,
-   id_quiz INT NOT NULL,
-   PRIMARY KEY(id_question),
-   UNIQUE(Intitule),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz)
+
+CREATE TABLE question (
+    id_question INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Intitule VARCHAR(300) NOT NULL UNIQUE,
+    difficulte INTEGER NOT NULL,
+    date_ajout DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id_user INTEGER NOT NULL,
+    id_quiz INTEGER NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user),
+    FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz)
 );
 
-CREATE TABLE score(
-   id_score INT,
-   total INT,
-   MaJ DATETIME NOT NULL,
-   id_quiz INT NOT NULL,
-   id_user INT NOT NULL,
-   PRIMARY KEY(id_score),
-   FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user)
+
+CREATE TABLE score (
+    id_score INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    total INTEGER NOT NULL,
+    MaJ DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id_quiz INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
 );
 
-CREATE TABLE reponse(
-   id_reponse INT,
-   reponse VARCHAR(100) NOT NULL,
-   correct LOGICAL NOT NULL,
-   id_question INT NOT NULL,
-   PRIMARY KEY(id_reponse),
-   FOREIGN KEY(id_question) REFERENCES question(id_question)
+
+CREATE TABLE reponse (
+    id_reponse INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    reponse VARCHAR(100) NOT NULL,
+    correct BINARY NOT NULL,
+    id_question INTEGER NOT NULL,
+    FOREIGN KEY (id_question) REFERENCES Question(id_question)
 );
+
 
 
