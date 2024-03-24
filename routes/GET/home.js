@@ -62,6 +62,7 @@ router.get('/home', async function (req, res) {
                               <section>
                                 <h3>${quiz.titre}</h3>
                                 <p>${quiz.description}</p>
+                                <a href="/startQuiz/${quiz.id_quiz}">Démarrer le quizz</a>
                               </section>
                             </div>`;
       });

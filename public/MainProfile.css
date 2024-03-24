@@ -42,7 +42,18 @@ main a{
     padding: 5px;
 }
 
-.allCategQuiz section{
+
+.section-group{
+    background-color: rgba(29, 200, 100, 0.73);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: 10px 0;
+    border: 2px solid greenyellow;
+}
+
+main section{
     display: flex;
     align-items: center;
     align-content: center;
@@ -61,24 +72,24 @@ main h2{
     text-align: center;
 }
 
-.allCategQuiz h3{
+main h3{
     color: blue;
     font-weight: bolder;
     width: 80%;
     text-align: center;
 }
 
-.allCategQuiz img{
+main img{
     width: 300px;
     height: 300px;
 }
 
-.allCategQuiz>p{
+ main p{
     width: 100%;
     text-align: justify;
 }
 
-.allCategQuiz section p{
+main section p{
     text-align: center;
     padding: 0 5px;
     width: 100%;

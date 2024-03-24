@@ -13,8 +13,8 @@ router.get('/profil', async function (req, res) {
     // Récupérer l'id de l'utilisateur à partir de la session
     const idUtilisateur = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
-        //recupérer le pseudo utilisateur pour la nav bar
-        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+    //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
     // Rechercher l'utilisateur dans la base de données par l'id
     const utilisateur = await Utilisateur.findByPk(idUtilisateur);
@@ -35,67 +35,73 @@ router.get('/profil', async function (req, res) {
     let nbrsLignes = '';
 
     //contient le contenue du "main" avec toutes les catégories, leurs quizs, nbrs de question par quiz
-    let allCateg ='';
-    
-//Vérification des droit administrateur avant de générer les éléments html, si l'utilisateur est un joueur ne renvoi que des string vide 
-    if(isAdmin)
-    {
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    let allCateg = '';
+
+    //Vérification des droit administrateur avant de générer les éléments html, si l'utilisateur est un joueur ne renvoi que des string vide 
+    if (isAdmin) {
+      //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       //Chercher dans la bdd toutes les categ et générer les éléments html
       const categories = await Categorie.findAll();
-      if (categories.length > 0)
-      {
+      if (categories.length > 0) {
         //initialisation du titre et du conteneur
-        allCateg +='<h2>Les catégories et leurs quizs</h2><div class="allCategQuiz">';
-        //utilisation d'une boucle for ici est particulière, à la base j'utilisais forEach() mais il s'est avérer que cette méthode ne prend pas parfaitement en contre les fonction async
-        for(const categ of categories)
-        {
-          const quizs = await Quiz.findAll({where:{id_categ : categ.id_categ}});
-  
-          allCateg += 
-          `
+        allCateg += 
+        `
+          <h2>Les catégories et leurs quizs</h2>
+          <div class="allCategQuiz">
+          `;
+        //utilisation d'une boucle for ici est particulière, à la base j'utilisais forEach() mais il s'est avérer que cette méthode ne prend pas parfaitement en compte les fonction async
+        for (const categ of categories) {
+          const quizs = await Quiz.findAll({ where: { id_categ: categ.id_categ } });
+
+          allCateg +=
+            `
+          <div class="section-group">
           <h3>Catégorie :${categ.designation}</h3>
           <p>${categ.description}</p>
+          <a href="/manageCateg/${categ.id_categ}">Modifier la catégorie</a>
           `;
-          quizs.forEach((quiz)=>{
-            
+          for (const quiz of quizs) {
+
+            const nbrsQuest = await Question.count({ where: { id_quiz: quiz.id_quiz } });
             const adjustImage = quiz.image.substring(7);
-            allCateg += 
-            `
+            allCateg +=
+              `
             <section>
               <h4>Quiz :${quiz.titre}</h4>
               <p>${quiz.description}</p>
               <img src="${adjustImage}">
+              <p>Nombres de question attribuées à ce quiz : ${nbrsQuest}</p>
+              <a href="/manageQuiz/${quiz.id_quiz}">Modifier le quiz</a>
             </section>
             `;
-          }) 
-          
+          }
+          allCateg +='</div>'
         }
         allCateg += '</div>';
       }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       //compter le nombre de questions associése à l'utilisateur
       const questionUtilisateur = await Question.count({
         where: { id_user: idUtilisateur },
       });
-      
+
       // Rechercher les catégories associées à l'utilisateur
       const categoriesUtilisateur = await Categorie.findAll({
         where: { id_user: idUtilisateur },
       });
-    const quizUtilisateur = await Quiz.findAll({
-      where: { id_user: idUtilisateur },
-    });
-    
-    
-    //rechercher tout les utilisateurs
-    const allUtilisateur = await Utilisateur.findAll();
-    
-    if (allUtilisateur.length > 0) {
-      
-      allUsers += 
-      `
+      const quizUtilisateur = await Quiz.findAll({
+        where: { id_user: idUtilisateur },
+      });
+
+
+      //rechercher tout les utilisateurs
+      const allUtilisateur = await Utilisateur.findAll();
+
+      if (allUtilisateur.length > 0) {
+
+        allUsers +=
+          `
       <h2>Tout les utilisateurs</h2>
       <table>
       <th>ID</th>
@@ -107,16 +113,16 @@ router.get('/profil', async function (req, res) {
         <th>Date d'inscription</th>
         <th>Modification</th>
         `;
-      
-      allUtilisateur.forEach((user) => {
-        // Convertir la date en objet Date
-        const dateInscription = new Date(user.date_inscri);
-        
-        // Formater la date au format européen (dd/mm/yyyy)
-        const formattedDate = `${dateInscription.getDate().toString().padStart(2, '0')}/${(dateInscription.getMonth() + 1).toString().padStart(2, '0')}/${dateInscription.getFullYear()}`;
-        
-        allUsers +=
-        `
+
+        allUtilisateur.forEach((user) => {
+          // Convertir la date en objet Date
+          const dateInscription = new Date(user.date_inscri);
+
+          // Formater la date au format européen (dd/mm/yyyy)
+          const formattedDate = `${dateInscription.getDate().toString().padStart(2, '0')}/${(dateInscription.getMonth() + 1).toString().padStart(2, '0')}/${dateInscription.getFullYear()}`;
+
+          allUsers +=
+            `
         <tr>
           <td>${user.id_user}</td>
           <td>${user.pseudo}</td>
@@ -129,27 +135,28 @@ router.get('/profil', async function (req, res) {
           </tr>
           `;
         })
-      allUsers += `</table>`;
-    }
-    nbrsLignes += `<p>Nombres de question créer: ${questionUtilisateur}</p>`;
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    
-    if (quizUtilisateur.length > 0) {
-      quizListe = '<h3>Vos quizs :</h3>';
-      quizUtilisateur.forEach((quiz) => {
-        quizListe += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
-      });
-    }
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
-    if (categoriesUtilisateur.length > 0) {
-      categoriesListe = '<h3>Vos catégories :</h3>';
-      categoriesUtilisateur.forEach((categorie) => {
-        categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a></p>`;
-      });
-    }};
-    let tableUser = 
-    `
+        allUsers += `</table>`;
+      }
+      nbrsLignes += `<p>Nombres de question créer: ${questionUtilisateur}</p>`;
+      //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+      if (quizUtilisateur.length > 0) {
+        quizListe = '<h3>Vos quizs :</h3>';
+        quizUtilisateur.forEach((quiz) => {
+          quizListe += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p>`;
+        });
+      }
+      //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
+      if (categoriesUtilisateur.length > 0) {
+        categoriesListe = '<h3>Vos catégories :</h3>';
+        categoriesUtilisateur.forEach((categorie) => {
+          categoriesListe += `<p>${categorie.designation}<a href="/manageCateg/${categorie.id_categ}">Modifier</a></p>`;
+        });
+      }
+    };
+    let tableUser =
+      `
     <h2>Vos informations</h2>
     <table class='top10Modal-table'>
       <tr>
@@ -182,8 +189,8 @@ router.get('/profil', async function (req, res) {
       </tr>
     </table>
     `;
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     res.render('home/profil', { tableUser, categoriesListe, quizListe, nbrsLignes, allUsers, pseudoUtilisateur, allCateg });
   } catch (error) {
     console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
