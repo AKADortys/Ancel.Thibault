@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/startQuiz.css">
+    <title>Quiz <%= quiz.titre %></title>
+</head>
+<body>
+    <h1><%= quiz.titre %></h1>
+    <div id="quiz-container">
+        <% question_Reponse_Table.forEach(question => { %>
+            <div class="question">
+                <h2><%= question.text %></h2>
+                <p>Niveau de difficulté : <%= question.difficulte %></p>
+                <ul class="answers">
+                    <% question.reponses.forEach(reponse => { %>
+                        <li>
+                            <label>
+                                <input type="radio" name="<%= question.id %>" value="<%= reponse.id %>">
+                                <%= reponse.text %>
+                            </label>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% }) %>
+        <button id="prevButton">Question précédente</button>
+        <button id="nextButton">Question suivante</button>
+    </div>
+
+
+
+    <script>
+        // JavaScript pour contrôler l'affichage des questions
+document.addEventListener('DOMContentLoaded', function () {
+    const questions = document.querySelectorAll('.question');
+    let indexQuestionActuel = 0;
+
+    function showQuestion(index) {
+        questions.forEach((question, i) => {
+            if (i === index) {
+                question.style.display = 'block';
+            } else {
+                question.style.display = 'none';
+            }
+        });
+    }
+
+    showQuestion(indexQuestionActuel);
+
+    document.getElementById('nextButton').addEventListener('click', function () {
+        indexQuestionActuel++;
+        if (indexQuestionActuel >= questions.length) {
+            indexQuestionActuel = 0; // Revenir à la première question si on atteint la fin
+        }
+        showQuestion(indexQuestionActuel);
+    });
+
+    document.getElementById('prevButton').addEventListener('click', function () {
+        indexQuestionActuel--;
+        if (indexQuestionActuel < 0) {
+            indexQuestionActuel = questions.length - 1; // Revenir à la dernière question si on atteint le début
+        }
+        showQuestion(indexQuestionActuel);
+    });
+});
+    </script>
+</body>
+</html>
