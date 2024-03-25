@@ -6,10 +6,9 @@ const { Question, Reponse, Quiz } = require('../../config/dbconnect');
 router.get('/startQuiz/:id', async (req, res) => {
     try {
         const idQuiz = req.params.id;
-
+        const pseudoUtilisateur = req.session.utilisateur.pseudo
         // Étape 1 : Récupération des paramètres de Quiz (questions)
         const quiz = await Quiz.findByPk(idQuiz);
-        console.log(quiz)
 
         const questionQuiz = await Question.findAll({ where: { id_quiz: idQuiz } });
 
@@ -44,7 +43,7 @@ router.get('/startQuiz/:id', async (req, res) => {
         // ...
 
         // Enfin, vous pouvez passer les questions avec leurs réponses associées à votre template pour affichage
-        res.render('home/startQuiz', {question_Reponse_Table, quiz});
+        res.render('home/startQuiz', {question_Reponse_Table, quiz, pseudoUtilisateur});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur serveur' });

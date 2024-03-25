@@ -4,29 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/startQuiz.css">
+    <link rel="stylesheet" href="/navBar.css" type="text/css">
     <title>Quiz <%= quiz.titre %></title>
 </head>
-<body>
+<% const adjustImage = quiz.image.substring(7); %>
+<body style="background-image: url(/Images/comb\ grid.jpg)">
+    <%- include('../partials/navBar') %>
     <h1><%= quiz.titre %></h1>
     <div id="quiz-container">
+        <img src="/<%=adjustImage%>" alt="Image du quiz <%=quiz.titre%>">
         <% question_Reponse_Table.forEach(question => { %>
             <div class="question">
                 <h2><%= question.text %></h2>
                 <p>Niveau de difficulté : <%= question.difficulte %></p>
-                <ul class="answers">
-                    <% question.reponses.forEach(reponse => { %>
+                <ul class="reponse">
+                    <% 
+                        // Mélanger les réponses pour cette question
+                        const melangeReponses = question.reponses.sort(() => Math.random() - 0.5);
+                        melangeReponses.forEach(reponse => { 
+                    %>
                         <li>
                             <label>
-                                <input type="radio" name="<%= question.id %>" value="<%= reponse.id %>">
+                                <input type="radio" name="<%= question.id %>" value="<%= reponse.correct %>">
                                 <%= reponse.text %>
                             </label>
                         </li>
                     <% }) %>
                 </ul>
+                
             </div>
         <% }) %>
-        <button id="prevButton">Question précédente</button>
-        <button id="nextButton">Question suivante</button>
+        <button id="prevButton" class="button">Question précédente</button>
+        <button id="nextButton" class="button">Question suivante</button>
     </div>
 
 
