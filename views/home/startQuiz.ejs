@@ -10,12 +10,17 @@
 <% const adjustImage = quiz.image.substring(7); %>
 <body style="background-image: url(/Images/comb\ grid.jpg)">
     <%- include('../partials/navBar') %>
-    <h1><%= quiz.titre %></h1>
     <div id="quiz-container">
         <img src="/<%=adjustImage%>" alt="Image du quiz <%=quiz.titre%>">
+        <section>
+            <h1><%= quiz.titre %></h1>
+            <p><%=quiz.description%></p>
+            <p class="info-quiz">Quiz ajouté le: <%=formattedDate%></p>
+            <p class="info-quiz">Quiz écrit par: <%=pseudoCreateur%></p>
+        </section>
         <% question_Reponse_Table.forEach(question => { %>
             <div class="question">
-                <h2><%= question.text %></h2>
+                <p><%= question.text %></p>
                 <p>Niveau de difficulté : <%= question.difficulte %></p>
                 <ul class="reponse">
                     <% 

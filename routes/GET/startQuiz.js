@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Question, Reponse, Quiz } = require('../../config/dbconnect');
+const { Question, Reponse, Quiz, Utilisateur } = require('../../config/dbconnect');
 
 // Route pour démarrer un nouveau quiz
 router.get('/startQuiz/:id', async (req, res) => {
@@ -9,8 +9,20 @@ router.get('/startQuiz/:id', async (req, res) => {
         const pseudoUtilisateur = req.session.utilisateur.pseudo
         // Étape 1 : Récupération des paramètres de Quiz (questions)
         const quiz = await Quiz.findByPk(idQuiz);
+        console.log(quiz);
 
         const questionQuiz = await Question.findAll({ where: { id_quiz: idQuiz } });
+
+        const utilisateurQuiz = await Utilisateur.findByPk(quiz.id_user);
+
+        //récupérer le pseudo du créateur de quiz
+        const pseudoCreateur = utilisateurQuiz.pseudo;
+
+        // Convertir la date en objet Date
+        const dateAjout = new Date(quiz.date_ajout);
+
+        // Formater la date au format européen (dd/mm/yyyy)
+        const formattedDate = `${dateAjout.getDate().toString().padStart(2, '0')}/${(dateAjout.getMonth() + 1).toString().padStart(2, '0')}/${dateAjout.getFullYear()}`;
 
         const question_Reponse_Table = [];
 
@@ -33,17 +45,10 @@ router.get('/startQuiz/:id', async (req, res) => {
                 })
             };
 
-            // Ajout de l'objet question dans le tableau questionsWithAnswers
+            // Ajout de l'objet question dans le tableau
             question_Reponse_Table.push(questionData);
         }
-
-        // À ce stade, questionsWithAnswers contient toutes les questions avec leurs réponses associées
-
-        // Vous pouvez maintenant procéder aux autres étapes du quiz
-        // ...
-
-        // Enfin, vous pouvez passer les questions avec leurs réponses associées à votre template pour affichage
-        res.render('home/startQuiz', {question_Reponse_Table, quiz, pseudoUtilisateur});
+        res.render('home/startQuiz', { question_Reponse_Table, quiz, pseudoUtilisateur,formattedDate, pseudoCreateur });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur serveur' });

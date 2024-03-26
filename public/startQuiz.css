@@ -11,10 +11,8 @@ body{
 }
 
 h1{
-    width: 85%;
+    width: 100%;
     color: greenyellow;
-    background-color: grey;
-    border: 2px solid green;
     text-align: center;
     padding: 15px 0;
     margin: 10px 0;
@@ -22,7 +20,74 @@ h1{
 
 #quiz-container{
     width: 95%;
-    background-color: gray;
-    border: green solid 4px;
+    background-color: rgba(76, 199, 129, 0.639);
+    border: green outset 4px;
     padding: 10px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
+}
+
+#quiz-container>img{
+    width: 40%;
+    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
+    border: 2px outset green;
+}
+
+#quiz-container>section{
+    width: 50%;
+    margin: 0 5px;
+    background-color: rgba(0, 0, 0, 0.224);
+    border: 2px green outset;
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    gap: 15px;
+    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
+}
+
+#quiz-container>section>p{
+    margin-top: 10px;
+    text-align: center;
+    color: greenyellow;
+}
+
+#quiz-container p{
+    color: black;
+}
+
+.question{
+    width: 65%;
+    margin: 10px auto;
+    background-color: aliceblue;
+    border: 2px outset black;
+    text-align: center;
+    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
+}
+
+.reponse{
+ list-style: none;
+ margin: 10px 5px;
+ padding: 0;
+}
+
+.reponse>li{
+    padding: 10px 5px;
+}
+
+.button{
+    padding: 15px 5px;
+    margin: 0 5px;
+    width: 40%;
+    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
+}
+
+.info-quiz{
+    width: 40%;
 }
