@@ -37,7 +37,7 @@ router.get('/manageCateg/:id',async function(req,res) {
     }
     htmlCateg = `<form class="quiz-create" method="post" action="/manageCateg/${idCateg}"><h1>modification de la catégorie ${categorie.designation}</h1><table>
                     <tr>
-                        <td>Nom catégorie :</td> <td><input name="designation" class="champ-form" type="text" placeholder="${categorie.designation}"</td>
+                        <td>Nom catégorie :</td> <td><input name="designation" class="champ-form" type="text" placeholder="${categorie.designation}" value="${categorie.designation}"</td>
                     </tr>
                     <tr>
                         <td>Description :</td> <td><textarea name="description" class="champ-form" cols="30" rows="10">${categorie.description}</textarea></td>

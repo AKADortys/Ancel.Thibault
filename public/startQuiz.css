@@ -52,23 +52,29 @@ h1{
     box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
 }
 
+#questionnaire-form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
 #quiz-container>section>p{
     margin-top: 10px;
     text-align: center;
     color: greenyellow;
 }
 
-#quiz-container p{
-    color: black;
-}
 
 .question{
     width: 65%;
     margin: 10px auto;
-    background-color: aliceblue;
-    border: 2px outset black;
+    color: black;
+    font-size: larger;
+    font-family:cursive ;
     text-align: center;
-    box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
 }
 
 .reponse{
@@ -83,7 +89,7 @@ h1{
 
 .button{
     padding: 15px 5px;
-    margin: 0 5px;
+    margin: 5px 5px;
     width: 40%;
     box-shadow: 5px 4px 2.5px -2px rgba(0, 0, 0, 0.75);
 }

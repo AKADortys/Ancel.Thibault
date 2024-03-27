@@ -6,7 +6,15 @@ const { Question, Reponse, Quiz, Utilisateur } = require('../../config/dbconnect
 router.get('/startQuiz/:id', async (req, res) => {
     try {
         const idQuiz = req.params.id;
-        const pseudoUtilisateur = req.session.utilisateur.pseudo
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+
+        const infoUtilisateur = 
+        {
+            pseudo: req.session.utilisateur.pseudo,
+            id_user: req.session.utilisateur.id_user
+
+        };
+
         // Étape 1 : Récupération des paramètres de Quiz (questions)
         const quiz = await Quiz.findByPk(idQuiz);
         console.log(quiz);
@@ -48,7 +56,7 @@ router.get('/startQuiz/:id', async (req, res) => {
             // Ajout de l'objet question dans le tableau
             question_Reponse_Table.push(questionData);
         }
-        res.render('home/startQuiz', { question_Reponse_Table, quiz, pseudoUtilisateur,formattedDate, pseudoCreateur });
+        res.render('home/startQuiz', { pseudoUtilisateur,question_Reponse_Table, quiz, infoUtilisateur,formattedDate, pseudoCreateur });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur serveur' });

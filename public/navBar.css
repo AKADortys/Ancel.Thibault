@@ -31,7 +31,8 @@ header{
 
 .navBar-nav li{
     padding: 0 20px;
-    color: blue;
+    color: green;
+    font-size: x-large;
 }
 
 .navBar-nav img {

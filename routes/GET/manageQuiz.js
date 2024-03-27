@@ -54,7 +54,7 @@ router.get('/manageQuiz/:id', async function (req, res) {
                             <h1>Modification du Quiz ${quiz.titre}</h1>
                             <table>
                                 <tr>
-                                    <td>Nom catégorie :</td> <td><input name="titre" class="champ-form" type="text" placeholder="${quiz.titre}"</td>
+                                    <td>Nom catégorie :</td> <td><input name="titre" class="champ-form" type="text" value="${quiz.titre}" placeholder="${quiz.titre}"</td>
                                 </tr>
                                 <tr>
                                     <td>Description :</td> <td><textarea name="description" class="champ-form" cols="30" rows="10">${quiz.description}</textarea></td>
