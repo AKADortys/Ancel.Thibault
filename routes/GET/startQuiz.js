@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { Question, Reponse, Quiz, Utilisateur } = require('../../config/dbconnect');
+const { Question, Reponse, Quiz, Utilisateur, Score } = require('../../config/dbconnect');
+const utilisateur = require('../../model/utilisateur');
 
 // Route pour démarrer un nouveau quiz
 router.get('/startQuiz/:id', async (req, res) => {
     try {
+        const idUser = req.session.utilisateur.id_user
         const idQuiz = req.params.id;
         const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
@@ -16,12 +18,15 @@ router.get('/startQuiz/:id', async (req, res) => {
         };
 
         // Étape 1 : Récupération des paramètres de Quiz (questions)
+        const scoreUser = await Score.findOne({where:{ id_user:idUser, id_quiz: idQuiz}});
+
         const quiz = await Quiz.findByPk(idQuiz);
-        console.log(quiz);
+        // console.log(quiz);
 
         const questionQuiz = await Question.findAll({ where: { id_quiz: idQuiz } });
 
         const utilisateurQuiz = await Utilisateur.findByPk(quiz.id_user);
+
 
         //récupérer le pseudo du créateur de quiz
         const pseudoCreateur = utilisateurQuiz.pseudo;
@@ -56,7 +61,7 @@ router.get('/startQuiz/:id', async (req, res) => {
             // Ajout de l'objet question dans le tableau
             question_Reponse_Table.push(questionData);
         }
-        res.render('home/startQuiz', { pseudoUtilisateur,question_Reponse_Table, quiz, infoUtilisateur,formattedDate, pseudoCreateur });
+        res.render('home/startQuiz', { pseudoUtilisateur,question_Reponse_Table, quiz, infoUtilisateur,formattedDate, pseudoCreateur, scoreUser });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur serveur' });

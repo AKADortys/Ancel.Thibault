@@ -18,43 +18,47 @@
                 <section>
                     <h1><%= quiz.titre %></h1>
                     <p><%=quiz.description%></p>
+                    <% if (scoreUser){ %>
+                    <div class="Score">
+                        <h3>Votre résultat précédent</h3>
+                        <p><%=scoreUser.total%> point(s)</p>
+                    </div>
+                    <% } %>
                     <p class="info-quiz">Quiz ajouté le: <%=formattedDate%></p>
                     <p class="info-quiz">Quiz écrit par: <%=pseudoCreateur%></p>
                 </section>
-                <form id="questionnaire-form" action="/endQuiz/<%= quiz.id_quiz %>/<%= infoUtilisateur.id_user %>">
-                    <% if(question_Reponse_Table.length> 0 ) {
-                     question_Reponse_Table.forEach(question=> { %>
-                        <div class="question">
-                            <p>
-                                <%= question.text %>
-                            </p>
-                            <p>Niveau de difficulté : <%= question.difficulte %>
-                            </p>
-                            <ul class="reponse">
-                                <% // Mélanger les réponses pour cette question const
-                                    melangeReponses=question.reponses.sort(()=> Math.random() - 0.5);
-                                    melangeReponses.forEach(reponse => {
-                                    %>
-                                    <li>
-                                        <label>
-                                            <input type="radio" name="<%= question.id %>"
-                                                value="<%= reponse.correct %>">
-                                            <%= reponse.text %>
-                                        </label>
-                                    </li>
-                                    <% }) %>
-                            </ul>
-
-                        </div>
-                        <% })%>
-                        <button id="prevButton" type="button" class="button">Question précédente</button>
-                        <button id="nextButton" type="button" class="button">Question suivante</button>
-                        <button onclick="return confirm('Voulez-vous vraiment terminer ce quiz ?')" class="button"
-                        type="submit">Terminer le quiz</button>
-                        <% }else{%>
-                            <p>Désolé, ce quiz n'a pas encore de questions. revenez plus tard.</p>
-                        <%}%>
-                    </form>
+                <% if (scoreUser){ %>
+                    <form id="questionnaire-form" action="/endQuizUpdate/<%= quiz.id_quiz %>/<%= infoUtilisateur.id_user %>/<%= scoreUser.id_score %>" method="post">
+                        <input type="hidden" name>
+                    <% } else { %>
+                    <form id="questionnaire-form" action="/endQuiz/<%= quiz.id_quiz %>/<%= infoUtilisateur.id_user %>" method="post">
+                    <% } %>
+                    <% if(question_Reponse_Table.length > 0) {
+                        question_Reponse_Table.forEach(question => { %>
+                            <div class="question">
+                                <p><%= question.text %></p>
+                                <p>Niveau de difficulté : <%= question.difficulte %></p>
+                                <input type="hidden" name="<%= question.id %>" value="<%= question.difficulte %>">
+                                <ul class="reponse">
+                                    <% const melangeReponses = question.reponses.sort(() => Math.random() - 0.5);
+                                        melangeReponses.forEach(reponse => { %>
+                                            <li>
+                                                <label>
+                                                    <input type="radio" name="<%= question.id %>" value="<%= reponse.correct %>">
+                                                    <%= reponse.text %>
+                                                </label>
+                                            </li>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                    <% }); %>
+                    <button id="prevButton" type="button" class="button">Question précédente</button>
+                    <button id="nextButton" type="button" class="button">Question suivante</button>
+                    <button onclick="return confirm('Voulez-vous vraiment terminer ce quiz ?')" class="button" type="submit">Terminer le quiz</button>
+                    <% } else { %>
+                        <p>Désolé, ce quiz n'a pas encore de questions. revenez plus tard.</p>
+                    <% } %>
+                </form>                
             </div>
 
 

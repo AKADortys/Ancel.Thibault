@@ -51,6 +51,8 @@ app.use('/', require('./routes/POST/manageCateg'));
 app.use('/', require('./routes/POST/manageQuiz'));
 app.use('/', require('./routes/POST/manageUser'));
 app.use('/', require('./routes/POST/manageQuest'));
+app.use('/', require('./routes/POST/endQuiz'));
+app.use('/', require('./routes/POST/endQuizUpdate'));
 
 // App port
 app.listen(port, () => {
