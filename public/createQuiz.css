@@ -23,6 +23,7 @@
 }
 .quiz-create ul{
     list-style: none;
+    padding: 0;
 }
 
 .quiz-create span {
