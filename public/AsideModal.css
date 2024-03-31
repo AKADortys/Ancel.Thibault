@@ -5,6 +5,18 @@
     height: 200px;
 }
 
+
+.listeCategorie a{
+    background-color: greenyellow;
+    border: 2px solid green;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: green;
+    transition: opacity 0.5s;
+}
+
+
 .AsideModal-main{
     background-color: rgba(132, 132, 132, 0.546);
     border: 2px outset green;
@@ -63,6 +75,11 @@
     color: red;
     padding: 10px 0;
     font-weight: normal;
+    margin: 10px 0;
+}
+
+.submenu li {
+    margin: 15px 0;
 }
 
 

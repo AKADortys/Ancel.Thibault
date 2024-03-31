@@ -7,8 +7,8 @@
                 <%= categorie.designation %><a href="/manageCateg/<%= categorie.id_categ %>">Modifier</a>
             </p>
             <% }) %>
-            <% } %>
             <p><a href="/categcreate">Ajouter une catégorie</a></p>
+            <% } %>
             
             <!-- Affichage des quiz de l'utilisateur -->
             <% if (quizUtilisateur.length> 0) { %>
@@ -18,9 +18,21 @@
                         <%= quiz.titre %><a href="/manageQuiz/<%= quiz.id_quiz %>">Modifier</a>
                     </p>
                     <% }) %>
-                    <% } %>
                     <p><a href="/quizcreate">Ajouter un quiz</a></p>
-                    
                     <p><a href="/questcreate">Ajouter une question</a></p>
+                    <% } %>
+    <% if(scoreUserTable.length > 0 ){%>
+        <h3>Vos scores</h3>
+    <table class='top10Modal-table'>
+        <tr>
+            <th>Total</th> <th>Date</th> <th>Titre du quiz</th> <th>Refaire le quiz</th>
+        </tr>
+        <% scoreUserTable.forEach((sco)=>{%>
+        <tr>
+            <td><%=sco.total%></td> <td><%=sco.date%></td> <td><%=sco.nomQuiz%></td> <td><a href="/startQuiz/<%=sco.id_quiz%>">Réessayer</a></td>
+        </tr>
+            <% })} %>
+        </table>
+                    
     
 </aside>

@@ -1,0 +1,79 @@
+table{
+    background-color: rgba(6, 6, 6, 0.234);
+    border: 2px outset green;
+    width: 45%;
+    margin: 10px 0;
+}
+
+td{
+    padding: 10px 5px;
+    text-align: center;
+}
+
+th{
+    color: red;
+}
+
+main{
+    width: 90%;
+    background-color: rgba(170, 5, 199, 0.554);
+    border: green outset 3px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    color: greenyellow;
+}
+
+.info-quiz{
+    margin: 10px 0;
+    width: 33%;
+}
+
+form{
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.556);
+    
+}
+
+main section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main>section img{
+    width: 45%;
+    border: 2px outset green;
+    margin: 10px 0;
+}
+
+main>section p{
+    width: 80%;
+    text-align: center;
+    margin: 5px;
+}
+
+
+main>section span{
+    color: red;
+}
+
+
+h1{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-top: black solid 2px;
+}
+
+h2{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}

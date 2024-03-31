@@ -5,8 +5,8 @@ aside{
     align-items: center;
     align-content: flex-start;
     background-color: rgba(148, 148, 148, 0.625);
-    width: 20%;
-    margin: 10px 5px;
+    width: 25%;
+    margin: 10px 3px;
 }
 
 aside h3{
@@ -30,4 +30,21 @@ aside a{
     margin: 0 5px;
     text-decoration: none;
     padding: 5px;
+}
+
+aside table{
+    border: 2px solid green;
+    background-color: grey;
+    width: 95%;
+    margin: 10px 0;
+}
+
+aside td{
+    padding: 8px 5px;
+    text-align: center;
+    color: greenyellow;
+}
+
+aside th{
+    padding: 3px 5px;
 }

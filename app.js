@@ -39,6 +39,7 @@ app.use('/', require('./routes/GET/manageQuiz'));
 app.use('/', require('./routes/GET/manageUser'));
 app.use('/', require('./routes/GET/userLogin'));
 app.use('/', require('./routes/GET/startQuiz'));
+app.use('/', require('./routes/GET/topScore'));
 app.use('/', require('./routes/POST/QuizCreate'));
 app.use('/', require('./routes/POST/loggin'));
 app.use('/', require('./routes/POST/sign-in'));

@@ -22,7 +22,7 @@ router.get('/home', async function (req, res) {
     
       const quizCateg = await Quiz.findAll({ where: { id_categ: categ.id_categ } });
       for (const quizz of quizCateg) {
-        listeCategorie += `<li>${quizz.titre}</li>`;
+        listeCategorie += `<li>${quizz.titre} <a href="/startQuiz/${quizz.id_quiz}">Démarrer le quiz</a></li>`;
       }
       listeCategorie += '</ul></li>';
     }
