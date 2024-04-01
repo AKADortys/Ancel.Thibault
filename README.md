@@ -89,7 +89,7 @@ reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 
 Script SQL :
-``
+````sql
 CREATE TABLE utilisateur 
 (
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -152,7 +152,7 @@ CREATE TABLE score
     FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
     FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
 );
-
+```
 
 CREATE TABLE reponse 
 (
