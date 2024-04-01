@@ -2,12 +2,12 @@
 
 Prérequis pour utiliser cette application :
 
--Télécharger le répertoire via https://github.com/AKADortys/Ancel.Thibault
--Ouvrir le répertoire avec un IDE (Visual Studio Code)
--Effectuer la commande dans le terminal: ````npm install```` pour installer les dépendences.
--Allumer Xampp server et démarrer Apache et Mysql.
--Sur phpMyAdmin créer une BDD nomée " quizapp "
--Dans le terminal : ````node app.js ````
+- Télécharger le répertoire via https://github.com/AKADortys/Ancel.Thibault
+- Ouvrir le répertoire avec un IDE (Visual Studio Code)
+- Effectuer la commande dans le terminal: ````npm install```` pour installer les dépendences.
+- Allumer Xampp server et démarrer Apache et Mysql.
+- Sur phpMyAdmin créer une BDD nomée " quizapp "
+- Dans le terminal : ````node app.js ````
 
 Travail de fin d'études. ( application node.js qui interagie avec une BDD MySQL)
 
