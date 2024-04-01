@@ -4,18 +4,16 @@ const fs = require('fs').promises;
 const path = require('path');
 const upload = require('../../config/multerconfig');
 const {  Quiz } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
 
-router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), async function (req, res) {
+router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), CheckAuth, async function (req, res) {
     const idQuiz = req.params.id;
 
     // Récupération des données du formulaire
     const titre = req.body.titre;
     const description = req.body.description;
     const categorieId = req.body.categorie;
-    if (!req.session.utilisateur) {
-        return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-    }
     const isAdmin = req.session.utilisateur.admin;
 
     // Vérifier si l'utilisateur est un administrateur

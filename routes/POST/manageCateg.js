@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const CheckAuth = require('../../public/script/CheckAuth');
 const {Categorie} = require('../../config/dbconnect');
 
-router.put('/manageCateg/:id', async function(req, res) {
+router.put('/manageCateg/:id', CheckAuth, async function(req, res) {
 
     const idCateg = req.params.id;
     const formData = {
         designation: req.body.designation,
         description: req.body.description
     };
+    const isAdmin = req.session.utilisateur.admin;
     
     try{
-        if (!req.session.utilisateur) {
-            return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-        }
-        const isAdmin = req.session.utilisateur.admin;
-    
         // Vérifier si l'utilisateur est un administrateur
         if (!isAdmin) {
             return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });

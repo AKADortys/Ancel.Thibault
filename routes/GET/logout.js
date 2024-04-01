@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/logout', (req, res) => {
+router.get('/logout', CheckAuth, (req, res) => {
   // Supprimer la session
   req.session.destroy((err) => {
     if (err) {

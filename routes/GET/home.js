@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Utilisateur, Categorie, Quiz } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/home', async function (req, res) {
+router.get('/home',CheckAuth, async function (req, res) {
   try {
-    // Vérifier si la session de l'utilisateur existe
-    if (!req.session.utilisateur) {
-      // Si la session n'est pas détectée, rediriger vers la page de connexion
-      return res.redirect('/userLogin');
-    }
 
     //recupérer le pseudo utilisateur pour la nav bar
     const pseudoUtilisateur = req.session.utilisateur.pseudo;
@@ -63,6 +59,7 @@ router.get('/home', async function (req, res) {
                                 <h3>${quiz.titre}</h3>
                                 <p>${quiz.description}</p>
                                 <a href="/startQuiz/${quiz.id_quiz}">Démarrer le quizz</a>
+                                <a href="/topScore/${quiz.id_quiz}">Afficher le tableau des scores</a>
                               </section>
                             </div>`;
       });

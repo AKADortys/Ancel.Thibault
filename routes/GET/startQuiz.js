@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Question, Reponse, Quiz, Utilisateur, Score } = require('../../config/dbconnect');
-const utilisateur = require('../../model/utilisateur');
+const CheckAuth = require('../../public/script/CheckAuth');
 
 // Route pour démarrer un nouveau quiz
-router.get('/startQuiz/:id', async (req, res) => {
+router.get('/startQuiz/:id', CheckAuth, async (req, res) => {
     try {
         const idUser = req.session.utilisateur.id_user
         const idQuiz = req.params.id;

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Utilisateur, Score, Quiz, Question, Categorie } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/topScore/:idQuiz', async function (req, res) {
+router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
     try {
         const idQuiz = req.params.idQuiz;
         const quiz = await Quiz.findByPk(idQuiz);

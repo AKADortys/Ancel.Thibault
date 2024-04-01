@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Utilisateur, Categorie, Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/profil', async function (req, res) {
+router.get('/profil', CheckAuth, async function (req, res) {
   try {
     // Récupérer l'id de l'utilisateur à partir de la session
     const idUtilisateur = req.session.utilisateur.id_user;
@@ -71,6 +72,7 @@ router.get('/profil', async function (req, res) {
                <img src="${adjustImage}">
                <p>Nombres de question attribuées à ce quiz : ${nbrsQuest}</p>
                <a href="/manageQuiz/${quiz.id_quiz}">Modifier le quiz</a>
+               <a href="/topScore/${quiz.id_quiz}">Afficher le classement</a>
              </section>
              `;
         }

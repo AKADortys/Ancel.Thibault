@@ -2,16 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { Quiz } = require('../../config/dbconnect');
 const upload = require('../../config/multerconfig');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/QuizCreate', upload.single('image'), async (req, res) => {
+
+router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) => {
   try {
     const { titre, description, id_categ } = req.body;
-
-    // Vérifier si la session de l'utilisateur existe
-    if (!req.session.utilisateur) {
-      return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-    }
-
     const idUser = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
 

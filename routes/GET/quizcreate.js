@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Categorie } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/quizcreate', async function (req, res) {
+router.get('/quizcreate', CheckAuth,async function (req, res) {
   try {
-    if (!req.session.utilisateur) {
-      return res.redirect('/userLogin');
-  }
   const isAdmin = req.session.utilisateur.admin;
   
   // Vérifier si l'utilisateur est un administrateur

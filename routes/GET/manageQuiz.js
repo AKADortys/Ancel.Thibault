@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Categorie, Question, Quiz, Reponse } = require('../../config/dbconnect')
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/manageQuiz/:id', async function (req, res) {
+router.get('/manageQuiz/:id', CheckAuth, async function (req, res) {
     
     const idQuiz = req.params.id;
     

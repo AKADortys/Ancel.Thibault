@@ -30,6 +30,8 @@ main{
 .info-quiz{
     margin: 10px 0;
     width: 33%;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 form{
@@ -57,6 +59,8 @@ main>section p{
     width: 80%;
     text-align: center;
     margin: 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.485);
 }
 
 

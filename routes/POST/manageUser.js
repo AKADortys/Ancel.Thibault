@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Utilisateur } = require('../../config/dbconnect');
 const bcrypt = require('bcrypt');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/manageUser/:id', async function (req, res) {
+
+router.post('/manageUser/:id', CheckAuth, async function (req, res) {
     try {
         if (!req.session.utilisateur) {
             return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });

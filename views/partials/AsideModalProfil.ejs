@@ -21,8 +21,8 @@
                     <p><a href="/quizcreate">Ajouter un quiz</a></p>
                     <p><a href="/questcreate">Ajouter une question</a></p>
                     <% } %>
+                    <h3>Vos scores</h3>
     <% if(scoreUserTable.length > 0 ){%>
-        <h3>Vos scores</h3>
     <table class='top10Modal-table'>
         <tr>
             <th>Total</th> <th>Date</th> <th>Titre du quiz</th> <th>Refaire le quiz</th>
@@ -31,7 +31,9 @@
         <tr>
             <td><%=sco.total%></td> <td><%=sco.date%></td> <td><%=sco.nomQuiz%></td> <td><a href="/startQuiz/<%=sco.id_quiz%>">Réessayer</a></td>
         </tr>
-            <% })} %>
+            <% })} else{ %>
+                <p>Vous n'avez pas encore de scores enregistrés</p>
+            <% } %>
         </table>
                     
     

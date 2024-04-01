@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { Categorie } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/CategCreate', async (req, res) => {
+router.post('/CategCreate', CheckAuth, async (req, res) => {
   try {
     const { designation, description } = req.body;
-
-    // Vérifier si la session de l'utilisateur existe
-    if (!req.session.utilisateur) {
-      return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-    }
-
     const idUser = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
 

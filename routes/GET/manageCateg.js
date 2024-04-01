@@ -1,16 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const {Categorie, Question, Quiz} =require('../../config/dbconnect')
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/manageCateg/:id',async function(req,res) {
+router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
     
     const idCateg = req.params.id;
-        //recupérer le pseudo utilisateur pour la nav bar
-        const pseudoUtilisateur = req.session.utilisateur.pseudo;
-    
-    if (!req.session.utilisateur) {
-      return res.redirect('/userLogin');
-    }
+    //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     const isAdmin = req.session.utilisateur.admin;
 
     // Vérifier si l'utilisateur est un administrateur

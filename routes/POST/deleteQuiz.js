@@ -3,15 +3,10 @@ const router = express.Router();
 const { Quiz, Question, Reponse } = require('../../config/dbconnect');
 const fs = require('fs').promises;
 const path = require('path');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/deleteQuiz/:id', async function (req, res) {
+router.post('/deleteQuiz/:id', CheckAuth, async function (req, res) {
     const quizId = req.params.id;
-
-    if (!req.session.utilisateur) {
-        return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-    }
-
-    const idUser = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
 
     // Vérifier si l'utilisateur est un administrateur

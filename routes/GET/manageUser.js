@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
+const CheckAuth = require('../../public/script/CheckAuth');
 const { Utilisateur } = require('../../config/dbconnect');
 
-router.get('/manageUser/:id', async function (req, res) {
-
-    if (!req.session.utilisateur) {
-        return res.redirect('/userLogin');
-    }
+router.get('/manageUser/:id', CheckAuth,async function (req, res) {
     const isAdmin = req.session.utilisateur.admin;
     const idUserSession = req.session.utilisateur.id_user;
     const userId = req.params.id;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Score } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
 // Définir la correspondance entre l'identifiant de la question et le nombre de points
 const pointsDifficulte = {
@@ -9,7 +10,7 @@ const pointsDifficulte = {
     '3': 3  // Difficile
 };
 
-router.post('/endQuiz/:id_quiz/:id_user', async function (req, res) {
+router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
     try {
         const idQuiz = req.params.id_quiz;
         const idUser = req.params.id_user;

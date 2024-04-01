@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.get('/categcreate', function (req,res) {
+router.get('/categcreate', CheckAuth, function (req,res) {
   if (!req.session.utilisateur) {
     return res.redirect('/userLogin');
 }

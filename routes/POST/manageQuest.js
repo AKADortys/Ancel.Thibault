@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Question, Reponse } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/manageQuest/:id', async function (req, res) {
+router.post('/manageQuest/:id', CheckAuth, async function (req, res) {
     const idQuestion = req.params.id;
-
-    if (!req.session.utilisateur) {
-        return res.redirect('/userLogin');
-    }
-
     const isAdmin = req.session.utilisateur.admin;
 
     // Vérifier si l'utilisateur est un administrateur

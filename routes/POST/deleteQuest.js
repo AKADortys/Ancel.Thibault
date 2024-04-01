@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Question, Reponse } = require('../../config/dbconnect');
+const CheckAuth = require('../../public/script/CheckAuth');
 
-router.post('/deleteQuest/:id', async function (req, res) {
+router.post('/deleteQuest/:id', CheckAuth, async function (req, res) {
     const questId = req.params.id;
-
-    if (!req.session.utilisateur) {
-        return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-    }
-
     const idUser = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
 
