@@ -89,7 +89,7 @@ reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 
 Script SQL :
-
+`sql
 CREATE TABLE utilisateur 
 (
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -162,6 +162,6 @@ CREATE TABLE reponse
     id_question INTEGER NOT NULL,
     FOREIGN KEY (id_question) REFERENCES Question(id_question)
 );
-
+`
 
 
