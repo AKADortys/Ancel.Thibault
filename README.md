@@ -1,4 +1,14 @@
 # Ancel.Thibault.TFE
+
+Prérequis pour utiliser cette application :
+
+-Télécharger le répertoire via https://github.com/AKADortys/Ancel.Thibault
+-Ouvrir le répertoire avec un IDE (Visual Studio Code)
+-Effectuer la commande dans le terminal: ````npm install```` pour installer les dépendences.
+-Allumer Xampp server et démarrer Apache et Mysql.
+-Sur phpMyAdmin créer une BDD nomée " quizapp "
+-Dans le terminal : ````node app.js ````
+
 Travail de fin d'études. ( application node.js qui interagie avec une BDD MySQL)
 
 Pour ce projet, il vous est demandé de développer une application Node.js qui va interagir avec une base de données MySQL, le choix du projet est libre mais devra être validé au préalable par le chargé de cours.
