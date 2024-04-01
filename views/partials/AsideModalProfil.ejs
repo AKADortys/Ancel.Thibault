@@ -1,4 +1,9 @@
 <aside class="AsideModal-main">
+            <% if (status){ %>
+            <p><a href="/categcreate">Ajouter une catégorie</a></p>
+            <p><a href="/quizcreate">Ajouter un quiz</a></p>
+            <p><a href="/questcreate">Ajouter une question</a></p>
+            <% } %>
     <!-- Affichage des catégories de l'utilisateur -->
     <% if (categoriesUtilisateur.length> 0) { %>
         <h3>Vos catégories :</h3>
@@ -7,22 +12,17 @@
                 <%= categorie.designation %><a href="/manageCateg/<%= categorie.id_categ %>">Modifier</a>
             </p>
             <% }) %>
-            <% } if (status){ %>
-            <p><a href="/categcreate">Ajouter une catégorie</a></p>
-            <% } %>
+            <% } %> 
             
             <!-- Affichage des quiz de l'utilisateur -->
             <% if (quizUtilisateur.length> 0) { %>
                 <h3>Vos quizs :</h3>
                 <% quizUtilisateur.forEach((quiz)=> { %>
                     <p>
-                        <%= quiz.titre %><a href="/manageQuiz/<%= quiz.id_quiz %>">Modifier</a>
+                    <%= quiz.titre %><a href="/manageQuiz/<%= quiz.id_quiz %>">Modifier</a>
                     </p>
                     <% }) %>
-                    <% } if (status){ %>
-                    <p><a href="/quizcreate">Ajouter un quiz</a></p>
-                    <p><a href="/questcreate">Ajouter une question</a></p>
-                    <% }} %>
+                    <% } %>
                     <h3>Vos scores</h3>
     <% if(scoreUserTable.length > 0 ){%>
     <table class='top10Modal-table'>
