@@ -26,6 +26,7 @@ Accès sécurisé avec gestion des rôles (joueur, admin).
 Utilisation de XAMPP server et PHPMyAdmin
 Le projet est versionné sur GitHub avec un repo privé.
 
+````sql
 Modèle logique textuel :
 
 utilisateur = (id_user INT, pseudo VARCHAR(50), pwd VARCHAR(50), admin LOGICAL, nom VARCHAR(50), prenom VARCHAR(50), date_inscri DATETIME);
@@ -42,7 +43,7 @@ reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 
 Script SQL :
-````sql
+
 CREATE TABLE utilisateur 
 (
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -115,7 +116,7 @@ CREATE TABLE reponse
     id_question INTEGER NOT NULL,
     FOREIGN KEY (id_question) REFERENCES Question(id_question)
 );
-```
+````
 
 Description du Projet :
 
