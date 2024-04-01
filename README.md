@@ -51,13 +51,10 @@ Pour mettre en place le système de questions dans l'application QuizApp et les 
 1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
 2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
 3. Mélange aléatoire des questions pour rendre le quiz plus varié.
-4. Affichage de chaque question une par une à l'utilisateur.*
-5. Lancement d'un compte à rebours pour chaque question.*
-6. Gestion des réponses de l'utilisateur : récupération et validation.
-7. Affichage de la réponse correcte si l'utilisateur répond incorrectement.
-8. Enregistrement du score de l'utilisateur.
-9. Répétition des étapes précédentes jusqu'à ce que toutes les questions aient été posées.
-10. Affichage du score final à l'utilisateur à la fin du quiz.
+4. Affichage de chaque question une par une à l'utilisateur.
+5. Gestion des réponses de l'utilisateur : récupération et validation.
+6. Enregistrement du score de l'utilisateur
+7. Affichage du score final à l'utilisateur à la fin du quiz.
 
 Consultation des Scores :
 
@@ -93,7 +90,8 @@ reponse = (id_reponse INT, reponse VARCHAR(100), correct LOGICAL, #id_question);
 
 Script SQL :
 
-CREATE TABLE utilisateur (
+CREATE TABLE utilisateur 
+(
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
     pseudo VARCHAR(50) NOT NULL UNIQUE,
     pwd VARCHAR(100) NOT NULL,
@@ -106,7 +104,8 @@ CREATE TABLE utilisateur (
 
 
 
-CREATE TABLE categories (
+CREATE TABLE categories 
+(
     id_categ INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     designation VARCHAR(50) NOT NULL UNIQUE,
     description VARCHAR(200) NOT NULL,
@@ -116,7 +115,8 @@ CREATE TABLE categories (
 );
 
 
-CREATE TABLE quiz (
+CREATE TABLE quiz 
+(
     id_quiz INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     titre VARCHAR(50) NOT NULL,
     date_ajout DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -129,7 +129,8 @@ CREATE TABLE quiz (
 );
 
 
-CREATE TABLE question (
+CREATE TABLE question 
+(
     id_question INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Intitule VARCHAR(300) NOT NULL UNIQUE,
     difficulte INTEGER NOT NULL,
@@ -141,7 +142,8 @@ CREATE TABLE question (
 );
 
 
-CREATE TABLE score (
+CREATE TABLE score 
+(
     id_score INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     total INTEGER NOT NULL,
     MaJ DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -152,7 +154,8 @@ CREATE TABLE score (
 );
 
 
-CREATE TABLE reponse (
+CREATE TABLE reponse 
+(
     id_reponse INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     reponse VARCHAR(100) NOT NULL,
     correct BINARY NOT NULL,
