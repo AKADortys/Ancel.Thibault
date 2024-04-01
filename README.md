@@ -152,7 +152,7 @@ CREATE TABLE score
     FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
     FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
 );
-```
+
 
 CREATE TABLE reponse 
 (
@@ -162,6 +162,6 @@ CREATE TABLE reponse
     id_question INTEGER NOT NULL,
     FOREIGN KEY (id_question) REFERENCES Question(id_question)
 );
-`
+```
 
 
