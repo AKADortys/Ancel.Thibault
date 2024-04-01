@@ -17,53 +17,6 @@ Le projet que vous allez développer devra respecter les contraintes suivantes :
 
 L’application devra être remise au plus tard le mercredi 15 juin par email à l’adresse suivante : **samuel.lassoie@gmail.com**.
 
-Description du Projet :
-
-QuizApp est une application de jeu de quiz de culture générale où les utilisateurs peuvent tester leurs connaissances sur divers sujets. L'application offre une interface conviviale, des fonctionnalités d'inscription, de jeu, de suivi des scores, et d'administration.
-
-Fonctionnalités Principales :
-
-Inscription et Authentification :
-
-Les utilisateurs peuvent créer un compte avec un pseudo, un mot de passe, et un grade (joueur ou admin).
-L'authentification permet aux utilisateurs de se connecter à leur compte.
-
-Classement des Scores :
-
-Les scores des utilisateurs sont enregistrés à la fin de chaque quiz.
-Un classement des 10 meilleurs scores est affiché sur la page d'accueil.
-
-Quiz par Catégories :
-
-Les questions sont classées par catégories (histoire, sciences, divertissement, etc.).
-Chaque quiz est composé de questions en référence à leur catégorie respective.
-
-Niveau de Difficulté :
-
-Chaque question a un niveau de difficulté (easy, medium, hard).
-
-
-Jeu de Quiz :
-
-La fonction startQuiz() propose une série de questions à l'utilisateur en fonction du quiz .
-Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la fonction startQuiz(), voici les étapes :
-
-1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
-2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
-3. Mélange aléatoire des questions pour rendre le quiz plus varié.
-4. Affichage de chaque question une par une à l'utilisateur.
-5. Gestion des réponses de l'utilisateur : récupération et validation.
-6. Enregistrement du score de l'utilisateur
-7. Affichage du score final à l'utilisateur à la fin du quiz.
-
-Consultation des Scores :
-
-Les utilisateurs peuvent consulter les scores des autres utilisateurs pour les quiz qu'ils ont terminés.
-Administration (Réservé aux Admins) :
-
-Les administrateurs peuvent ajouter, supprimer, et modifier des questions.
-Ils peuvent également gérer les quizs et les catégories.
-
 Contraintes Techniques :
 
 Interface en HTML et stylisée en CSS.
@@ -163,5 +116,52 @@ CREATE TABLE reponse
     FOREIGN KEY (id_question) REFERENCES Question(id_question)
 );
 ```
+
+Description du Projet :
+
+QuizApp est une application de jeu de quiz de culture générale où les utilisateurs peuvent tester leurs connaissances sur divers sujets. L'application offre une interface conviviale, des fonctionnalités d'inscription, de jeu, de suivi des scores, et d'administration.
+
+Fonctionnalités Principales :
+
+Inscription et Authentification :
+
+Les utilisateurs peuvent créer un compte avec un pseudo, un mot de passe, et un grade (joueur ou admin).
+L'authentification permet aux utilisateurs de se connecter à leur compte.
+
+Classement des Scores :
+
+Les scores des utilisateurs sont enregistrés à la fin de chaque quiz.
+Un classement des 10 meilleurs scores est affiché sur la page d'accueil.
+
+Quiz par Catégories :
+
+Les questions sont classées par catégories (histoire, sciences, divertissement, etc.).
+Chaque quiz est composé de questions en référence à leur catégorie respective.
+
+Niveau de Difficulté :
+
+Chaque question a un niveau de difficulté (easy, medium, hard).
+
+
+Jeu de Quiz :
+
+La fonction startQuiz() propose une série de questions à l'utilisateur en fonction du quiz .
+Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la fonction startQuiz(), voici les étapes :
+
+1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
+2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
+3. Mélange aléatoire des questions pour rendre le quiz plus varié.
+4. Affichage de chaque question une par une à l'utilisateur.
+5. Gestion des réponses de l'utilisateur : récupération et validation.
+6. Enregistrement du score de l'utilisateur
+7. Affichage du score final à l'utilisateur à la fin du quiz.
+
+Consultation des Scores :
+
+Les utilisateurs peuvent consulter les scores des autres utilisateurs pour les quiz qu'ils ont terminés.
+Administration (Réservé aux Admins) :
+
+Les administrateurs peuvent ajouter, supprimer, et modifier des questions.
+Ils peuvent également gérer les quizs et les catégories.
 
 
