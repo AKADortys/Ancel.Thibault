@@ -6,7 +6,7 @@ const port = 3000;
 
 app.set('view engine', 'ejs');
 
-// Middlewares
+// Middlewares 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

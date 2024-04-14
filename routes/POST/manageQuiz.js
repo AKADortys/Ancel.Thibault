@@ -4,7 +4,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const upload = require('../../config/multerconfig');
 const {  Quiz } = require('../../config/dbconnect');
-const CheckAuth = require('../../public/script/CheckAuth');
+const CheckAuth = require('../../config/script/CheckAuth');
 
 
 router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), CheckAuth, async function (req, res) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CheckAuth = require('../../public/script/CheckAuth');
+const CheckAuth = require('../../config/script/CheckAuth');
 
 router.get('/categcreate', CheckAuth, function (req,res) {
   if (!req.session.utilisateur) {

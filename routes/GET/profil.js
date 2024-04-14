@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Utilisateur, Categorie, Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
-const CheckAuth = require('../../public/script/CheckAuth');
+const CheckAuth = require('../../config/script/CheckAuth');
 
 router.get('/profil', CheckAuth, async function (req, res) {
   try {
