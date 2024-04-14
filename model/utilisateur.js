@@ -66,5 +66,23 @@ module.exports = (sequelize, DataTypes) => {
     utilisateur.pwd = hashedPassword;
   });
 
+    // Création d'un utilisateur après synchronisation du modèle
+    Utilisateur.afterSync(() => {
+      Utilisateur.create({
+        pseudo: 'Admin',
+        pwd: 'basicpwd',
+        mail: null,
+        admin: true,
+        nom: null,
+        prenom: null
+      })
+      .then(user => {
+        console.log('Utilisateur créé :');
+      })
+      .catch(err => {
+        console.error('Erreur lors de la création de l\'utilisateur :', err);
+      });
+    });
+
   return Utilisateur;
 };
