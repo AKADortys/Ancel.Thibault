@@ -8,6 +8,8 @@ Prérequis pour utiliser cette application :
 - Allumer Xampp server et démarrer Apache et Mysql.
 - Sur phpMyAdmin créer une BDD nomée " quizapp "
 - Dans le terminal : ````node app.js ````
+- Dans le navigateur : localhost:3000/home.
+- L'utilisateur par défaut est administrateur. Le pseudo est Admin et le mot de passe par défaut est basicpwd
 
 Travail de fin d'études. ( application node.js qui interagie avec une BDD MySQL)
 
