@@ -10,7 +10,6 @@ router.get('/manageUser/:id', CheckAuth,async function (req, res) {
         //recupérer le pseudo utilisateur pour la nav bar
         const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
-    console.log(`id session : ${idUserSession}  id params : ${userId}`)
 
     // Vérifier si l'utilisateur est un administrateur ou qu'il s'agit de son profil
     if (userId == idUserSession || isAdmin){

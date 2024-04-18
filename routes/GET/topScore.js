@@ -14,7 +14,6 @@ router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
         const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
         const ordre = req.query.ordre || 'pseudo';
-        console.log(ordre)
 
         let score;
         switch (ordre) {
@@ -46,7 +45,7 @@ router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
             nomUser: userQuiz.pseudo,
             nomCateg: categQuiz.designation
         };
-        console.log(objQuiz)
+        
 
         let tableScore = [];
         for (const sco of score) {
@@ -60,7 +59,6 @@ router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
             }
             tableScore.push(objTable);
         };
-        console.log(quiz.titre,tableScore)
 
         res.render('home/topScore',{tableScore, objQuiz, pseudoUtilisateur, question, idQuiz, maxPoint, ordre})
     }

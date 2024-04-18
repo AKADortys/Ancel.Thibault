@@ -22,7 +22,7 @@ router.post('/loggin', async (req, res) => {
         if (passwordMatch) {
             // Creation de la session avec les données utilisateur
             req.session.utilisateur = utilisateur.dataValues;
-            console.log(req.session.utilisateur);
+            console.log(`Utilisateur ${pseudo} connecté.`);
             return res.redirect('/home')
         } else {
             return res.status(401).json({ message: 'Identifiants invalides' });

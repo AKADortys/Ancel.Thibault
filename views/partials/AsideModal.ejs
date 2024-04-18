@@ -20,7 +20,7 @@
                         <% if (categorie.quiz && categorie.quiz.length > 0) { %>
                             <ul>
                                 <% categorie.quiz.forEach((quiz) => { %>
-                                    <li><%= quiz.titre %> <a href="/startQuiz/<%=quiz%>">Démarer</a></li>
+                                    <li><%= quiz.titre %> <a href="/startQuiz/<%=quiz.id_quiz%>">Démarer</a></li>
                                 <% }); %>
                             </ul>
                         <% } %>
