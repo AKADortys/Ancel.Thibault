@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Categorie } = require('../../config/dbconnect');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/CategCreate', CheckAuth, async (req, res) => {
   try {

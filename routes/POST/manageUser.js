@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Utilisateur } = require('../../config/dbconnect');
 const bcrypt = require('bcrypt');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/manageUser/:id', CheckAuth, async function (req, res) {

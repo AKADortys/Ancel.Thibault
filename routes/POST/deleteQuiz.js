@@ -3,7 +3,7 @@ const router = express.Router();
 const { Quiz, Question, Reponse } = require('../../config/dbconnect');
 const fs = require('fs').promises;
 const path = require('path');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/deleteQuiz/:id', CheckAuth, async function (req, res) {
     const quizId = req.params.id;

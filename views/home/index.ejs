@@ -14,11 +14,30 @@
 <body style="background-image: url(Images/comb\ grid.jpg)">
   <div style="display: flex; flex-wrap: wrap;">
     <%- include('../partials/navBar') %>
-      <%- include('../partials/AsideModal') %>
-      <main class="main">
+    <%- include('../partials/AsideModal') %>
+    <main class="main">
+      <!-- Génération dynamique des catégories -->
+      <% categorieQuizTable.forEach(category => { %>
+        <div class="containeur">
+          <h1><%= category.designation %></h1>
+          <p><%= category.description %></p>
+          <div class="leftbar">
+            <% category.quiz.forEach(quiz => { %>
+              <div class='bloc'>
+                <img src="<%= quiz.image %>" alt="Image du quiz">
+                <section>
+                  <h3><%= quiz.titre %></h3>
+                  <p><%= quiz.description %></p>
+                  <a href="/startQuiz/<%= quiz.id_quiz %>">Démarrer le quizz</a>
+                  <a href="/topScore/<%= quiz.id_quiz %>">Afficher le tableau des scores</a>
+                </section>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
 
-        <%-categoriesHtml%>
-      </main>
+    </main>
   </div>
 </body>
 

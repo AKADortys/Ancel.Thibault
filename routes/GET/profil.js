@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Utilisateur, Categorie, Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/profil', CheckAuth, async function (req, res) {
   try {
@@ -84,7 +84,8 @@ router.get('/profil', CheckAuth, async function (req, res) {
     const score = await Score.findAll({ where: { id_user: utilisateur.id_user } });
     let scoreUserTable = [];
 
-    for (const sco of score) {
+    for (const sco of score) 
+    {
       let scoreUser = {};
       scoreUser.total = sco.total
       scoreUser.date = FomateDate(sco.MaJ);
@@ -93,7 +94,6 @@ router.get('/profil', CheckAuth, async function (req, res) {
       scoreUser.id_quiz = scoreQuiz.id_quiz;
       scoreUserTable.push(scoreUser)
     };
-    console.log(scoreUserTable)
     res.render('home/profil', {
       utilisateur,
       status,

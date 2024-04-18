@@ -1,10 +1,32 @@
 <aside class="AsideModal-main">
     <h3>Liste des joueurs</h3>
     <div class="tableHtml">
-    <%- tableHtml %>
+        <table>
+            <th>Pseudo</th> <th>Nom</th> <th>Prénom</th>
+        <% utilisateurs.forEach((n =>{%>
+            <tr>
+                <td><%= n.pseudo %></td> <td><%= n.nom %></td> <td><%= n.prenom %></td>
+            </tr>
+            <%})) %>
+            </table>
+        
     </div>
     <h3>Catégories et leurs quizs</h3>
-<div class="listeCategorie">
-    <%- listeCategorie %>
-</div>
-</aside>
+    <div class="listeCategorie">
+        <% if (categorieQuizTable.length > 0) { %>
+            <ul>
+                <% for (const categorie of categorieQuizTable) { %>
+                    <li><%= categorie.designation %>
+                        <% if (categorie.quiz && categorie.quiz.length > 0) { %>
+                            <ul>
+                                <% categorie.quiz.forEach((quiz) => { %>
+                                    <li><%= quiz.titre %> <a href="/startQuiz/<%=quiz%>">Démarer</a></li>
+                                <% }); %>
+                            </ul>
+                        <% } %>
+                    </li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+</aside> 

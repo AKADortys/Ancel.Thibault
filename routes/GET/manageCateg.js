@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Categorie, Question, Quiz} =require('../../config/dbconnect')
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
     

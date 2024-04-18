@@ -1,7 +1,7 @@
 const express = require('express');
 const { Quiz } = require('../../config/dbconnect');
 const router = express.Router();
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/questcreate', CheckAuth,async function (req, res) {
     const isAdmin = req.session.utilisateur.admin;

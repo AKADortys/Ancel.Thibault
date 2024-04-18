@@ -65,24 +65,24 @@ module.exports = (sequelize, DataTypes) => {
     const hashedPassword = await bcrypt.hash(utilisateur.pwd, 10);
     utilisateur.pwd = hashedPassword;
   });
-
-    // Création d'un utilisateur après synchronisation du modèle
-    Utilisateur.afterSync(() => {
-      Utilisateur.create({
-        pseudo: 'Admin',
-        pwd: 'basicpwd',
-        mail: null,
-        admin: true,
-        nom: null,
-        prenom: null
-      })
-      .then(user => {
-        console.log('Utilisateur créé :');
-      })
-      .catch(err => {
-        console.error('Erreur lors de la création de l\'utilisateur :', err);
-      });
-    });
+  Utilisateur.afterSync(async () => {
+    try {
+      const existingUser = await Utilisateur.findOne({ where: { pseudo: 'Admin' } });
+      if (!existingUser) {
+        await Utilisateur.create({
+          pseudo: 'Admin',
+          pwd: 'basicpwd', // Assurez-vous de stocker le mot de passe de manière sécurisée
+          mail: null,
+          admin: true,
+          nom: null,
+          prenom: null
+        });
+        console.log('Utilisateur "Admin" créé avec succès.');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la création de l\'utilisateur "Admin" :', error);
+    }
+  });
 
   return Utilisateur;
 };

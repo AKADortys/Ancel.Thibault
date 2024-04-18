@@ -3,7 +3,7 @@ const router = express.Router();
 const { Categorie, Quiz, Question, Reponse } = require('../../config/dbconnect');
 const fs = require('fs').promises;
 const path = require('path');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/deleteCategory/:id', CheckAuth, async function (req, res) {
   const categoryId = req.params.id;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Question, Reponse } = require('../../config/dbconnect');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/manageQuest/:id', CheckAuth, async function (req, res) {
     const idQuestion = req.params.id;

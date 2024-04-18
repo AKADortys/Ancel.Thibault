@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Score } = require('../../config/dbconnect');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 // Définir la correspondance entre l'identifiant de la question et le nombre de points
 const pointsDifficulte = {

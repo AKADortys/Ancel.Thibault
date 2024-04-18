@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Quiz } = require('../../config/dbconnect');
 const upload = require('../../config/multerconfig');
-const CheckAuth = require('../../config/script/CheckAuth');
+const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) => {
