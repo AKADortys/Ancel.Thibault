@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Category', {
+    const Categorie = sequelize.define('Categorie', {
+        // Définition des attributs du modèle
         id_categ: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -21,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         description: {
-            type: DataTypes.STRING(200),
+            type: DataTypes.STRING(400),
             allowNull: false,
             validate: {
                 notNull: {
                     msg: 'La description est requise.'
                 },
                 len: {
-                    args: [100, 200],
+                    args: [100, 400],
                     msg: 'La description doit avoir entre 100 et 200 caractères.'
                 }
             }
@@ -50,4 +51,23 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'categories', // Nom de la table dans la base de données
         timestamps: false
     });
+
+    // Fonction pour insérer des données après la synchronisation réussie
+    Categorie.afterSync(async () => {
+        try {
+            const existingCateg = await Categorie.findOne({where: {designation: 'Films'}});
+            if(!existingCateg){
+            Categorie.create({
+                designation: 'Films',
+                description: `Découvrez l'univers passionnant du cinéma à travers la catégorie Films de notre site de quiz. Testez vos connaissances sur les classiques, les blockbusters et les réalisateurs. Explorez les genres, les acteurs et les citations célèbres pour devenir un véritable cinéphile !`,
+                id_user: 1 
+            });
+        }}
+        catch(error)
+        {
+            console.error('Erreur lors de la création de la catégorie:\n',error)
+        }
+});
+
+    return Categorie;
 };

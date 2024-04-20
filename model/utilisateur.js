@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
       if (!existingUser) {
         await Utilisateur.create({
           pseudo: 'Admin',
-          pwd: 'basicpwd', // Assurez-vous de stocker le mot de passe de manière sécurisée
+          pwd: 'basicpwd',
           mail: null,
           admin: true,
           nom: null,
