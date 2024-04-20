@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Categorie, Quiz, Question, Reponse } = require('../../config/dbconnect');
+const { Categorie, Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
 const fs = require('fs').promises;
 const path = require('path');
 const CheckAuth = require('../../config/controller/CheckAuth');
@@ -28,11 +28,20 @@ router.post('/deleteCategory/:id', CheckAuth, async function (req, res) {
       where: { id_categ: categoryId },
     });
 
-    // Supprimer les questions et les réponses associées à chaque quiz
+    // Supprimer les questions, les scores et les réponses associées à chaque quiz
     for (const quiz of quizzes) {
       const questions = await Question.findAll({
         where: { id_quiz: quiz.id_quiz },
       });
+      const scores = await Score.findAll({
+        where: { id_quiz: quiz.id_quiz }
+      })
+
+      for (const score of scores) {
+        await Score.destroy({
+          where: { id_quiz: score.id_quiz },
+        })
+      }
 
       for (const question of questions) {
         await Reponse.destroy({

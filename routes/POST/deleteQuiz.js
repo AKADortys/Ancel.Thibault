@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Quiz, Question, Reponse } = require('../../config/dbconnect');
+const { Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
 const fs = require('fs').promises;
 const path = require('path');
 const CheckAuth = require('../../config/controller/CheckAuth');
@@ -22,6 +22,10 @@ router.post('/deleteQuiz/:id', CheckAuth, async function (req, res) {
         }
 
         const imagePath = quiz.image;
+
+        await Score.destroy({
+            where: {id_quiz: quizId}
+        })
 
         const questions = await Question.findAll({
             where: { id_quiz: quizId },

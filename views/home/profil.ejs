@@ -102,14 +102,15 @@
                             <a href="/manageQuiz/<%= n.id %>">Modifier le quiz</a>
                             <a href="/topScore/<%= n.id %>">Afficher le classement</a>
                         </section>
-                    <p class="half"><span>Date d'ajout:</span> <%= cateQuiz.date %></p>
-                    <p class="half"><span>Créer par:</span> <%= cateQuiz.createur%></p>
-                    <p><a href="/manageCateg/<%= cateQuiz.id%>">Modifier la catégorie</a></p>
-            </div>
-        <% }))}} else{%>
-            <div class="allCategQuiz">
-                <p>Il n'y a rien ici pour le moment</p>
-            </div>
-        <%}%>
+                        <% })) %>
+                        <p class="half"><span>Date d'ajout:</span> <%= cateQuiz.date %></p>
+                        <p class="half"><span>Créer par:</span> <%= cateQuiz.createur%></p>
+                        <p><a href="/manageCateg/<%= cateQuiz.id%>">Modifier la catégorie</a></p>
+                </div>
+                <% }} else{%>
+                        <div class="allCategQuiz">
+                            <p>Il n'y a rien ici pour le moment</p>
+                        </div>
+                        <%}%>
     </main>
 </body>

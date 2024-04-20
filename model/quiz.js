@@ -61,5 +61,23 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false // Désactiver l'ajout automatique des timestamps (created_at, updated_at)
   });
 
+  Quiz.afterSync( async () => {
+    try{
+      const existingQuiz = await Quiz.findOne({where: {titre: 'Films des années 2000'}});
+      if(!existingQuiz){
+        Quiz.create({
+          titre: 'Films des années 2000',
+          description: `Testez vos connaissances cinématographiques avec notre quiz "Films des années 2000" ! Devinez les films emblématiques de cette décennie en un clin d'œil.`,
+          id_user: 1,
+          id_categ: 1,
+          image:`public\\Images\\image-1713647299577.jpg`  
+        })
+      }}
+      catch(error)
+      {
+        console.error('Erreur lors de la création du quiz: \n', error)
+      }
+    })
+
   return Quiz;
 };

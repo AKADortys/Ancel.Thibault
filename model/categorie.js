@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'utilisateur',
+                model: 'utilisateur', 
                 key: 'id_user'
             }
         }
@@ -59,9 +59,10 @@ module.exports = (sequelize, DataTypes) => {
             if(!existingCateg){
             Categorie.create({
                 designation: 'Films',
-                description: `Découvrez l'univers passionnant du cinéma à travers la catégorie Films de notre site de quiz. Testez vos connaissances sur les classiques, les blockbusters et les réalisateurs. Explorez les genres, les acteurs et les citations célèbres pour devenir un véritable cinéphile !`,
+                description: `Découvrez l'univers passionnant du cinéma à travers la catégorie Films de notre site de quiz. Testez vos connaissances sur les classiques, les blockbusters et les réalisateurs.`,
                 id_user: 1 
             });
+            console.log('Quiz insérer avec succés !')
         }}
         catch(error)
         {
