@@ -84,6 +84,32 @@
             <% } %>
 
         <% } %>
-        <%- allCateg %>
+        <% if (categQuizTable && categQuizTable.length > 0) {%>
+            <h2>Les catégories et leurs quizs</h2>
+            <div class="allCategQuiz">
+            <% for (const cateQuiz of categQuizTable) {%>    
+                <div class="section-group">
+                  <h3>Catégorie <%= cateQuiz.designation %></h3>
+                    <p><%= cateQuiz.description %></p>
+                    <% cateQuiz.quiz.forEach((n=> {%>
+                        <section>
+                            <h4>Quiz: <%=n.titre%></h4>
+                            <p><%= n.description %></p>
+                            <img src="<%=n.image%>">
+                            <p>Nombres de question attribuées à ce quiz : <%= n.question %></p>
+                            <p class="half"><span>Date d'ajout:</span> <%= n.date %></p>
+                            <p class="half"><span>Créer par:</span> <%= n.createur %></p>
+                            <a href="/manageQuiz/<%= n.id %>">Modifier le quiz</a>
+                            <a href="/topScore/<%= n.id %>">Afficher le classement</a>
+                        </section>
+                    <p class="half"><span>Date d'ajout:</span> <%= cateQuiz.date %></p>
+                    <p class="half"><span>Créer par:</span> <%= cateQuiz.createur%></p>
+                    <p><a href="/manageCateg/<%= cateQuiz.id%>">Modifier la catégorie</a></p>
+            </div>
+        <% }))}} else{%>
+            <div class="allCategQuiz">
+                <p>Il n'y a rien ici pour le moment</p>
+            </div>
+        <%}%>
     </main>
 </body>

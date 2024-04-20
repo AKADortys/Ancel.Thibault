@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Utilisateur, Categorie, Quiz, Question, Reponse, Score } = require('../../config/dbconnect');
 const CheckAuth = require('../../config/controller/CheckAuth');
+const quiz = require('../../model/quiz');
 
 router.get('/profil', CheckAuth, async function (req, res) {
   try {
@@ -41,51 +42,41 @@ router.get('/profil', CheckAuth, async function (req, res) {
 
     //Chercher dans la bdd toutes les categ et générer les éléments html
     const categories = await Categorie.findAll();
-    let allCateg = '';
-    if (categories.length > 0 && isAdmin) {
-      //initialisation du titre et du conteneur
-      allCateg +=
-        `
-           <h2>Les catégories et leurs quizs</h2>
-           <div class="allCategQuiz">
-           `;
-      //utilisation d'une boucle for ici est particulière, à la base j'utilisais forEach() mais il s'est avérer que cette méthode ne prend pas parfaitement en compte les fonction async
-      for (const categ of categories) {
-        const quizs = await Quiz.findAll({ where: { id_categ: categ.id_categ } });
-
-        allCateg +=
-          `
-           <div class="section-group">
-           <h3>Catégorie :${categ.designation}</h3>
-           <p>${categ.description}</p>
-           <p><a href="/manageCateg/${categ.id_categ}">Modifier la catégorie</a></p>
-           `;
-        for (const quiz of quizs) {
-
-          const nbrsQuest = await Question.count({ where: { id_quiz: quiz.id_quiz } });
-          const adjustImage = quiz.image.substring(7);
-          allCateg +=
-            `
-             <section>
-               <h4>Quiz :${quiz.titre}</h4>
-               <p>${quiz.description}</p>
-               <img src="${adjustImage}">
-               <p>Nombres de question attribuées à ce quiz : ${nbrsQuest}</p>
-               <a href="/manageQuiz/${quiz.id_quiz}">Modifier le quiz</a>
-               <a href="/topScore/${quiz.id_quiz}">Afficher le classement</a>
-             </section>
-             `;
-        }
-        allCateg += '</div>'
+    let categQuizTable = [];
+    for (const categ of categories) {
+      const userCategCreate = await Utilisateur.findByPk(categ.id_user)
+      let obj =
+      {
+        id: categ.id_categ,
+        designation: categ.designation,
+        description: categ.description,
+        createur: userCategCreate.pseudo,
+        date: FomateDate(categ.date_ajout),
+        quiz: []
       }
-      allCateg += '</div>';
+      const quizCateg = await Quiz.findAll({ where: { id_categ: categ.id_categ } })
+      for (const n of quizCateg) {
+        const userQuizCreate = await Utilisateur.findByPk(n.id_user)
+        const nbrQuestion = await Question.count({ where: { id_quiz: n.id_quiz } })
+        let objquiz =
+        {
+          id: n.id_quiz,
+          titre: n.titre,
+          description: n.description,
+          date: FomateDate(n.date_ajout),
+          image: n.image.substring(7),
+          createur: userQuizCreate.pseudo,
+          question: nbrQuestion
+        }
+        obj.quiz.push(objquiz)
+      }
+      categQuizTable.push(obj)
     }
 
     const score = await Score.findAll({ where: { id_user: utilisateur.id_user } });
     let scoreUserTable = [];
 
-    for (const sco of score) 
-    {
+    for (const sco of score) {
       let scoreUser = {};
       scoreUser.total = sco.total
       scoreUser.date = FomateDate(sco.MaJ);
@@ -98,13 +89,13 @@ router.get('/profil', CheckAuth, async function (req, res) {
       utilisateur,
       status,
       scoreUserTable,
-      formattedDate,
       pseudoUtilisateur,
       categoriesUtilisateur,
       quizUtilisateur,
       allUtilisateur,
-      allCateg,
-      isAdmin
+      isAdmin,
+      categQuizTable,
+      formattedDate
     });
   } catch (error) {
     console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
