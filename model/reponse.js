@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Reponse', {
+  const Reponse = sequelize.define('Reponse', {
     id_reponse: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -40,4 +40,95 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'reponse',
     timestamps: false
   });
+
+  Reponse.afterSync( async () => {
+    try{
+      const existingReponse = await Reponse.findAll({
+        where: {id_question:1}
+      })
+      if(!existingReponse){
+      await sequelize.models.Reponse.bulkCreate([
+        {
+          reponse:`Le Seigneur des Anneaux : Le Retour du Roi`,
+          correct:true,
+          id_question:1
+        },
+        {
+          reponse:`Gladiator`,
+          correct:false,
+          id_question:1
+        },
+        {
+          reponse:`Titanic`,
+          correct:false,
+          id_question:1
+        },
+        {
+          reponse:`Christopher Nolan`,
+          correct:true,
+          id_question:2
+        },
+        {
+          reponse:`Steven Spielberg`,
+          correct:false,
+          id_question:2
+        },
+        {
+          reponse:`Quentin Tarantino`,
+          correct:false,
+          id_question:2
+        },
+        {
+          reponse:`Toy Story`,
+          correct:true,
+          id_question:3
+        },
+        {
+          reponse:`Shrek`,
+          correct:false,
+          id_question:3
+        },
+        {
+          reponse:`L'Âge de Glace`,
+          correct:false,
+          id_question:3
+        },
+        {
+          reponse:`Johnny Depp`,
+          correct:true,
+          id_question:4
+        },
+        {
+          reponse:`Brad Pitt`,
+          correct:false,
+          id_question:4
+        },
+        {
+          reponse:`Tom Cruise`,
+          correct:false,
+          id_question:4
+        },
+        {
+          reponse:`Kill Bill`,
+          correct:false,
+          id_question:5
+        },
+        {
+          reponse:`Reservoir Dogs`,
+          correct:false,
+          id_question:5
+        },
+        {
+          reponse:`Pulp Fiction`,
+          correct:false,
+          id_question:5
+        },
+      ])}
+    }
+    catch(error){
+      console.error('Erreur lors de la création des reponses: \n', error)
+    }
+  })
+
+  return Reponse
 };
