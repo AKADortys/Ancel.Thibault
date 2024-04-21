@@ -20,7 +20,7 @@ main table{
 }
 
 main td{
-    padding: 10px 5px;
+    padding: 10px 0px;
     color: greenyellow;
     text-align: center;
 }
@@ -28,10 +28,19 @@ main td{
 main a{
     color: black;
     border: 2px solid green;
+    border-radius: 5px;
     background-color: greenyellow;
     text-decoration: none;
     padding: 5px;
     margin: 0 auto;
+    transition: all 0.6s;
+}
+
+main a:hover{
+    transform: translateY(-5px);
+    background-color: green;
+    border: 2px solid greenyellow;
+    color: greenyellow;
 }
 
 .allCategQuiz{
@@ -71,11 +80,14 @@ main a{
 }
 
 main h2{
-    background-color: whitesmoke;
-    padding: 10px;
-    border: solid black 2px;
-    width: 50%;
+    width: 65%;
+    padding: 15px 5px;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid black;
     text-align: center;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-family: monospace;
 }
 
 main h3{

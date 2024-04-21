@@ -59,8 +59,8 @@ module.exports = (sequelize, DataTypes) => {
   Question.afterSync(async () => {
     // Insérer 5 questions après la synchronisation du modèle
     try {
-      const existingQuestion = await Question.findAll({
-        where: { id_quiz: 1 }
+      const existingQuestion = await Question.findOne({
+        where: { id_user: 1 }
       })
       if (!existingQuestion) {
         await sequelize.models.Question.bulkCreate([

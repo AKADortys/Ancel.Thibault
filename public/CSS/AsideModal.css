@@ -3,18 +3,9 @@
     padding: 0;
     margin: 0;
     height: 200px;
+    width: 90%;
 }
 
-
-.listeCategorie a{
-    background-color: greenyellow;
-    border: 2px solid green;
-    padding: 5px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: green;
-    transition: opacity 0.5s;
-}
 
 
 .AsideModal-main{
@@ -31,10 +22,12 @@
 
 .AsideModal-main h3{
     padding: 10px 5px;
-    background-color: whitesmoke;
+    background-color: rgb(245, 245, 245);
     border: 1px solid black;
     text-align: center;
+    border-radius: 10px;
     margin: 10px 0;
+    font-family: monospace;
 }
 
 
@@ -44,25 +37,28 @@
     border: 1px solid black;
     border-radius: 10%;
     text-align: center;
+    width: 95%;
 }
 
 .tableHtml th{
-    color: blue;
+    color: gold;
     border-bottom: 2px solid black;
 }
 
 .tableHtml td{
-    padding: 5px 7px;
+    padding: 10px 7px;
 }
 
 
 .listeCategorie>ul{
-    color: blue;
+    color: greenyellow;
+    background-color: grey;
     list-style: none;
-    width: 100%;
+    width: 90%;
     margin: 10px 5px;
     padding: 0;
     font-weight: bold;
+    text-align: center;
 }
 
 .listeCategorie>ul>li{
@@ -85,4 +81,34 @@
 
 .listeCategorie{
     width: 100%;
+}
+
+.listeCategorie>ul>li>ul{
+    background-color: aliceblue;
+    color: blue;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+.listeCategorie>ul>li>ul>li{
+    padding: 10px 0;
+}
+
+.listeCategorie>ul>li>ul>li>a{
+    background-color: greenyellow;
+    border: 2px solid green;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: green;
+    transition: all 0.5s;
+    margin: 0 5px;
+}
+
+.listeCategorie>ul>li>ul>li>a:hover{
+    background-color: green;
+    border: 2px solid greenyellow;
+    color: greenyellow;
 }

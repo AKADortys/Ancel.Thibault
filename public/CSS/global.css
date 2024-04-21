@@ -1,8 +1,8 @@
 body {
-    background-image: url(Images/comb\ grid.jpg);
+    background-image: url(../Images/comb\ grid.jpg);
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
-    justify-content: space-between;
+    justify-content: center;
     align-content: flex-start;
 }

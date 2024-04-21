@@ -67,7 +67,7 @@ body {
 }
 
 .loginModal-box form {
-    background-image: url(Images/comb\ grid.jpg);
+    background-image: url(../Images/comb\ grid.jpg);
     background-size: contain;
     margin: 0.45% auto;
     width: 98%;

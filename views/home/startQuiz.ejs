@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/startQuiz.css">
-    <link rel="stylesheet" href="/navBar.css" type="text/css">
+    <link rel="stylesheet" href="/CSS/startQuiz.css">
+    <link rel="stylesheet" href="/CSS/navBar.css">
+    <link rel="stylesheet" href="/CSS/global.css">
     <title>Quiz <%= quiz.titre %>
     </title>
 </head>
 <% const adjustImage=quiz.image.substring(7); %>
 
-    <body style="background-image: url(/Images/comb\ grid.jpg)">
+    <body>
         <%- include('../partials/navBar') %>
             <div id="quiz-container">
                 <img src="/<%=adjustImage%>" alt="Image du quiz <%=quiz.titre%>">

@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Reponse.afterSync( async () => {
     try{
-      const existingReponse = await Reponse.findAll({
+      const existingReponse = await Reponse.findOne({
         where: {id_question:1}
       })
       if(!existingReponse){
@@ -110,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
           reponse:`Kill Bill`,
-          correct:false,
+          correct:true,
           id_question:5
         },
         {
@@ -123,7 +123,9 @@ module.exports = (sequelize, DataTypes) => {
           correct:false,
           id_question:5
         },
-      ])}
+      ])
+    console.log('Reponses insérées avec succès !')
+    }
     }
     catch(error){
       console.error('Erreur lors de la création des reponses: \n', error)

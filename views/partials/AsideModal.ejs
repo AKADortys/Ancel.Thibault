@@ -14,8 +14,8 @@
     <h3>Catégories et leurs quizs</h3>
     <div class="listeCategorie">
         <% if (categorieQuizTable.length > 0) { %>
-            <ul>
-                <% for (const categorie of categorieQuizTable) { %>
+            <% for (const categorie of categorieQuizTable) { %>
+                <ul>
                     <li><%= categorie.designation %>
                         <% if (categorie.quiz && categorie.quiz.length > 0) { %>
                             <ul>
@@ -25,8 +25,8 @@
                             </ul>
                         <% } %>
                     </li>
+                </ul>
                 <% } %>
-            </ul>
         <% } %>
     </div>
 </aside> 

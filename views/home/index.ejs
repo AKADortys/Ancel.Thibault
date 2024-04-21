@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accueil QuizApp</title>
-  <link rel="stylesheet" type="text/css" href="/loginModal.css">
-  <link rel="stylesheet" href="/navBar.css" type="text/css">
-  <link rel="stylesheet" href="/AsideModal.css" type="text/css">
-  <link rel="stylesheet" href="/MainAccueil.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="CSS/loginModal.css">
+  <link rel="stylesheet" href="CSS/navBar.css" type="text/css">
+  <link rel="stylesheet" href="CSS/AsideModal.css" type="text/css">
+  <link rel="stylesheet" href="CSS/MainAccueil.css" type="text/css">
 </head>
 
 <body style="background-image: url(Images/comb\ grid.jpg)">
@@ -16,7 +16,7 @@
     <%- include('../partials/navBar') %>
     <%- include('../partials/AsideModal') %>
     <main class="main">
-      <!-- Génération dynamique des catégories -->
+     <h1>Quiz App</h1>
       <% categorieQuizTable.forEach(category => { %>
         <div class="containeur">
           <h1><%= category.designation %></h1>
