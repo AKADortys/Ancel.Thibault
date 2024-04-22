@@ -22,10 +22,6 @@ router.post('/manageQuest/:id', CheckAuth, async function (req, res) {
     const formDataRepIncc = { reponse: req.body.questRep1 };
     const formDataRepIncc1 = { reponse: req.body.questRep2 };
 
-    console.log(formDataRepIncc)
-    console.log(formDataRepIncc1)
-    console.log(formDataQuest)
-
     try {
         // Mettre à jour la question
         await Question.update(formDataQuest, { where: { id_question: idQuestion } });

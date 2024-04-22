@@ -24,7 +24,7 @@ router.post('/CategCreate', CheckAuth, async (req, res) => {
       id_user: idUser
     });
 
-    console.log('Nouvelle catégorie créée avec succès !', newCategorie );
+    console.log('Nouvelle catégorie créée avec succès !');
     res.redirect('/profil');
 
   } catch (error) {

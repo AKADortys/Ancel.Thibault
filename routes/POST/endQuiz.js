@@ -17,7 +17,6 @@ router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
         let score = 0;
 
         const formData = req.body;
-        console.log(formData);
         for (const questionId in formData) {
             const [difficult, reponse] = formData[questionId];
             const points = pointsDifficulte[difficult];
@@ -25,7 +24,6 @@ router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
                 score += points;
             }
         }
-        console.log(score);
 
         const newScrore = await Score.create({
             total: score,
@@ -33,7 +31,7 @@ router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
             id_user: idUser
         });
 
-        console.log('Score intégré avec succés !', newScrore);
+        console.log('Score intégré avec succés !');
         res.redirect('/home')
     } catch (error) {
 

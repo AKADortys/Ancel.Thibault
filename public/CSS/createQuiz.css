@@ -1,25 +1,18 @@
-.quiz-create p{
-    color: yellow;
-    text-align: center;
-    gap: 10px;
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    padding: 0;
-    margin: 10px auto;
-}
+
 .quiz-create {
     border: 2px solid black;
     margin: 10px;
     border-radius: 10px;
     width: 80%;
     background: radial-gradient(circle farthest-corner at center center, rgb(122, 122, 122) 5%, #3a3a3a 160%);
-    color: chartreuse;
+    color: black;
     font-size: larger;
     font-weight: bolder;
     text-align: center;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .quiz-create ul{
     list-style: none;
@@ -62,16 +55,24 @@ h1 {
 }
 
 .quiz-create table {
-    width: 100%;
+    width: 85%;
     padding: 10px;
+    margin: 10px 0;
     background-color: rgba(255, 255, 255, 0.363);
     margin-top: 10px;
     border-bottom: solid black 1px;
     border-top: solid black 1px;
+    text-align: left;
 }
 
 .quiz-create table td {
     padding: 10px 0;
+}
+
+.quiz-create table th{
+    color: white;
+    font-weight: bolder;
+    border-bottom: 1px solid black;
 }
 
 .champ-form {
@@ -116,4 +117,11 @@ h1 {
 
 .Boutton-form:focus {
     background-color: seagreen;
+}
+
+.form-delete{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }

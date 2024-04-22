@@ -30,22 +30,19 @@ router.get('/manageQuiz/:id', CheckAuth, async function (req, res) {
         let divInfo = '<div class="quiz-create">';
 
         if (questions.length > 0) {
-            divInfo += `<h3>Les questions du quiz <span>${quiz.titre}</span>:</h3> `;
+            divInfo += `<h3>Les questions du quiz <span>${quiz.titre}</span>:</h3>
+                        <table>
+                            <th>Intitulé</th> <th>Outil modification</th>`;
 
             for (const question of questions) {
                 const reponses = await Reponse.findAll({ where: { id_question: question.id_question } });
 
-                divInfo += `
-                                <p>
-                                    ${question.Intitule} <a href="/manageQuest/${question.id_question}">Modifier</a>
-                                </p>
-                            <h3>les reponses de la question :</h3><ul>`;
-                reponses.forEach(reponse => {
-                    divInfo += `<li>${reponse.reponse}</li>`;
-                });
+                divInfo += `<tr>
+                                <td>${question.Intitule}</td><td><a href="/manageQuest/${question.id_question}">Modifier</a></td>
+                            </tr>`;
             }
         }
-        divInfo += `</ul></div><form method="post" action="/deleteQuiz/${quiz.id_quiz}"><button class="delete" type="submit">Supprimer le quiz</button></form>`;
+        divInfo += `</table></div><form class="form-delete" method="post" action="/deleteQuiz/${quiz.id_quiz}"><button onclick="return confirm('Êtes-vous sûr de vouloir continuer ?')" class="delete" type="submit">Supprimer le quiz</button></form>`;
 
         if (!quiz) {
             return res.status(404).json({ message: 'Le quiz n\'existe pas !' })

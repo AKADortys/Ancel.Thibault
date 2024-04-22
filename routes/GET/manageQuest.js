@@ -20,7 +20,6 @@ router.get('/manageQuest/:id', CheckAuth, async function (req, res) {
         const reponseIncorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: false } });
         const reponseCorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: true } });
         const quiz = await Quiz.findAll();
-        console.log(reponseCorrect);
         let selectQuiz = `<label for="quiz">Quiz:</label><select name="quiz" id="quiz">`;
         quiz.forEach((quiz) => {
             if (quiz.id_quiz === question.id_quiz) {
@@ -80,7 +79,7 @@ router.get('/manageQuest/:id', CheckAuth, async function (req, res) {
         <td align="center"><input type="submit" value="Validé !" class="Boutton-form"></td>
         <td><input type="reset" value="Annuler" class="Boutton-form"></td>
         </tr></table></form>`;
-        htmlQuestion +=`<form method="post" action="/deleteQuest/${idQuestion}"><button class="delete" type="submit">Supprimer la question</button></form>`
+        htmlQuestion +=`<form class="form-delete" method="post" action="/deleteQuest/${idQuestion}"><button onclick="return confirm('Êtes-vous sûr de vouloir continuer ?')" class="delete" type="submit">Supprimer la question</button></form>`
         
         res.render('login/manageQuest', { htmlQuestion , pseudoUtilisateur})
     }

@@ -8,12 +8,6 @@ router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
     const idCateg = req.params.id;
     //recupérer le pseudo utilisateur pour la nav bar
     const pseudoUtilisateur = req.session.utilisateur.pseudo;
-    const isAdmin = req.session.utilisateur.admin;
-
-    // Vérifier si l'utilisateur est un administrateur
-    if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
-    }
 
     try{
         
@@ -21,13 +15,18 @@ router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
     const categorie = await Categorie.findByPk(idCateg);
 
     let divInfo ='<div class="quiz-create">';
-    divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>`;
+    divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>
+                <table>
+                  <th>Titre du quiz</th> <th>Outils modification</th>
+                  `;
     if(quizCateg.length > 0) {
       quizCateg.forEach((quiz) =>{
-        divInfo += `<p>${quiz.titre}<a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></p></form>`;
+        divInfo += `<tr>
+                      <td>${quiz.titre}</td><td><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></td>
+                    </tr>`;
       });
     }
-    divInfo += `</div><form method="post" action="/deleteCategory/${idCateg}"><button class="delete" type="submit">Supprimer la catégorie</button></form>`;
+    divInfo += `</table></div><form class="form-delete" method="post" action="/deleteCategory/${idCateg}"><button onclick="return confirm('Êtes-vous sûr de vouloir continuer ?')" class="delete" type="submit">Supprimer la catégorie</button></form>`;
 
     if (!categorie) {
       return res.status(404).json({ message: 'La catégorie n\'existe pas' });

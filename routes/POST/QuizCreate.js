@@ -34,7 +34,7 @@ router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) =
       image: adjustedImagePath,
     });
 
-    console.log('Nouveau quiz créé avec succès !', newQuiz );
+    console.log('Nouveau quiz créé avec succès !');
     res.redirect('/profil')
 
   } catch (error) {
