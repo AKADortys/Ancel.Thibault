@@ -7,7 +7,9 @@ Prérequis pour utiliser cette application :
 - Effectuer la commande dans le terminal: ````npm install```` pour installer les dépendences.
 - Allumer Xampp server et démarrer Apache et Mysql.
 - Sur phpMyAdmin créer une BDD nomée " quizapp "
-- Ajouter un utilisateur et accorder lui les privilèges sur cette bdd: ````CREATE USER 'quizapp_user'@'localhost' IDENTIFIED BY 'basicpwd'; ```` ````GRANT SELECT, INSERT, UPDATE, DELETE ON quizapp.* TO 'quizapp_user'@'localhost';````
+- Ajouter un utilisateur et accorder lui les privilèges sur cette bdd:
+- ````CREATE USER 'quizapp_user'@'localhost' IDENTIFIED BY 'basicpwd'; ````
+- ````GRANT ALL PRIVILEGES ON quizapp.* TO 'quizapp_user'@'localhost';````
 - Dans le terminal : ````node app.js ````
 - Dans le navigateur : localhost:3000/home.
 - L'utilisateur par défaut est administrateur. Le pseudo est Admin et le mot de passe par défaut est basicpwd
