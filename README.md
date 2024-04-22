@@ -7,6 +7,7 @@ Prérequis pour utiliser cette application :
 - Effectuer la commande dans le terminal: ````npm install```` pour installer les dépendences.
 - Allumer Xampp server et démarrer Apache et Mysql.
 - Sur phpMyAdmin créer une BDD nomée " quizapp "
+- Ajouter un utilisateur et accorder lui les privilèges sur cette bdd: ````CREATE USER 'quizapp_user'@'localhost' IDENTIFIED BY 'basicpwd'; ```` ````GRANT SELECT, INSERT, UPDATE, DELETE ON quizapp.* TO 'quizapp_user'@'localhost';````
 - Dans le terminal : ````node app.js ````
 - Dans le navigateur : localhost:3000/home.
 - L'utilisateur par défaut est administrateur. Le pseudo est Admin et le mot de passe par défaut est basicpwd
@@ -158,8 +159,8 @@ Chaque question a un niveau de difficulté (easy, medium, hard).
 
 Jeu de Quiz :
 
-La fonction startQuiz() propose une série de questions à l'utilisateur en fonction du quiz .
-Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la fonction startQuiz(), voici les étapes :
+La route startQuiz propose une série de questions à l'utilisateur en fonction du quiz .
+Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la route startQuiz, voici les étapes :
 
 1. Récupération des paramètres de quiz choisis par l'utilisateur.
 2. Interrogation de la base de données pour récupérer les questions correspondantes au quiz.
