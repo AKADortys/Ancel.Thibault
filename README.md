@@ -161,13 +161,12 @@ Jeu de Quiz :
 La fonction startQuiz() propose une série de questions à l'utilisateur en fonction du quiz .
 Pour mettre en place le système de questions dans l'application QuizApp et les étapes de la fonction startQuiz(), voici les étapes :
 
-1. Récupération des paramètres de catégorie et de niveau de difficulté choisis par l'utilisateur.
-2. Interrogation de la base de données pour récupérer les questions correspondantes à la catégorie et au niveau de difficulté sélectionnés.
-3. Mélange aléatoire des questions pour rendre le quiz plus varié.
+1. Récupération des paramètres de quiz choisis par l'utilisateur.
+2. Interrogation de la base de données pour récupérer les questions correspondantes au quiz.
+3. Mélange aléatoire des reponses pour rendre le quiz plus varié.
 4. Affichage de chaque question une par une à l'utilisateur.
 5. Gestion des réponses de l'utilisateur : récupération et validation.
-6. Enregistrement du score de l'utilisateur
-7. Affichage du score final à l'utilisateur à la fin du quiz.
+6. Enregistrement du score de l'utilisateur.
 
 Consultation des Scores :
 
@@ -175,6 +174,6 @@ Les utilisateurs peuvent consulter les scores des autres utilisateurs pour les q
 Administration (Réservé aux Admins) :
 
 Les administrateurs peuvent ajouter, supprimer, et modifier des questions.
-Ils peuvent également gérer les quizs et les catégories.
+Ils peuvent également gérer les quizs, utilisateurs et les catégories.
 
 
