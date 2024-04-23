@@ -6,7 +6,6 @@ router.post('/sign-in', async (req, res) => {
   try {
     const { pseudo, pwd,pwdConf, admin, nom, prenom, mail } = req.body;
 
-    console.log('Données reçues du formulaire :', req.body);
 
     if(pwd !== pwdConf){return res.send('Les mot de passe doivent être identiques')};
 
@@ -27,8 +26,6 @@ router.post('/sign-in', async (req, res) => {
 
     // Ajout des informations utilisateur dans la session
     req.session.utilisateur = utilisateur.dataValues;
-    console.log(req.session.utilisateur);
-
     res.redirect('/home');
 
   } catch (error) {
