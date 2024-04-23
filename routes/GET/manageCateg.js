@@ -8,6 +8,11 @@ router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
     const idCateg = req.params.id;
     //recupérer le pseudo utilisateur pour la nav bar
     const pseudoUtilisateur = req.session.utilisateur.pseudo;
+    const isAdmin = req.session.utilisateur.admin;
+
+        if (!isAdmin) {
+        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
+    }
 
     try{
         
