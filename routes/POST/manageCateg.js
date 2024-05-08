@@ -3,7 +3,7 @@ const router = express.Router();
 const CheckAuth = require('../../config/controller/CheckAuth');
 const {Categorie} = require('../../config/dbconnect');
 
-router.put('/manageCateg/:id', CheckAuth, async function(req, res) {
+router.post('/manageCateg/:id', CheckAuth, async function(req, res) {
 
     const idCateg = req.params.id;
     const formData = {
