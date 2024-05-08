@@ -48,7 +48,7 @@ router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), CheckAuth, as
         await quiz.save();
 
         // Rediriger ou renvoyer une réponse appropriée
-        res.redirect('home/profil');
+        res.redirect('/profil');
     } catch (error) {
         console.error('Erreur lors de la modification du quiz :', error);
         res.status(500).send('Erreur lors de la modification du quiz');
