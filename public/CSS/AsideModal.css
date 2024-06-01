@@ -6,6 +6,38 @@
     width: 90%;
 }
 
+.AsideModal-main form{
+    padding: 10px;
+    width: 80%;
+    background-color: aliceblue;
+    margin-top: 5px;
+}
+
+.AsideModal-main form input{
+    width: 50%;
+    margin: 0px 4px;
+}
+
+.AsideModal-main form button{
+    margin: 3px auto;
+}
+
+.listeCategorie p{
+    text-align: center;
+    color: greenyellow;
+}
+
+.listeCategorie a{
+    background-color: greenyellow;
+    border: 2px solid green;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: green;
+    transition: all 0.5s;
+    margin: 0 5px;
+}
+
 
 
 .AsideModal-main{
@@ -81,6 +113,7 @@
 
 .listeCategorie{
     width: 100%;
+    padding: 8px 2px;
 }
 
 .listeCategorie>ul>li>ul{

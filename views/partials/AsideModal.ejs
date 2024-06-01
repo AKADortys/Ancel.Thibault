@@ -2,31 +2,71 @@
     <h3>Liste des joueurs</h3>
     <div class="tableHtml">
         <table>
-            <th>Pseudo</th> <th>Nom</th> <th>Prénom</th>
-        <% utilisateurs.forEach((n =>{%>
-            <tr>
-                <td><%= n.pseudo %></td> <td><%= n.nom %></td> <td><%= n.prenom %></td>
-            </tr>
-            <%})) %>
-            </table>
-        
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <% utilisateurs.forEach((n=>{%>
+                <tr>
+                    <td>
+                        <%= n.pseudo %>
+                    </td>
+                    <td>
+                        <%= n.nom %>
+                    </td>
+                    <td>
+                        <%= n.prenom %>
+                    </td>
+                </tr>
+                <%})) %>
+        </table>
+
+    </div>
+    <form action="/home" method="GET">
+        <h3>Recherche de quiz</h3>
+        <label for="titre">Titre du quiz :</label>
+        <input type="text" id="titre" name="titre">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <div class="listeCategorie">
+        <% if (quizzes && quizzes.length> 0) { %>
+            <h3>Résultats de la recherche</h3>
+            <ul>
+                <% quizzes.forEach((quiz)=> { %>
+                    <li>
+                        <h3>
+                            <%= quiz.titre %>
+                        </h3>
+                        <p>
+                            <%= quiz.description %>
+                        </p>
+                        <a href="/startQuiz/<%= quiz.id_quiz %>">Démarrer</a>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } else{ %>
+                <p>Il n'y a pas de quiz avec ce titre </p>
+            <% } %>
     </div>
     <h3>Catégories et leurs quizs</h3>
     <div class="listeCategorie">
-        <% if (categorieQuizTable.length > 0) { %>
+        <% if (categorieQuizTable.length> 0) { %>
             <% for (const categorie of categorieQuizTable) { %>
                 <ul>
-                    <li><%= categorie.designation %>
-                        <% if (categorie.quiz && categorie.quiz.length > 0) { %>
-                            <ul>
-                                <% categorie.quiz.forEach((quiz) => { %>
-                                    <li><%= quiz.titre %> <a href="/startQuiz/<%=quiz.id_quiz%>">Démarer</a></li>
-                                <% }); %>
-                            </ul>
-                        <% } %>
+                    <li>
+                        <%= categorie.designation %>
+                            <% if (categorie.quiz && categorie.quiz.length> 0) { %>
+                                <ul>
+                                    <% categorie.quiz.forEach((quiz)=> { %>
+                                        <li>
+                                            <%= quiz.titre %> <a href="/startQuiz/<%=quiz.id_quiz%>">Démarer</a>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                                <% } %>
                     </li>
                 </ul>
                 <% } %>
-        <% } %>
+                    <% } %>
     </div>
-</aside> 
+</aside>
