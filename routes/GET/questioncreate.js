@@ -4,11 +4,14 @@ const router = express.Router();
 const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/questcreate', CheckAuth,async function (req, res) {
+    //recupérer le pseudo utilisateur pour la nav bar
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     const isAdmin = req.session.utilisateur.admin;
     
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
+        const error = "Vous n'avez pas les autorisation pour créer une question" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
     try {
         if (!req.session.utilisateur) { return res.redirect('/userLogin'); }
@@ -18,12 +21,11 @@ router.get('/questcreate', CheckAuth,async function (req, res) {
             selectQuiz += `<option value="${quiz.id_quiz}">${quiz.titre}</option>`;
         });
         selectQuiz += '</select>';
-            //recupérer le pseudo utilisateur pour la nav bar
-    const pseudoUtilisateur = req.session.utilisateur.pseudo;
         res.render('login/usercreatequest', { selectQuiz, pseudoUtilisateur });
-    } catch (error) {
-        console.error('Erreur De la BDD', error);
-        res.status(500).send('Erreur de la BDD');
+    } catch (err) {
+        console.error('Erreur De la BDD', err);
+        const error = "Une erreur est survenue" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

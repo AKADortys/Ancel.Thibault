@@ -5,10 +5,14 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 // Route pour démarrer un nouveau quiz
 router.get('/startQuiz/:id', CheckAuth, async (req, res) => {
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     try {
         const idUser = req.session.utilisateur.id_user
         const idQuiz = req.params.id;
-        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+        if(!idQuiz){
+            const error = "Cette URL est incomplète !" ;
+            return res.render('home/Error', {pseudoUtilisateur,error})
+        }
 
         const infoUtilisateur = 
         {
@@ -62,9 +66,10 @@ router.get('/startQuiz/:id', CheckAuth, async (req, res) => {
             question_Reponse_Table.push(questionData);
         }
         res.render('home/startQuiz', { pseudoUtilisateur,question_Reponse_Table, quiz, infoUtilisateur,formattedDate, pseudoCreateur, scoreUser });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur serveur' });
+    } catch (err) {
+        console.error(err);
+        const error = "Une erreur est survenue à la récupération des données" ;
+        return res.render('home/Error', {error, pseudoUtilisateur})
     }
 });
 

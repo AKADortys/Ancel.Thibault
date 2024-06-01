@@ -5,13 +5,17 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
     try {
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
         const idQuiz = req.params.idQuiz;
+        if (!idQuiz){
+            const error = "URL incomplète" ;
+            return res.render('home/Error', {error,pseudoUtilisateur})
+        }
         const quiz = await Quiz.findByPk(idQuiz);
         const question = await Question.count({ where: {id_quiz: idQuiz} });
         const categQuiz = await Categorie.findByPk(quiz.id_categ);
         const userQuiz = await Utilisateur.findByPk(quiz.id_user);
         const maxPoint = await Question.sum('difficulte', { where: { id_quiz: idQuiz } })
-        const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
         const ordre = req.query.ordre || 'pseudo';
 
@@ -63,16 +67,10 @@ router.get('/topScore/:idQuiz', CheckAuth, async function (req, res) {
         res.render('home/topScore',{tableScore, objQuiz, pseudoUtilisateur, question, idQuiz, maxPoint, ordre})
     }
 
-    catch (error) {
-        console.error('Erreur lors de la récupération des scores :', error);
-
-        // Gérer les erreurs spécifiques, une erreur de base de données
-        if (error.name === 'SequelizeDatabaseError') {
-          return res.status(500).send('Erreur de base de données lors de la récupération des scores');
-        }
-    
-        // Répondre avec un statut 500 (Erreur interne du serveur) pour les autres erreurs
-        res.status(500).send('Erreur lors de la récupération des scores');
+    catch (err) {
+        console.error('Erreur lors de la récupération des scores :', err);
+        const error = "Erreur lors de la récupérations des scores" ;
+        return res.render('home/Error', {error,pseudoUtilisateur})
     }
 })
 

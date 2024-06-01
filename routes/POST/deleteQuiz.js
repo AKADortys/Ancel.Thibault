@@ -11,7 +11,8 @@ router.post('/deleteQuiz/:id', CheckAuth, async function (req, res) {
 
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
+        const error = "Vous n'avez pas les autorisation pour supprimer un quiz" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     try {
@@ -50,9 +51,10 @@ router.post('/deleteQuiz/:id', CheckAuth, async function (req, res) {
         await fs.unlink(path.join(__dirname, '../..', imagePath));
 
         res.redirect('/profil');
-    } catch (error) {
-        console.error('Erreur lors de la suppression du quiz :', error);
-        res.status(500).send('Erreur lors de la suppression du quiz');
+    } catch (err) {
+        console.error('Erreur lors de la suppression du quiz :', err);
+        const error = "Une erreur s'est produit lors de la suppression" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

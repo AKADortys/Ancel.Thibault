@@ -4,26 +4,31 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 const {Categorie} = require('../../config/dbconnect');
 
 router.post('/manageCateg/:id', CheckAuth, async function(req, res) {
-
-    const idCateg = req.params.id;
-    const formData = {
-        designation: req.body.designation,
-        description: req.body.description
-    };
-    const isAdmin = req.session.utilisateur.admin;
-    
+const pseudoUtilisateur = req.session.utilisateur.pseudo;
     try{
+        const idCateg = req.params.id;
+        if(!idCateg){
+            const error = "paramètres manquant(s)" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
+        }
+        const formData = {
+            designation: req.body.designation,
+            description: req.body.description
+        };
+        const isAdmin = req.session.utilisateur.admin;
         // Vérifier si l'utilisateur est un administrateur
         if (!isAdmin) {
-            return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
+            const error = "Vous n'avez pas les autorisation requises" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
          await Categorie.update(formData,{where:{id_categ : idCateg}});
 
          res.redirect('/profil');
 
-    } catch (error) {
-        console.error('Erreur lors de la recherche de la catégorie :', error);
-        res.status(500).send('Erreur lors de la recherche de la catégorie');
+    } catch (err) {
+        console.error('Erreur lors de la recherche de la catégorie :', err);
+        const error = "Erreur lors de mise à jour de la categorie" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
       }
 });
 

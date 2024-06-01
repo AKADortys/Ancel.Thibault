@@ -5,17 +5,23 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/manageQuest/:id', CheckAuth, async function (req, res) {
 
-    const idQuestion = req.params.id;
-    const isAdmin = req.session.utilisateur.admin;
-
-    // Vérifier si l'utilisateur est un administrateur
-    if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
-    }
-
     try {
-            //recupérer le pseudo utilisateur pour la nav bar
-    const pseudoUtilisateur = req.session.utilisateur.pseudo;
+
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+        const idQuestion = req.params.id;
+        if(!idQuestion){
+            const error = "URL incomplète ou incorrecte" ;
+            return res.render('home/Error', {error,pseudoUtilisateur})
+        }
+        const isAdmin = req.session.utilisateur.admin;
+
+        // Vérifier si l'utilisateur est un administrateur
+        if (!isAdmin) {
+            const error = "Vous n'avez pas les autorisations pour modifier la question";
+            return res.render('partials/Error', { error, pseudoUtilisateur })
+        }
+        
+        //recupérer le pseudo utilisateur pour la nav bar
         const question = await Question.findByPk(idQuestion);
         const reponseIncorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: false } });
         const reponseCorrect = await Reponse.findAll({ where: { id_question: idQuestion, correct: true } });
@@ -34,7 +40,7 @@ router.get('/manageQuest/:id', CheckAuth, async function (req, res) {
         selectQuiz += '</select>';
 
         let htmlQuestion =
-        `<form method="post" class="quiz-create" action="/manageQuest/${idQuestion}">
+            `<form method="post" class="quiz-create" action="/manageQuest/${idQuestion}">
         <h1>Modification la question</h1>
         <table>
         <tr>
@@ -67,27 +73,28 @@ router.get('/manageQuest/:id', CheckAuth, async function (req, res) {
         reponseIncorrect.forEach((rep) => {
             indx++;
             htmlQuestion +=
-            `<tr>
+                `<tr>
             <td colspan="2">
             <input type="text" minlength="1" maxlength="100" id="questRep${indx}" name="questRep${indx}" class="champ-form" value="${rep.reponse}">
             </td>
             </tr>`;
         });
-        
+
         htmlQuestion +=
-        `<tr>
+            `<tr>
         <td align="center"><input type="submit" value="Validé !" class="Boutton-form"></td>
         <td><input type="reset" value="Annuler" class="Boutton-form"></td>
         </tr></table></form>`;
-        htmlQuestion +=`<form class="form-delete" method="post" action="/deleteQuest/${idQuestion}"><button onclick="return confirm('Êtes-vous sûr de vouloir continuer ?')" class="delete" type="submit">Supprimer la question</button></form>`
-        
-        res.render('login/manageQuest', { htmlQuestion , pseudoUtilisateur})
+        htmlQuestion += `<form class="form-delete" method="post" action="/deleteQuest/${idQuestion}"><button onclick="return confirm('Êtes-vous sûr de vouloir continuer ?')" class="delete" type="submit">Supprimer la question</button></form>`
+
+        res.render('login/manageQuest', { htmlQuestion, pseudoUtilisateur })
     }
-    
-    
-    catch (error) {
-        console.error('Erreur lors de la récupération des informations de la question :', error);
-        res.status(500).send('Erreur lors de la récupération des informations de la question');
+
+
+    catch (err) {
+        console.error('Erreur lors de la récupération des informations de la question :', err);
+        const error = "Erreur lors de la récupération des informations sur la question";
+        return res.render('partials/Error', { error, pseudoUtilisateur })
     }
 });
 

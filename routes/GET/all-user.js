@@ -10,7 +10,8 @@ router.get('/all-user', async function (req, res) {
         const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
     if (utilisateurs.length === 0) {
-      return res.status(404).send('Aucun utilisateur trouvé.');
+      const error = "Il n'y a aucuns utilisateurs" ;
+      return res.render('partials/Error', {error})
     }
 
     // Construire le tableau HTML
@@ -31,7 +32,7 @@ router.get('/all-user', async function (req, res) {
   } catch (error) {
     console.error('Erreur lors de la récupération des utilisateurs :', error);
 
-    // Gérer les erreurs spécifiques, par exemple, une erreur de base de données
+    // Gérer les erreurs spécifiques,
     if (error.name === 'SequelizeDatabaseError') {
       return res.status(500).send('Erreur de base de données lors de la récupération des utilisateurs');
     }

@@ -1,31 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const {Categorie, Question, Quiz} =require('../../config/dbconnect')
+const { Categorie, Question, Quiz } = require('../../config/dbconnect')
 const CheckAuth = require('../../config/controller/CheckAuth');
 
-router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
-    
-    const idCateg = req.params.id;
-    //recupérer le pseudo utilisateur pour la nav bar
-    const pseudoUtilisateur = req.session.utilisateur.pseudo;
-    const isAdmin = req.session.utilisateur.admin;
+router.get('/manageCateg/:id', CheckAuth, async function (req, res) {
 
-        if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
-    }
+  const pseudoUtilisateur = req.session.utilisateur.pseudo;
+  const idCateg = req.params.id;
+  if (!idCateg) {
+    const error = "URL incomplète ou incorrecte";
+    return res.render('home/Error', { error, pseudoUtilisateur })
+  }
+  //recupérer le pseudo utilisateur pour la nav bar
+  const isAdmin = req.session.utilisateur.admin;
 
-    try{
-        
-    const quizCateg = await Quiz.findAll({where:{id_categ: idCateg}});
+  if (!isAdmin) {
+    const error = "Vous n'avez pas les autorisations nécessaires pour modifier un quiz";
+    return res.render('home/Error', { error, pseudoUtilisateur })
+  }
+
+  try {
+
+    const quizCateg = await Quiz.findAll({ where: { id_categ: idCateg } });
     const categorie = await Categorie.findByPk(idCateg);
 
-    let divInfo ='<div class="quiz-create">';
+    let divInfo = '<div class="quiz-create">';
     divInfo += `<h3>les quiz de la catégorie <span>${categorie.designation}</span>:</h3>
                 <table>
                   <th>Titre du quiz</th> <th>Outils modification</th>
                   `;
-    if(quizCateg.length > 0) {
-      quizCateg.forEach((quiz) =>{
+    if (quizCateg.length > 0) {
+      quizCateg.forEach((quiz) => {
         divInfo += `<tr>
                       <td>${quiz.titre}</td><td><a href="/manageQuiz/${quiz.id_quiz}">Modifier</a></td>
                     </tr>`;
@@ -47,12 +52,13 @@ router.get('/manageCateg/:id', CheckAuth,async function(req,res) {
                         <td><input type="submit" value="Modifier" class="Boutton-form"></td> <td><input type="reset" value="Annuler" class="Boutton-form"></td>
                     </tr>
                 </table></form>`;
-    res.render('login/manageCateg',{htmlCateg, divInfo, pseudoUtilisateur});
+    res.render('login/manageCateg', { htmlCateg, divInfo, pseudoUtilisateur });
 
-    } catch (error) {
-        console.error('Erreur lors de la recherche de la catégorie :', error);
-        res.status(500).send('Erreur lors de la recherche de la catégorie');
-      }
+  } catch (err) {
+    console.error('Erreur lors de la recherche de la catégorie :', err);
+    const error = "Erreur de la recherche de catégorie";
+    return res.render('home/Error', { error, pseudoUtilisateur })
+  }
 })
 
 module.exports = router;

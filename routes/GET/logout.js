@@ -7,7 +7,8 @@ router.get('/logout', CheckAuth, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Erreur lors de la déconnexion :', err);
-      res.status(500).send('Erreur lors de la déconnexion');
+      const error = "Erreur lors de la déconnexion" ;
+      return res.render('partials/Error', {error})
     } else {
       // Rediriger vers la page d'accueil ou une autre page après la déconnexion
       res.redirect('/home');

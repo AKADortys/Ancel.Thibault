@@ -5,17 +5,25 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/QuestCreate', CheckAuth, async function (req, res) {
+      const pseudoUtilisateur = req.session.utilisateur.pseudo;
       try {
             const { Intitule, difficulte, id_quiz, correct, rep1, rep2 } = req.body;
             const idUser = req.session.utilisateur.id_user;
             const isAdmin = req.session.utilisateur.admin;
+            if (!Intitule || !difficulte || !id_quiz || !correct || !rep1 || !rep2) {
+                  const error = "Veillez remplir tout les champs disponibles" ;
+                  return res.render('home/Error', {error,pseudoUtilisateur});
+            }
+            
 
             if (!isAdmin) {
-                  return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour créer une question ' });
+                  const error = "Vous n'avez pas les autorisation pour créer une question";
+                  return res.render('home/Error', { error, pseudoUtilisateur });
             }
 
             if (!Intitule) {
-                  return res.status(400).json({ message: 'Veuillez fournir un intitulé' });
+                  const error = "Veillez fournir un intitulé";
+                  return res.render('home/Error', { error, pseudoUtilisateur });
             }
             const newQuestion = await Question.create({
                   Intitule: Intitule,
@@ -41,14 +49,10 @@ router.post('/QuestCreate', CheckAuth, async function (req, res) {
             });
             console.log('Nouvelle question créer avec succés !');
             res.redirect('/profil');
-      } catch (error) {
-            console.error('Erreur lors de l\'insertion de la question :', error);
-
-            if (error.name === 'SequelizeValidationError') {
-                  return res.status(400).json({ error: 'Erreur de validation des données de la question' });
-            }
-
-            res.status(500).json({ error: 'Erreur lors de l\'insertion de la question' });
+      } catch (err) {
+            console.error('Erreur lors de l\'insertion de la question :', err);
+            const error = "Erreur lors de la création de la question";
+            return res.render('home/Error', { error, pseudoUtilisateur });
       }
 
 });

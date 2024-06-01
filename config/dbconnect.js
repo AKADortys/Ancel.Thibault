@@ -10,8 +10,8 @@ const reponseModel = require('../model/reponse');
 
 const sequelize = new Sequelize(
    'QuizApp',
-   'quizapp_user',
-   'basicpwd',
+   'root',
+   '',
    {
       host: 'localhost',
       dialect: 'mariadb',

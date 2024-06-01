@@ -6,13 +6,14 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/manageUser/:id', CheckAuth, async function (req, res) {
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     try {
-        if (!req.session.utilisateur) {
-            return res.status(401).json({ message: 'Vous n\'êtes pas authentifié' });
-        }
-
         const idUserSession = req.session.utilisateur.id_user;
         const idUser = req.params.id;
+    if(!idUser){
+        const error = "paramètres invalides" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
+    }
         const isAdmin = req.session.utilisateur.admin;
 
         if (idUser == idUserSession || isAdmin) {
@@ -34,7 +35,8 @@ router.post('/manageUser/:id', CheckAuth, async function (req, res) {
             // Vérification et ajout du champ pwd
             if (pwd !== '') {
                 if (pwd !== pwdConf) {
-                    return res.send('Les mots de passe ne sont pas identiques !');
+                    const error = "les mots de passe ne sont pas identiques" ;
+                    return res.render('home/Error', {error,pseudoUtilisateur});
                 }
                 const hashedPassword = await bcrypt.hash(pwd, 10);
                 formData.pwd = hashedPassword;
@@ -43,11 +45,13 @@ router.post('/manageUser/:id', CheckAuth, async function (req, res) {
             await Utilisateur.update(formData, { where: { id_user: idUser } });
             return res.redirect('/profil');
         } else {
-            return res.status(403).send('Vous n\'avez pas les autorisations nécessaires pour effectuer cette action');
+            const error = "Vous n'avez pas les autorisations requises" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
-    } catch (error) {
-        console.error('Erreur lors de la modification', error);
-        return res.status(500).send('Erreur lors de la modification');
+    } catch (err) {
+        console.error('Erreur lors de la modification', err);
+        const error = "Une erreur s'est produit lors de la modification" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

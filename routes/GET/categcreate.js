@@ -3,18 +3,24 @@ const router = express.Router();
 const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/categcreate', CheckAuth, function (req,res) {
-  if (!req.session.utilisateur) {
-    return res.redirect('/userLogin');
-}
-const isAdmin = req.session.utilisateur.admin;
-
-// Vérifier si l'utilisateur est un administrateur
-if (!isAdmin) {
-    return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
-}
-    //recupérer le pseudo utilisateur pour la nav bar
+  try{
     const pseudoUtilisateur = req.session.utilisateur.pseudo;
-    res.render('login/usercreatecateg',{pseudoUtilisateur});
+  const isAdmin = req.session.utilisateur.admin;
+  
+  // Vérifier si l'utilisateur est un administrateur
+  if (!isAdmin) {
+    const error = 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' ;
+    return res.render('home/Error', {error,pseudoUtilisateur})
+  }
+      //recupérer le pseudo utilisateur pour la nav bar
+      res.render('login/usercreatecateg',{pseudoUtilisateur});
+    
+  }
+  catch (err) {
+    console.error(err);
+    const error = "Une erreur est survenue" ;
+    return res.render('home/Error', {error,pseudoUtilisateur})
+  }
   })
   
 

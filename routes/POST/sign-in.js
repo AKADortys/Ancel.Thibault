@@ -7,11 +7,17 @@ router.post('/sign-in', async (req, res) => {
     const { pseudo, pwd,pwdConf, admin, nom, prenom, mail } = req.body;
 
 
-    if(pwd !== pwdConf){return res.send('Les mot de passe doivent être identiques')};
+    if(pwd !== pwdConf){
+      const error = "Les mots de passes ne sont pas identiques" ;
+      const pseudoUtilisateur ='';
+      return res.render('home/Error', {error,pseudoUtilisateur});
+    };
 
     // Vérifier si toutes les informations nécessaires sont fournies dans la requête
     if (!pseudo || !pwd  || !mail) {
-      return res.status(400).json({ message: 'Veuillez fournir toutes les informations nécessaires' });
+      const error = "Veillez fournir les informations nécessaires" ;
+      const pseudoUtilisateur ='';
+      return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     // Créer un nouvel utilisateur dans la base de données
@@ -28,14 +34,11 @@ router.post('/sign-in', async (req, res) => {
     req.session.utilisateur = utilisateur.dataValues;
     res.redirect('/home');
 
-  } catch (error) {
-    console.error('Erreur lors de l\'insertion de l\'utilisateur :', error);
-
-    if (error.name === 'SequelizeValidationError') {
-      return res.status(400).json({ error: 'Erreur de validation des données de l\'utilisateur' });
-    }
-
-    res.status(500).json({ error: 'Erreur lors de l\'insertion de l\'utilisateur' });
+  } catch (err) {
+    console.error('Erreur lors de l\'insertion de l\'utilisateur :', err);
+    const error = "Erreur lors de l'inscription " ;
+    const pseudoUtilisateur ='';
+    return res.render('home/Error', {error,pseudoUtilisateur});
   }
 });
 

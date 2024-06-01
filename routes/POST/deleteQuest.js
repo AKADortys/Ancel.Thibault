@@ -5,12 +5,14 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/deleteQuest/:id', CheckAuth, async function (req, res) {
     const questId = req.params.id;
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     const idUser = req.session.utilisateur.id_user;
     const isAdmin = req.session.utilisateur.admin;
 
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
+        const error = "Vous n'avez pas les autorisation pour supprimer une question" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     try {
@@ -28,9 +30,10 @@ router.post('/deleteQuest/:id', CheckAuth, async function (req, res) {
 
         return res.redirect('/profil');
 
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Une erreur s\'est produite lors de la suppression de la question et des réponses' });
+    } catch (err) {
+        console.error(err);
+        const error = "Une erreur s'est produit lors de la suppression" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

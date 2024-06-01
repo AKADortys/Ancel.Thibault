@@ -8,13 +8,17 @@ router.post('/loggin', async (req, res) => {
         const { pseudo, pwd } = req.body;
 
         if (!pseudo || !pwd) {
-            return res.status(400).json({ message: 'Veuillez fournir un pseudo et un mot de passe' });
+            const error = "Mot de passe ou pseudo manquant" ;
+            const pseudoUtilisateur = ''
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
 
         const utilisateur = await Utilisateur.findOne({ where: { pseudo } });
 
         if (!utilisateur) {
-            return res.status(401).json({ message: 'Identifiants invalides' });
+            const error = "Identifiants invalides" ;
+            const pseudoUtilisateur = ''
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
 
         const passwordMatch = await bcrypt.compare(pwd, utilisateur.pwd);
@@ -25,17 +29,14 @@ router.post('/loggin', async (req, res) => {
             console.log(`Utilisateur ${pseudo} connecté.`);
             return res.redirect('/home')
         } else {
-            return res.status(401).json({ message: 'Identifiants invalides' });
+            const error = "Identifiants invalides" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
-    } catch (error) {
-        console.error('Erreur lors de l\'authentification :', error);
-
-      
-        if (error.name === 'SequelizeDatabaseError') {
-            return res.status(500).json({ error: 'Erreur de base de données lors de l\'authentification' });
-        }
-
-        return res.status(500).json({ error: 'Erreur lors de l\'authentification' });
+    } catch (err) {
+        console.error('Erreur lors de l\'authentification :', err);
+        const error = "Erreur lors de l'authentification" ;
+        const pseudoUtilisateur = ''
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

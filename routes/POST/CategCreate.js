@@ -4,6 +4,7 @@ const { Categorie } = require('../../config/dbconnect');
 const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/CategCreate', CheckAuth, async (req, res) => {
+  const pseudoUtilisateur =req.session.utilisateur.pseudo;
   try {
     const { designation, description } = req.body;
     const idUser = req.session.utilisateur.id_user;
@@ -11,11 +12,13 @@ router.post('/CategCreate', CheckAuth, async (req, res) => {
 
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
-      return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour créer une catégorie' });
+      const error = 'Vous n\'avez pas les autorisations nécessaires pour créer une catégorie' ;
+      return res.render('home/Error', {error,pseudoUtilisateur})
     }
 
     if (!designation || !description) {
-      return res.status(400).json({ message: 'Veuillez fournir un titre et une description pour la catégorie' });
+      const error = 'Veuillez fournir un titre et une description pour la catégorie';
+      return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     const newCategorie = await Categorie.create({
@@ -27,14 +30,10 @@ router.post('/CategCreate', CheckAuth, async (req, res) => {
     console.log('Nouvelle catégorie créée avec succès !');
     res.redirect('/profil');
 
-  } catch (error) {
-    console.error('Erreur lors de l\'insertion de la catégorie :', error);
-
-    if (error.name === 'SequelizeValidationError') {
-      return res.status(400).json({ error: 'Erreur de validation des données de la catégorie' });
-    }
-
-    res.status(500).json({ error: 'Erreur lors de l\'insertion de la catégorie' });
+  } catch (err) {
+    console.error('Erreur lors de l\'insertion de la catégorie :', err);
+    const error = 'Erreur lors de l\'insertion de la catégorie';
+    return res.render('home/Error', {error,pseudoUtilisateur});
   }
 });
 

@@ -11,6 +11,7 @@ const pointsDifficulte = {
 };
 
 router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     try {
         const idQuiz = req.params.id_quiz;
         const idUser = req.params.id_user;
@@ -33,14 +34,15 @@ router.post('/endQuiz/:id_quiz/:id_user', CheckAuth, async function (req, res) {
 
         console.log('Score intégré avec succés !');
         res.redirect('/home')
-    } catch (error) {
+    } catch (err) {
 
-        console.error('Erreur lors de l\'insertion score :', error);
-        if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({ error: 'Erreur de validation des données du score' });
+        console.error('Erreur lors de l\'insertion score :', err);
+        if (err.name === 'SequelizeValidationError') {
+            const error = "Erreur de validation" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
-
-        res.status(500).json({ error: 'Erreur lors de l\'insertion du score' });
+        const error = "Une erreur s'est produite lors de la validation du scrore" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

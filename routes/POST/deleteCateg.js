@@ -6,13 +6,15 @@ const path = require('path');
 const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.post('/deleteCategory/:id', CheckAuth, async function (req, res) {
+  const pseudoUtilisateur = req.session.utilisateur.pseudo;
   const categoryId = req.params.id;
   const idUser = req.session.utilisateur.id_user;
   const isAdmin = req.session.utilisateur.admin;
 
   // Vérifier si l'utilisateur est un administrateur
   if (!isAdmin) {
-    return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer une catégorie' });
+    const error = "Vous n'avez pas les autorisation pour supprimer une catégorie" ;
+    return res.render('home/Error', {error,pseudoUtilisateur});
   }
 
   try {
@@ -20,7 +22,8 @@ router.post('/deleteCategory/:id', CheckAuth, async function (req, res) {
     const categorie = await Categorie.findByPk(categoryId);
 
     if (!categorie) {
-      return res.status(404).json({ message: 'La catégorie n\'existe pas' });
+      const error = "La categorie n'existe pas" ;
+      return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     // Trouver les quizzes associés à la catégorie
@@ -68,9 +71,10 @@ router.post('/deleteCategory/:id', CheckAuth, async function (req, res) {
     });
 
     res.redirect('/profil');
-  } catch (error) {
-    console.error('Erreur lors de la suppression de la catégorie :', error);
-    res.status(500).send('Erreur lors de la suppression de la catégorie');
+  } catch (err) {
+    console.error('Erreur lors de la suppression de la catégorie :', err);
+    const error = "Erreur lors de la suppression de la catégorie" ;
+    return res.render('home/Error', {error,pseudoUtilisateur});
   }
 });
 

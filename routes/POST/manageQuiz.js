@@ -8,24 +8,32 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), CheckAuth, async function (req, res) {
-    const idQuiz = req.params.id;
-
-    // Récupération des données du formulaire
-    const titre = req.body.titre;
-    const description = req.body.description;
-    const categorieId = req.body.categorie;
-    const isAdmin = req.session.utilisateur.admin;
-
-    // Vérifier si l'utilisateur est un administrateur
-    if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour supprimer un quiz' });
-    }
-    console.log({titre:titre,descr: description,categID: categorieId})
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     try {
+        const idQuiz = req.params.id;
+        if(!idQuiz) {
+            const error = "paramètres invalides" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
+        }
+        // Récupération des données du formulaire
+        const titre = req.body.titre;
+        const description = req.body.description;
+        const categorieId = req.body.categorie;
+        const isAdmin = req.session.utilisateur.admin;
+        if(!titre || !description || !categorieId){
+            const error = "veillez remplir tout les champs obligatoire" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
+        }
+        // Vérifier si l'utilisateur est un administrateur
+        if (!isAdmin) {
+            const error = "vous n'avez pas les autorisation requises" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
+        }
         const quiz = await Quiz.findByPk(idQuiz);
 
         if (!quiz) {
-            return res.status(404).json({ message: 'Le quiz n\'existe pas !' });
+            const error = "Le quiz n'existe pas" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
         }
 
         // Supprimer l'image existante de la base de données et du système de fichiers
@@ -49,9 +57,10 @@ router.post('/manageQuiz/:id', upload.fields([{ name: 'image' }]), CheckAuth, as
 
         // Rediriger ou renvoyer une réponse appropriée
         res.redirect('/profil');
-    } catch (error) {
-        console.error('Erreur lors de la modification du quiz :', error);
-        res.status(500).send('Erreur lors de la modification du quiz');
+    } catch (err) {
+        console.error('Erreur lors de la modification du quiz :', err);
+        const error = "Une erreur s'est produite lors de la modification" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
 

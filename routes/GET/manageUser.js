@@ -4,11 +4,15 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 const { Utilisateur } = require('../../config/dbconnect');
 
 router.get('/manageUser/:id', CheckAuth,async function (req, res) {
+    const pseudoUtilisateur = req.session.utilisateur.pseudo;
     const isAdmin = req.session.utilisateur.admin;
     const idUserSession = req.session.utilisateur.id_user;
     const userId = req.params.id;
+    if(!userId) {
+        const error = "URL incomplète ou incorrecte" ;
+        return res.render('home/Error', {error,pseudoUtilisateur})
+    }
         //recupérer le pseudo utilisateur pour la nav bar
-        const pseudoUtilisateur = req.session.utilisateur.pseudo;
 
 
     // Vérifier si l'utilisateur est un administrateur ou qu'il s'agit de son profil
@@ -78,14 +82,16 @@ router.get('/manageUser/:id', CheckAuth,async function (req, res) {
             
         }
         
-        catch (error) {
+        catch (err) {
             
-            console.error('Erreur lors de la récupération des informations de l\'utilisateur :', error);
-            res.status(500).send('Erreur lors de la récupération des informations de l\'utilisateur');
+            console.error('Erreur lors de la récupération des informations de l\'utilisateur :', err);
+            const error = "Erreur lors de la récupération des données utilisateur" ;
+            return res.render('home/Error', {error,pseudoUtilisateur})
         }
     }
     else{
-        res.send('Vous n\'avez pas les autorisations néccésaire pour faire cela' )
+        const error = "Vous n'avez pas les autorisations pour faire ça" ;
+        return res.render('home/Error', {error,pseudoUtilisateur});
     }
 });
     

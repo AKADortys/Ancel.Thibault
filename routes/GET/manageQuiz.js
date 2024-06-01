@@ -4,21 +4,20 @@ const { Categorie, Question, Quiz, Reponse } = require('../../config/dbconnect')
 const CheckAuth = require('../../config/controller/CheckAuth');
 
 router.get('/manageQuiz/:id', CheckAuth, async function (req, res) {
-    
-    const idQuiz = req.params.id;
-    
-    if (!req.session.utilisateur) {
-        return res.redirect('/userLogin');
-    }
-    const isAdmin = req.session.utilisateur.admin;
-    
-    // Vérifier si l'utilisateur est un administrateur
-    if (!isAdmin) {
-        return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour modifier un quiz' });
-    }
     try {
+        const pseudoUtilisateur = req.session.utilisateur.pseudo;
+        const idQuiz = req.params.id;
+        const isAdmin = req.session.utilisateur.admin;
+        if(!idQuiz){
+            const error = "URL incomplète ou incorrecte !" ;
+            return res.render('home/Error', {error,pseudoUtilisateur})
+        }
+        // Vérifier si l'utilisateur est un administrateur
+        if (!isAdmin) {
+            const error = "Vous n'avez pas les autorisations nécessaires pour modifier un quiz" ;
+            return res.render('home/Error', {error,pseudoUtilisateur});
+        }
             //recupérer le pseudo utilisateur pour la nav bar
-    const pseudoUtilisateur = req.session.utilisateur.pseudo;
         const quiz = await Quiz.findByPk(idQuiz);
         const questions = await Question.findAll({ where: { id_quiz: idQuiz } });
         const categories =await Categorie.findAll();
@@ -67,9 +66,10 @@ router.get('/manageQuiz/:id', CheckAuth, async function (req, res) {
                         </form>`;
 
         res.render('login/manageQuiz', { divInfo, htmlQuiz, pseudoUtilisateur });
-    } catch (error) {
-        console.error('Erreur lors de la recherche du quiz :', error);
-        res.status(500).send('Erreur lors de la recherche du quiz');
+    } catch (err) {
+        console.error('Erreur lors de la recherche du quiz :', err);
+        const error = "Erreur lors de la recherche du quiz" ;
+        return res.render('home/Error', {error,pseudoUtilisateur})
     }
 })
 

@@ -6,3 +6,22 @@ body {
     justify-content: center;
     align-content: flex-start;
 }
+
+#error{
+    background-color: rgba(204, 202, 202, 0.739);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 20vh;
+}
+
+#error>h1{
+    text-align: center;
+    width: 95%;
+}
+
+#error>p{
+    color: red;
+}

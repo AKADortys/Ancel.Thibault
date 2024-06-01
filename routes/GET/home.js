@@ -12,6 +12,7 @@ router.get('/home', CheckAuth, async function (req, res) {
     //créer une liste des catégories et de leurs quizs asignés 
     let categorieQuizTable = [];
     const categories = await Categorie.findAll();
+    
     for (const categ of categories) {
       let object =
       {
@@ -42,9 +43,10 @@ router.get('/home', CheckAuth, async function (req, res) {
 
     // Rendu de la vue EJS avec les données
     res.render('home/index', {  categorieQuizTable, pseudoUtilisateur,utilisateurs });
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données :', error);
-    res.status(500).send('Erreur lors de la récupération des données');
+  } catch (erreur) {
+    const error = "Erreur lors de la récupération des données !"
+    console.error('Erreur lors de la récupération des données :', erreur);
+    return res.render('home/Error', {error,pseudoUtilisateur})
   }
 });
 

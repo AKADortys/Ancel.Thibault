@@ -6,6 +6,7 @@ const CheckAuth = require('../../config/controller/CheckAuth');
 
 
 router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) => {
+const pseudoUtilisateur = req.session.utilisateur.pseudo;
   try {
     const { titre, description, id_categ } = req.body;
     const idUser = req.session.utilisateur.id_user;
@@ -13,11 +14,13 @@ router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) =
 
     // Vérifier si l'utilisateur est un administrateur
     if (!isAdmin) {
-      return res.status(403).json({ message: 'Vous n\'avez pas les autorisations nécessaires pour créer un quiz' });
+      const error = "Vous n'avez pas les autorisation pour créer un quiz" ;
+      return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     if (!titre || !description ) {
-      return res.status(400).json({ message: 'Veuillez fournir un titre et une description pour le quiz' });
+      const error = "Veillez fournir un titre et une description" ;
+      return res.render('home/Error', {error,pseudoUtilisateur});
     }
 
     // Récupérer le chemin de l'image à partir de la requête Multer
@@ -37,14 +40,10 @@ router.post('/QuizCreate', upload.single('image'), CheckAuth, async (req, res) =
     console.log('Nouveau quiz créé avec succès !');
     res.redirect('/profil')
 
-  } catch (error) {
-    console.error('Erreur lors de l\'insertion du quiz :', error);
-
-    if (error.name === 'SequelizeValidationError') {
-      return res.status(400).json({ error: 'Erreur de validation des données du quiz' });
-    }
-
-    res.status(500).json({ error: 'Erreur lors de l\'insertion du quiz' });
+  } catch (err) {
+    console.error('Erreur lors de l\'insertion du quiz :', err);
+    const error = "Erreur lors de l'insertion du quiz" ;
+    return res.render('home/Error', {error,pseudoUtilisateur});
   }
 });
 
